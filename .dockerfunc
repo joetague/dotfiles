@@ -33,7 +33,7 @@ del_stopped(){
 notebook(){
     del_stopped notebook
 
-    docker run -it --rm \
+    docker run --rm \
            -v "${HOME}/proj/notebooks" \
            -p 8888:8888 \
            --name notebook \
