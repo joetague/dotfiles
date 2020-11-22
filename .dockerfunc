@@ -36,6 +36,7 @@ notebook(){
     docker run --rm \
            -v "${HOME}/proj/notebooks" \
            -p 8888:8888 \
+           -p 4040-4050:4040-4050 \
            --name notebook \
            jupyter/pyspark-notebook "$@"
 }
