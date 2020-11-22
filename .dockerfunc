@@ -39,3 +39,11 @@ notebook(){
            --name notebook \
            jupyter/pyspark-notebook "$@"
 }
+plantuml(){
+	  del_stopped plantuml
+
+	  docker run --rm -it \
+		       -v "$(pwd):/root/plantuml-workspace" \
+		       --name plantuml \
+		       joetague/plantuml "$@"
+}
