@@ -1,0 +1,29 @@
+#!/bin/bash
+##############################################################################
+# plantuml
+# -----------
+# Run PlantUML in a container.
+# Usage:
+#	plantuml my_sequence_diagram.txt
+#
+##############################################################################
+#set -e
+set -o pipefail
+del_stopped(){
+	  local name=$1
+	  local state
+	  state=$(docker inspect --format "{{.State.Running}}" "$name" 2>/dev/null)
+
+	  if [[ "$state" == "false" ]]; then
+		    docker rm "$name"
+	  fi
+}
+plantuml_exec(){
+	  del_stopped plantuml
+
+	  docker run --rm -it \
+		       -v "$(pwd):/root/plantuml-workspace" \
+		       --name plantuml \
+		       joetague/plantuml "$@"
+}
+plantuml_exec "$@"
