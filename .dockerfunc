@@ -31,6 +31,8 @@ del_stopped(){
 # Container Aliases
 #
 aws(){
+    del_stopped aws
+
 	  docker run -it --rm \
 		       -v "${HOME}/.aws:/root/.aws" \
 		       --log-driver none \
@@ -38,6 +40,8 @@ aws(){
 		       amazon/aws-cli "$@"
 }
 awsv1(){
+    del_stopped awsv1
+
 	  docker run -it --rm \
 		       -v "${HOME}/.aws:/root/.aws" \
 		       --log-driver none \
