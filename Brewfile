@@ -59,10 +59,6 @@ brew "nano"
 brew "nvm"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
-# Cross-platform application and UI framework
-brew "qt"
-# PDF rendering library (based on the xpdf-3.0 code base)
-brew "poppler"
 # Python version management
 brew "pyenv"
 # Pyenv plugin to manage virtualenv
