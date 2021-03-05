@@ -46,7 +46,7 @@ This function should only modify configuration layer settings."
               clojure-enable-linters 'clj-kondo
               clojure-enable-clj-refactor t)
 
-     csv
+     ;; csv
 
      ;; dap
 
@@ -109,9 +109,9 @@ This function should only modify configuration layer settings."
 
      pdf
      ;; Currently got plantuml in a container, needs non-alias executable - not sure bassh script will cut it
-     (plantuml :variables
-               plantuml-executable-path "~/proj/dotfiles/bin/plantuml"
-               plantuml-default-exec-mode 'executable)
+     ;; (plantuml :variables
+     ;;           plantuml-executable-path "~/proj/dotfiles/bin/plantuml"
+     ;;           plantuml-default-exec-mode 'executable)
 
      protobuf
 
@@ -147,7 +147,7 @@ This function should only modify configuration layer settings."
                treemacs-use-filewatch-mode t
                treemacs-use-follow-mode t)
 
-     typescript
+     ;; typescript
 
      (version-control :variables
                       version-control-diff-tool 'diff-hl
@@ -626,7 +626,6 @@ before packages are loaded."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Magit - forge configuration          ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq epg-gpg-program "gpg2")
   ;; Set the files that are searched for writing tokens
   ;; by default ~/.authinfo will be used
   ;; and write a token in unencrypted format
