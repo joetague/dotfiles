@@ -33,20 +33,28 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ;; Enable asciidoc layer for editing asciidoc content
+     ;; Useful for docs.cider.mx editing
+     asciidoc
+
      (auto-completion :variables
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-sort-by-usage t)
 
-     ;; Enable clj-refactor tools
+     ;; https://develop.spacemacs.org/layers/+lang/clojure/README.html
      (clojure :variables
+              clojure-backend 'cider
+              clojure-enable-linters 'clj-kondo
               clojure-toplevel-inside-comment-form t
               cider-overlays-use-font-lock t
-              cider-preferred-build-tool 'clojure-cli
-              clojure-enable-linters 'clj-kondo
-              clojure-enable-clj-refactor t)
+              clojure-enable-clj-refactor t
+              cider-repl-buffer-size-limit 100)
 
-     ;; csv
+     ;; Tools to work with comma separate values
+     ;; Used for data science files
+     ;; https://develop.spacemacs.org/layers/+lang/csv/README.html
+     csv
 
      ;; dap
 
@@ -85,7 +93,7 @@ This function should only modify configuration layer settings."
      ;;       java-backend 'lsp)
 
      ;;this seems to be a really slow layer and needs company-tern which has disappeared from MELPA?
-     javascript
+     ;; javascript
 
      json
      ;; (json :variables
@@ -113,7 +121,7 @@ This function should only modify configuration layer settings."
      ;;           plantuml-executable-path "~/proj/dotfiles/bin/plantuml"
      ;;           plantuml-default-exec-mode 'executable)
 
-     protobuf
+     ;; protobuf
 
      ;; (python :variables
      ;;         python-backend 'lsp
@@ -121,10 +129,10 @@ This function should only modify configuration layer settings."
      ;;         python-test-runner 'pytest
      ;;         python-auto-set-local-pyenv-version 'on-project-switch)
 
-     react
+     ;; react
 
      (shell :variables
-             shell-default-shell 'multi-term
+             shell-default-shell 'vterm
              shell-default-height 30
              shell-default-position 'bottom)
 
@@ -137,7 +145,8 @@ This function should only modify configuration layer settings."
                         spacemacs-layouts-restrict-spc-tab t
                         persp-autokill-buffer-on-remove t)
 
-     ;; spell-checking
+     spell-checking
+
      ;; Use original flycheck fringe bitmaps
      (syntax-checking :variables
                       syntax-checking-use-original-bitmaps t)
