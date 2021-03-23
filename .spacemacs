@@ -56,11 +56,13 @@ This function should only modify configuration layer settings."
      ;; https://develop.spacemacs.org/layers/+lang/csv/README.html
      csv
 
-     ;; dap
+     dap
 
      ;; Don't autoload docsets use dir.locals.el to load appropriate ones per project
      (dash :variables
            dash-autoload-common-docsets nil)
+
+     docker
 
      (elfeed :variables
              rmh-elfeed-org-files (list "~/org/feeds.org"))
@@ -89,19 +91,14 @@ This function should only modify configuration layer settings."
 
      html
 
-     ;; (java :variables
-     ;;       java-backend 'lsp)
+     (java :variables
+           java-backend 'lsp)
 
-     ;;this seems to be a really slow layer and needs company-tern which has disappeared from MELPA?
-     ;; javascript
+     (json :variables
+           json-backend 'lsp
+           json-fmt-on-save nil)
 
-     json
-     ;; (json :variables
-     ;;       json-backend 'lsp
-     ;;       json-fmt-on-save nil
-     ;;       json-fmt-tool 'prettier-js)
-
-     ;; lsp
+     lsp
 
      markdown
 
@@ -125,8 +122,6 @@ This function should only modify configuration layer settings."
 
      ;; (python :variables
      ;;         python-backend 'lsp
-     ;;         python-lsp-server 'pyls
-     ;;         python-test-runner 'pytest
      ;;         python-auto-set-local-pyenv-version 'on-project-switch)
 
      ;; react
@@ -155,8 +150,6 @@ This function should only modify configuration layer settings."
                treemacs-indentation 1
                treemacs-use-filewatch-mode t
                treemacs-use-follow-mode t)
-
-     ;; typescript
 
      (version-control :variables
                       version-control-diff-tool 'diff-hl
@@ -331,7 +324,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("Fira Code"
+   dotspacemacs-default-font '("Monaco"
                                :size 14.0
                                :weight normal
                                :width normal)
@@ -599,6 +592,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (setq ispell-program-name "/opt/homebrew/bin/aspell")
   )
 
 (defun dotspacemacs/user-load ()
@@ -615,7 +609,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Emacs text rendering optimizations   ;;
+  ;; Emacs text rendering optimisations   ;;
   ;; https://200ok.ch/posts/2020-09-29_comprehensive_guide_on_handling_long_lines_in_emacs.html
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Only render text left to right
@@ -834,8 +828,11 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol nil)
+ '(org-agenda-files
+   '("/Users/joetague/org/feeds.org" "/Users/joetague/org/learning.org" "/Users/joetague/org/life.org" "/Users/joetague/org/work.org" "/Users/joetague/Library/Mobile Documents/com~apple~CloudDocs/org/journal/20210319"))
  '(package-selected-packages
-   '(rjsx-mode helm-dash dash-docs dash-at-point yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vi-tilde-fringe verb uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode protobuf-mode prettier-js plantuml-mode pcre2el password-generator paradox ox-gfm overseer osx-trash osx-dictionary osx-clipboard orgit org-superstar org-super-agenda org-rich-yank org-projectile org-present org-pomodoro org-pdftools org-mime org-journal org-download org-cliplink org-brain open-junk-file nodejs-repl nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-section magit-gitflow macrostep lorem-ipsum livid-mode link-hint launchctl json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag grip-mode graphviz-dot-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md fuzzy forge font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav elfeed-org elfeed-goodies editorconfig dumb-jump dotenv-mode dired-quick-sort diminish diff-hl devdocs csv-mode company-web company-statistics company-shell company-quickhelp company-emoji column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
+   '(dockerfile-mode docker docker-tramp rjsx-mode helm-dash dash-docs dash-at-point yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vi-tilde-fringe verb uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode protobuf-mode prettier-js plantuml-mode pcre2el password-generator paradox ox-gfm overseer osx-trash osx-dictionary osx-clipboard orgit org-superstar org-super-agenda org-rich-yank org-projectile org-present org-pomodoro org-pdftools org-mime org-journal org-download org-cliplink org-brain open-junk-file nodejs-repl nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-section magit-gitflow macrostep lorem-ipsum livid-mode link-hint launchctl json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag grip-mode graphviz-dot-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md fuzzy forge font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav elfeed-org elfeed-goodies editorconfig dumb-jump dotenv-mode dired-quick-sort diminish diff-hl devdocs csv-mode company-web company-statistics company-shell company-quickhelp company-emoji column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
  '(safe-local-variable-values
    '((cider-shadow-default-options . ":app")
      (cider-default-cljs-repl . shadow)
