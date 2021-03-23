@@ -1,0 +1,144 @@
+[user]
+	# Name used in commit messages.
+	name = Joe Tague
+	# Email used in commit messages.
+	email = joetague@gmail.com
+
+[github]
+	# GitHub username for command-line tools.
+	user = joetague
+
+[gist]
+	# Open GitHub Gist in browser after submission.
+	browse = true
+
+[credential]
+	# Use macOS Keychain to store HTTP passwords.
+	helper = osxkeychain
+
+[push]
+	# Push to the set upstream branch being tracked by default.
+	default = simple
+
+[pull]
+	# Default to rebasing on pulls
+	rebase = true
+
+[fetch]
+	# Always prune when fetching (and pulling).
+	prune = true
+
+[rebase]
+	# Run `git stash` if needed before a `git rebase`
+	autoStash = true
+	# Auto-add `--autosquash` to `git rebase`
+	autoSquash = true
+
+[apply]
+	# Cleanup whitespace by default when apply patches.
+	whitespace = fix
+
+[core]
+	# Exclude everything this file. Used for general exclusions.
+	excludesfile = ~/.gitignore
+	# Set attributes on files. Used for general diff improvements.
+	attributesfile = ~/.gitattributes
+	editor = emacsclient --no-wait --create-frame
+
+[mergetool]
+	# Don't prompt before opening the merge tool.
+	prompt = false
+	# Don't keep backups of the merge tool inputs.
+	keepBackup = false
+	# Don't keep the merge tool temporary input/output files.
+	keepTemporaries = false
+
+[diff-so-fancy]
+	stripLeadingSymbols = false
+	markEmptyLines = false
+
+[alias]
+	# from trevor bramble https://twitter.com/TrevorBramble/status/774292970681937920
+	# Show all the aliases
+	alias=!git config -l | grep ^alias | cut -c 7- | sort
+
+	# Unstage the changes in a given file.
+	unstage = reset HEAD --
+
+	# View the current changes in the staging area.
+	staged = diff --cached
+
+	# Print the name of the current branch.
+	current-branch = symbolic-ref --short HEAD
+
+	# Print the name of the current upstream tracking branch.
+	upstream = !git config --get branch.$(git current-branch).remote || echo origin
+
+	# Hard reset branch to the upstream version.
+	hard-reset = !git reset --hard $(git upstream)/$(git current-branch)
+
+	# Delete all non-master/main branches
+	delete-merged = !git branch --merged | grep -v 'master' | grep -v 'main' | grep -v '*' | xargs -n 1 git branch -D
+
+	# Fetch all branches and rebase the current branch against
+	# upstream/HEAD.
+	rebase-against-head = !git fetch --all \
+	                      && git rebase $(git upstream)/HEAD
+	# Push the current branch upstream to origin using the same branch
+	# name for the remote branch.
+	upstream-current-branch = !git push --set-upstream origin \
+	                         $(git current-branch)
+	# Create a pull request on GitHub using the `gh` command.
+	pull-request = !rm -f .git/PULLREQ_EDITMSG && gh pr create --web
+	# Upstream the current branch to origin and create a pull request
+	# on GitHub.
+	upstream-and-pull-request = !git upstream-current-branch \
+	                          && git pull-request
+
+	# Push the current branch and set it as the default upstream branch.
+	push-and-set-upstream = push --set-upstream
+	# Create a new branch by checking out another branch.
+	checkout-as-new-branch = checkout -b
+	# Rebase against origin/HEAD and prompt for what operations
+	# should be performed.
+	interactively-rebase-against-origin-head = \
+	  !git rebase --interactive origin/HEAD
+	# Show the commit log with a prettier, clearer history.
+	pretty-one-line-log = log --graph --oneline --decorate
+	# Commit any changes to files, squash them into the last commit
+	# and update its date.
+	fix-up-previous-commit = !git commit --all --amend \
+	                              --reuse-message=HEAD --date=\"$(date)\" #"
+	# Commit a work-in-progress commit (to use with
+	# fix-up-previous-commit)
+	work-in-progress = commit -a -m 'WIP'
+
+	## Shortened Existing Commands
+	aa = add --all
+	amend = commit --amend
+	cl = clone --resursive
+	cb = !git checkout-as-new-branch
+    di = diff --find-copies-harder
+    dc = diff --find-copies-harder --cached
+	fa = !git fetch --all
+	ff = merge --ff-only
+	noff = merge --no-ff
+	p = pull
+	up = !git upstream-current-branch
+	st = status --short --branch
+
+	## Log niceness
+	# List contributors with number of commits
+	contributors = shortlog --summary --numbered
+
+	# List the frequency of change "chrun" for whole repo, for specific dirs or for a time range with --since='1 month ago'
+	churn = !git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort -n
+
+	# View abbreviated SHA, description, and history graph of the latest 20 commits
+	lo = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+	lg = log --color --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an (%G?)>%Creset' --abbrev-commit
+[init]
+	defaultBranch = main
+[hub]
+	protocol = ssh
