@@ -39,15 +39,6 @@ aws(){
 		       --name aws \
 		       amazon/aws-cli "$@"
 }
-awsv1(){
-    del_stopped awsv1
-
-	  docker run -it --rm \
-		       -v "${HOME}/.aws:/root/.aws" \
-		       --log-driver none \
-		       --name awsv1 \
-		       ${DOCKER_REPO_PREFIX}/awscli "$@"
-}
 notebook(){
     del_stopped notebook
 
