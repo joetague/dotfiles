@@ -58,13 +58,31 @@ notebook(){
            --name notebook \
            jupyter/pyspark-notebook "$@"
 }
+pandoc(){
+	  if [[ -n "$(which pandoc)" ]]; then
+		    "$(which pandoc)" "$@"
+	  else
+		    local file=${*: -1}
+		    local lfile
+		    lfile=$(readlink -m "$(pwd)/${file}")
+		    local rfile
+		    rfile=$(readlink -m "/$(basename "$file")")
+		    local args=${*:1:${#@}-1}
+
+		    docker run --rm \
+			         -v "${lfile}:${rfile}" \
+			         -v /tmp:/tmp \
+			         --name pandoc \
+			         ${DOCKER_REPO_PREFIX}/pandoc "${args}" "${rfile}"
+	  fi
+}
 plantuml(){
 	  del_stopped plantuml
 
 	  docker run --rm -it \
 		       -v "$(pwd):/root/plantuml-workspace" \
 		       --name plantuml \
-		       joetague/plantuml "$@"
+		       ${DOCKER_REPO_PREFIX}/plantuml "$@"
 }
 s3cmd(){
 	  del_stopped s3cmd
