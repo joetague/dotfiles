@@ -134,6 +134,9 @@ This function should only modify configuration layer settings."
 
      shell-scripts
 
+     (slack :variables slack-spacemacs-layout-name "@Slack"
+            slack-spacemacs-layout-binding "s")
+
      ;; spacemacs-layouts layer added to set variables
      ;; SPC TAB restricted to current layout buffers
      ;; Kill buffers when killing layer - SPC l x
@@ -650,6 +653,34 @@ before packages are loaded."
   (setq magit-repository-directories
         '(("~/.emacs.d"  . 0)
           ("~/proj/" . 2)))
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Slack                              ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; (slack-register-team
+  ;;  :name "Dev Tech Scot"
+  ;;  :token (auth-source-pick-first-password
+  ;;          :host "devtechscot.slack.com"
+  ;;          :user "joetague@gmail.com")
+  ;;  :subscribed-channels '((general random))
+  ;;  :default t
+  ;;  :modeline-enabled t)
+  ;; (slack-register-team
+  ;;  :name "Judy 2K"
+  ;;  :token (auth-source-pick-first-password
+  ;;          :host "judy2k.slack.com"
+  ;;          :user "joetague@gmail.com")
+  ;;  :subscribed-channels '((general))
+  ;;  :default t
+  ;;  :modeline-enabled t)
+  ;; (slack-register-team
+  ;;  :name "Clojurians"
+  ;;  :token (auth-source-pick-first-password
+  ;;          :host "clojurians.slack.com"
+  ;;          :user "joetague@gmail.com")
+  ;;  :subscribed-channels '((clojure-uk ))
+  ;;  :default nil
+  ;;  :visible-threads t)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Clojure - format settings          ;;
