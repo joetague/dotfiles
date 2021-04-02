@@ -2,7 +2,7 @@
 	# Name used in commit messages.
 	name = Joe Tague
 	# Email used in commit messages.
-	email = joetague@gmail.com
+	email = joetague@users.noreply.github.com
 
 [github]
 	# GitHub username for command-line tools.
