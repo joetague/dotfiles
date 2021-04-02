@@ -87,7 +87,9 @@ This function should only modify configuration layer settings."
      ;; https://develop.spacemacs.org/layers/+lang/graphviz/README.html
      graphviz
 
-     helm
+     (helm :variables
+           helm-buffer-max-length 60
+           helm-enable-auto-resize t)
 
      html
 
