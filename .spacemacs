@@ -65,7 +65,8 @@ This function should only modify configuration layer settings."
      docker
 
      (elfeed :variables
-             rmh-elfeed-org-files (list "~/org/feeds.org"))
+             elfeed-db-directory "~/org/feeds/.elfeed"
+             rmh-elfeed-org-files (list "~/org/feeds/feeds.org"))
 
      emacs-lisp
 
