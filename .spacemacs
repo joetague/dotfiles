@@ -663,30 +663,30 @@ before packages are loaded."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Slack                              ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; (slack-register-team
-  ;;  :name "dts"
-  ;;  :token (auth-source-pick-first-password
-  ;;          :host "devtechscot.slack.com"
-  ;;          :user "joetague@gmail.com")
-  ;;  :subscribed-channels '((general random))
-  ;;  :default nil
-  ;;  :modeline-enabled t)
-  ;; (slack-register-team
-  ;;  :name "j2k"
-  ;;  :token (auth-source-pick-first-password
-  ;;          :host "judy2k.slack.com"
-  ;;          :user "joetague@gmail.com")
-  ;;  :subscribed-channels '((general))
-  ;;  :default t
-  ;;  :modeline-enabled t)
-  ;; (slack-register-team
-  ;;  :name "clj"
-  ;;  :token (auth-source-pick-first-password
-  ;;          :host "clojurians.slack.com"
-  ;;          :user "joetague@gmail.com")
-  ;;  :subscribed-channels '((clojure-uk))
-  ;;  :default nil
-  ;;  :visible-threads t)
+  (slack-register-team
+   :name "dts"
+   :token (auth-source-pick-first-password
+           :host "devtechscot.slack.com"
+           :user "joetague@gmail.com")
+   :subscribed-channels '((general random))
+   :default nil
+   :modeline-enabled t)
+  (slack-register-team
+   :name "j2k"
+   :token (auth-source-pick-first-password
+           :host "judy2k.slack.com"
+           :user "joetague@gmail.com")
+   :subscribed-channels '((general))
+   :default t
+   :modeline-enabled t)
+  (slack-register-team
+   :name "clj"
+   :token (auth-source-pick-first-password
+            :host "clojurians.slack.com"
+            :user "joetague@gmail.com")
+   :subscribed-channels '((clojure-uk))
+   :default nil
+   :visible-threads t)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Clojure - format settings          ;;
