@@ -632,14 +632,18 @@ before packages are loaded."
       (global-so-long-mode 1))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Magit - forge configuration          ;;
+  ;; Fixes GPG setup                      ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq epg-gpg-program "gpg")
   ;; Set the files that are searched for writing tokens
   ;; by default ~/.authinfo will be used
   ;; and write a token in unencrypted format
+  (require 'epa-file)
+  (custom-set-variables '(epg-gpg-program  "/opt/homebrew/bin/gpg"))
   (setq auth-sources '("~/.authinfo.gpg"))
-  ;;
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Magit - forge configuration          ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Configure number of topics show, open and closed
   ;; use negative number to toggle the view of closed topics
   ;; using `SPC SPC forge-toggle-closed-visibility'
