@@ -707,7 +707,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (setq ispell-program-name "/opt/homebrew/bin/aspell")
+   (setq ispell-program-name "/opt/homebrew/bin/aspell")
   )
 
 (defun dotspacemacs/user-load ()
@@ -772,37 +772,37 @@ before packages are loaded."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Slack                              ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (slack-register-team
-   :name "dts"
-   :token (auth-source-pick-first-password
-           :host "devtechscot.slack.com"
-           :user "joetague@gmail.com")
-   :subscribed-channels '((general random))
-   :default nil
-   :modeline-enabled t)
-  (slack-register-team
-   :name "j2k"
-   :token (auth-source-pick-first-password
-           :host "judy2k.slack.com"
-           :user "joetague@gmail.com")
-   :subscribed-channels '((general))
-   :default t
-   :modeline-enabled t)
-  (slack-register-team
-   :name "clj"
-   :token (auth-source-pick-first-password
-            :host "clojurians.slack.com"
-            :user "joetague@gmail.com")
-   :subscribed-channels '((clojure-uk))
-   :default nil
-   :visible-threads t)
+  ;; (slack-register-team
+  ;;  :name "dts"
+  ;;  :token (auth-source-pick-first-password
+  ;;          :host "devtechscot.slack.com"
+  ;;          :user "joetague@gmail.com")
+  ;;  :subscribed-channels '((general random))
+  ;;  :default nil
+  ;;  :modeline-enabled t)
+  ;; (slack-register-team
+  ;;  :name "j2k"
+  ;;  :token (auth-source-pick-first-password
+  ;;          :host "judy2k.slack.com"
+  ;;          :user "joetague@gmail.com")
+  ;;  :subscribed-channels '((general))
+  ;;  :default t
+  ;;  :modeline-enabled t)
+  ;; (slack-register-team
+  ;;  :name "clj"
+  ;;  :token (auth-source-pick-first-password
+  ;;           :host "clojurians.slack.com"
+  ;;           :user "joetague@gmail.com")
+  ;;  :subscribed-channels '((clojure-uk))
+  ;;  :default nil
+  ;;  :visible-threads t)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Clojure - format settings          ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
-  (setq clojure-indent-style 'align-arguments)
-  (setq clojure-align-forms-automatically t)
+  ;; (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+  ;; (setq clojure-indent-style 'align-arguments)
+  ;; (setq clojure-align-forms-automatically t)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; For react dev when CIDER offers to ;;
@@ -821,25 +821,58 @@ before packages are loaded."
       ad-do-it))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Setup org-protocol for capture and org-journal ;;
+  ;; React/Javascript/Typescript                    ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   js-indent-level 2
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
+
+  ;; ;; update the diary every time the org agenda is refreshed
+  ;; (add-hook 'org-agenda-cleanup-fancy-diary-hook 'ab/agenda-update-diary )
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Setup org                                      ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (with-eval-after-load 'org
+
   (require 'org-protocol)
-  (setq org-directory "~/org")
-  (setq org-agenda-files (list org-directory))
+
+  (setq org-confirm-babel-evaluate '(not (y-or-n-p "evaluate block? ")))
+
+  (setq org-agenda-files '("~/org/work.org"))
+  (setq org-projectile-file "~/org/projectile/projects.org")
+  (setq org-agenda-files (append org-agenda-files '("~/org/projectile/projects.org")))
+
   (setq org-journal-dir "~/org/journal/")
   (setq org-journal-file-format "%Y%m%d")
-  (setq org-noter-default-notes-file-names '("learning.org")
+  (setq org-journal-encrypt-journal t)
+
+  (setq org-noter-default-notes-file-names '("~/org/learning.org")
         org-noter-notes-search-path '("~/org"))
+
+  (setq org-persp-startup-with-agenda "z")
+
   (setq org-deadline-warning-days 5)
-  (setq org-log-done t)
   (setq org-clock-into-drawer t)
   (setq org-clock-persist t)
+  (setq spaceline-org-clock-p t)
   (setq org-columns-default-format "%60ITEM(Task) %20TODO %10Effort(Effort){:} %10CLOCKSUM")
   (setq org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
                                       ("STYLE_ALL" . "habit"))))
   (setq org-duration-format '((special . h:mm)))
   (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
   (setq org-icalendar-timezone "Europe/London")
+
+  ;; Keep the indentation well structured by. OMG this is a must have. Makes
+  ;; it feel less like editing a big text file and more like a purpose built
+  ;; editor for org mode that forces the indentation.
+  (setq org-startup-indented t)
 
   ;;TODO Keywords
   (setq org-todo-keywords
@@ -848,7 +881,7 @@ before packages are loaded."
 
   ;;Avoid setting entries as DONE when there are still sub-entries that are not DONE.
   (setq org-enforce-todo-dependencies t)
-  (setq org-journal-enable-agenda-integration t)
+
   ;;Creating a template for meeting notes
   (defvar my/org-meeting-template "** Meeting about %^{something}
 SCHEDULED: %<%Y-%m-%d %H:%M>
@@ -862,30 +895,23 @@ SCHEDULED: %<%Y-%m-%d %H:%M>
 " "Meeting Template")
 
   ;; Configure custom capture templates
+  ;; Note the backtick here, it's required so that the defvar based tempaltes will work!
+  ;;http://comments.gmane.org/gmane.emacs.orgmode/106890
   (setq org-capture-templates
-        `(;; Note the backtick here, it's required so that the defvar based tempaltes will work!
-          ;;http://comments.gmane.org/gmane.emacs.orgmode/106890
-
-          ("t" "To-do" entry (file+headline "~/org/work.org" "Tasks")
+        `(
+          ("t" "To-do" entry (file+headline "~/org/work.org" "Inbox")
            "** TODO %^{Task Description}\nCreated From: %a\n" :clock-in t :clock-resume t :prepend t)
 
-          ("m" "Meeting" entry (file+headline "~/org/work.org" "Meetings")
-           ,my/org-meeting-template)
+          ("m" "Meeting" entry (file+headline "~/org/work.org" "Meetings"), my/org-meeting-template)
           ))
-  ;; Keep the indentation well structured by. OMG this is a must have. Makes
-  ;; it feel less like editing a big text file and more like a purpose built
-  ;; editor for org mode that forces the indentation.
-  (setq org-startup-indented t)
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Setup Agenda                                ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;;(setq org-agenda-start-with-follow-mode t)
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-skip-deadline-if-done t)
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Setup Agenda                                                           ;;
   ;; Setup org-super-agenda                                                 ;;
   ;; https://github.com/alphapapa/org-super-agenda/blob/master/examples.org ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-skip-deadline-if-done t)
   (setq org-agenda-custom-commands
         '(("z" "Super zaen view"
            ((agenda "" ((org-agenda-span 'day)
@@ -904,7 +930,7 @@ SCHEDULED: %<%Y-%m-%d %H:%M>
                                    :category "inbox"
                                    :order 3)
                             (:name "In Progress"
-                                   :todo "INPROGRESS"
+                                   :todo "IN_PROGRESS"
                                    :order 1)
                             (:name "Due Today"
                                    :deadline today
@@ -923,14 +949,26 @@ SCHEDULED: %<%Y-%m-%d %H:%M>
                                    :todo ("SOMEDAY")
                                    :order 90)))))))))
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; active Babel languages   ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((emacs-lisp . t)
-     ;; (java . t)
-     ;; (js . t)
-     ;; (python . t)
+   '((clojure . t)
+     (emacs-lisp . t)
+     (dot . t)
+     (js . t)
      (shell . t)
-     ))
+     (sqlite . t)
+   ))
+  )
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Projectile settings             ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
+  ;; of helm-projectile
+  (setq shell-file-name "/bin/sh")
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; AWS CloudFormation/YAML setup                               ;;
@@ -1001,7 +1039,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-agenda-files
    '("/Users/joetague/org/learning.org" "/Users/joetague/org/life.org" "/Users/joetague/org/work.org" "/Users/joetague/Library/Mobile Documents/com~apple~CloudDocs/org/journal/20220106"))
  '(package-selected-packages
-   '(slack circe oauth2 websocket mvn meghanada maven-test-mode lsp-java groovy-mode groovy-imports dap-mode bui dockerfile-mode docker docker-tramp rjsx-mode helm-dash dash-docs dash-at-point yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vi-tilde-fringe verb uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode protobuf-mode prettier-js plantuml-mode pcre2el password-generator paradox ox-gfm overseer osx-trash osx-dictionary osx-clipboard orgit org-superstar org-super-agenda org-rich-yank org-projectile org-present org-pomodoro org-pdftools org-mime org-journal org-download org-cliplink org-brain open-junk-file nodejs-repl nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-section magit-gitflow macrostep lorem-ipsum livid-mode link-hint launchctl json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag grip-mode graphviz-dot-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md fuzzy forge font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav elfeed-org elfeed-goodies editorconfig dumb-jump dotenv-mode dired-quick-sort diminish diff-hl devdocs csv-mode company-web company-statistics company-shell company-quickhelp company-emoji column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
+   '(valign npm-mode skewer-mode js2-mode copy-as-format slack circe oauth2 websocket mvn meghanada maven-test-mode lsp-java groovy-mode groovy-imports dap-mode bui dockerfile-mode docker docker-tramp rjsx-mode helm-dash dash-docs dash-at-point yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vi-tilde-fringe verb uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode protobuf-mode prettier-js plantuml-mode pcre2el password-generator paradox ox-gfm overseer osx-trash osx-dictionary osx-clipboard orgit org-superstar org-super-agenda org-rich-yank org-projectile org-present org-pomodoro org-pdftools org-mime org-journal org-download org-cliplink org-brain open-junk-file nodejs-repl nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-section magit-gitflow macrostep lorem-ipsum livid-mode link-hint launchctl json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag grip-mode graphviz-dot-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md fuzzy forge font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav elfeed-org elfeed-goodies editorconfig dumb-jump dotenv-mode dired-quick-sort diminish diff-hl devdocs csv-mode company-web company-statistics company-shell company-quickhelp company-emoji column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
  '(safe-local-variable-values
    '((cider-shadow-default-options . ":app")
      (cider-default-cljs-repl . shadow)
