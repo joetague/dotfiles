@@ -35,8 +35,9 @@ This function should only modify configuration layer settings."
    '(
      ;; Enable asciidoc layer for editing asciidoc content
      ;; Useful for docs.cider.mx editing
-     asciidoc
+     ;; asciidoc
 
+     ;; https://develop.spacemacs.org/layers/+completion/auto-completion/README.html
      (auto-completion :variables
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t
@@ -51,116 +52,224 @@ This function should only modify configuration layer settings."
               clojure-enable-clj-refactor t
               cider-repl-buffer-size-limit 100)
 
+     ;; copy-as-format for pasting code blocks into various things like GitHub/Slack/JIRA as formatted code
+     ;; https://develop.spacemacs.org/layers/+misc/copy-as-format/README.html
+     ;; https://github.com/sshaw/copy-as-format
+     copy-as-format
+
      ;; Tools to work with comma separate values
      ;; Used for data science files
      ;; https://develop.spacemacs.org/layers/+lang/csv/README.html
      csv
 
+     ;; https://develop.spacemacs.org/layers/+tools/dap/README.html
      dap
 
      ;; Don't autoload docsets use dir.locals.el to load appropriate ones per project
+     ;; https://develop.spacemacs.org/layers/+readers/dash/README.html
      (dash :variables
            dash-autoload-common-docsets nil)
 
-     docker
+     ;; https://develop.spacemacs.org/layers/+tools/docker/README.html
+     (docker :variables docker-dockerfile-backend 'lsp)
 
+     ;; https://develop.spacemacs.org/layers/+readers/elfeed/README.html
      (elfeed :variables
              elfeed-db-directory "~/org/feeds/.elfeed"
              rmh-elfeed-org-files (list "~/org/feeds/feeds.org"))
 
+     ;; https://develop.spacemacs.org/layers/+lang/emacs-lisp/README.html
      emacs-lisp
 
      ;; Include emojis into everything
+     ;; https://develop.spacemacs.org/layers/+fun/emoji/README.html
      emoji
 
      ;; SPC g s opens Magit git client full screen (q restores previous layout)
      ;; refine hunk 'all highlights characters changed on each line
+     ;; https://develop.spacemacs.org/layers/+source-control/git/README.html
      (git :variables
           git-magit-status-fullscreen t
           magit-diff-refine-hunk 'all)
 
      ;; SPC g h to use GitHub repositories
      ;; SPC g g to use GitHub Gists
+     ;; https://develop.spacemacs.org/layers/+source-control/github/README.html
      github
 
      ;; graphviz - open-source graph declaration system
      ;; Used to generated graphs of Clojure project dependencies
      ;; https://develop.spacemacs.org/layers/+lang/graphviz/README.html
-     graphviz
+     ;; graphviz
 
+     ;; https://develop.spacemacs.org/layers/+completion/helm/README.html
      (helm :variables
            helm-buffer-max-length 60
            helm-enable-auto-resize t)
 
-     html
+     ;; https://develop.spacemacs.org/layers/+lang/html/README.html
+     ;; html
 
-     (java :variables
-           java-backend 'lsp)
+     ;; Just use IntelliJ?
+     ;; https://develop.spacemacs.org/layers/+lang/java/README.html 
+     ;; (java :variables
+     ;;      java-backend 'lsp)
 
-     (json :variables
-           json-fmt-on-save nil)
+     ;; https://develop.spacemacs.org/layers/+lang/javascript/README.html
+     (javascript :variables
+                 javascript-backend 'lsp
+                 javascript-lsp-linter nil
+                 js2-mode-show-strict-warnings nil
+                 js2-mode-show-parse-errors nil)
 
-     lsp
+     ;; https://develop.spacemacs.org/layers/+lang/json/README.html
+     ;; (json :variables
+     ;;      json-fmt-on-save nil)
 
+     ;; Language server protocol with minimal visual impact
+     ;; https://practicalli.github.io/spacemacs/install-spacemacs/clojure-lsp/lsp-variables-reference.html
+     ;; https://develop.spacemacs.org/layers/+tools/lsp/README.html
+     (lsp :variables
+          ;; Formatting and indentation - use Cider instead
+          lsp-enable-on-type-formatting t
+          ;; Set to nil to use CIDER features instead of LSP UI
+          lsp-enable-indentation t
+          lsp-enable-snippet t  ;; to test again
+
+          ;; symbol highlighting - `lsp-toggle-symbol-highlight` toggles highlighting
+          ;; subtle highlighting for doom-gruvbox-light theme defined in dotspacemacs/user-config
+          lsp-enable-symbol-highlighting t
+
+          ;; Show lint error indicator in the mode line
+          lsp-modeline-diagnostics-enable t
+          ;; lsp-modeline-diagnostics-scope :workspace
+
+          ;; popup documentation boxes
+          ;; lsp-ui-doc-enable nil          ;; disable all doc popups
+          lsp-ui-doc-show-with-cursor nil   ;; doc popup for cursor
+          ;; lsp-ui-doc-show-with-mouse t   ;; doc popup for mouse
+          ;; lsp-ui-doc-delay 2                ;; delay in seconds for popup to display
+          lsp-ui-doc-include-signature t    ;; include function signature
+          ;; lsp-ui-doc-position 'at-point  ;; top bottom at-point
+          lsp-ui-doc-alignment 'window      ;; frame window
+
+          ;; code actions and diagnostics text as right-hand side of buffer
+          lsp-ui-sideline-enable nil
+          lsp-ui-sideline-show-code-actions nil
+          ;; lsp-ui-sideline-delay 500
+
+          ;; lsp-ui-sideline-show-diagnostics nil
+
+          ;; reference count for functions (assume their maybe other lenses in future)
+          lsp-lens-enable t
+
+          ;; Efficient use of space in treemacs-lsp display
+          treemacs-space-between-root-nodes nil
+
+          ;; Optimization for large files
+          lsp-file-watch-threshold 10000
+          lsp-log-io nil)
+
+     ;; https://develop.spacemacs.org/layers/+lang/markdown/README.html
      markdown
 
-     multiple-cursors
+     ;; https://develop.spacemacs.org/layers/+misc/multiple-cursors/README.html
+     (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
 
+     ;; https://develop.spacemacs.org/layers/+emacs/org/README.html
      (org :variables
-          org-enable-org-journal-support t
-          org-projectile-file "~/org/projectile/projects.org"
           org-enable-github-support t
-          org-enable-verb-support t)
+          org-enable-org-journal-support t
+          org-enable-valign t)
 
+     ;; https://develop.spacemacs.org/layers/+os/osx/README.html
      osx
 
+     ;; https://develop.spacemacs.org/layers/+readers/pdf/README.html
      pdf
+
      ;; Currently got plantuml in a container, needs non-alias executable - not sure bassh script will cut it
+     ;; alternative is to install via homebrew and reference plantuml-jar-path
      ;; (plantuml :variables
      ;;           plantuml-executable-path "~/proj/dotfiles/bin/plantuml"
      ;;           plantuml-default-exec-mode 'executable)
 
+     ;; https://develop.spacemacs.org/layers/+lang/protobuf/README.html
      ;; protobuf
 
+     ;; Just use IntelliJ with plugins?
+     ;; https://develop.spacemacs.org/layers/+lang/python/README.html
      ;; (python :variables
      ;;         python-backend 'lsp
      ;;         python-auto-set-local-pyenv-version 'on-project-switch)
 
+     ;; https://develop.spacemacs.org/layers/+tools/restclient/README.html
+     ;; restclient
+
+     ;; Just use VSCode?
+     ;; https://develop.spacemacs.org/layers/+frameworks/react/README.html
      ;; react
 
+     ;; https://develop.spacemacs.org/layers/+tools/shell/README.html
      (shell :variables
              shell-default-shell 'vterm
              shell-default-height 30
              shell-default-position 'bottom)
 
+     ;; https://develop.spacemacs.org/layers/+lang/shell-scripts/README.html
      shell-scripts
 
-     (slack :variables
-            slack-spacemacs-layout-name "@Slack"
-            slack-spacemacs-layout-binding "s")
+     ;; Just use Slack client? Although nice to be able to capture
+     ;; from slack buffers with direct link back for notes/journal
+     ;; https://develop.spacemacs.org/layers/+chat/slack/README.html
+     ;; (slack :variables
+     ;;        slack-spacemacs-layout-name "@Slack"
+     ;;        slack-spacemacs-layout-binding "s")
 
      ;; spacemacs-layouts layer added to set variables
      ;; SPC TAB restricted to current layout buffers
      ;; Kill buffers when killing layer - SPC l x
+     ;; https://develop.spacemacs.org/layers/+spacemacs/spacemacs-layouts/README.html
      (spacemacs-layouts :variables
                         spacemacs-layouts-restrict-spc-tab t
                         persp-autokill-buffer-on-remove t)
 
+     ;; https://develop.spacemacs.org/layers/+checkers/spell-checking/README.html
      spell-checking
 
+     ;; Just use the Spotify client?
+     ;; https://develop.spacemacs.org/layers/+music/spotify/README.html
+     ;; (spotify :variables
+     ;;          counsel-spotify-client-id "c9d5094ef2894115836951340b68dfe7"
+     ;;          counsel-spotify-client-secret (auth-source-pick-first-password
+     ;;                                         :host "api.spotify.com"
+     ;;                                         :user "c9d5094ef2894115836951340b68dfe7"))
+
+     ;; Not used this in anger yet
+     ;; https://develop.spacemacs.org/layers/+lang/sql/README.html
+     ;; (sql :variables
+     ;;      sql-backend 'lsp
+     ;;      sql-lsp-sqls-workspace-config-path 'workspace
+     ;;      sql-capitalize-keywords t
+     ;;      sql-auto-indent nil)
+
      ;; Use original flycheck fringe bitmaps
+     ;; https://develop.spacemacs.org/layers/+checkers/syntax-checking/README.html
      (syntax-checking :variables
                       syntax-checking-use-original-bitmaps t)
 
+     ;; https://develop.spacemacs.org/layers/+filetree/treemacs/README.html
      (treemacs :variables
                treemacs-indentation 1
                treemacs-use-filewatch-mode t
                treemacs-use-follow-mode t)
 
+     ;; https://develop.spacemacs.org/layers/+source-control/version-control/README.html
      (version-control :variables
                       version-control-diff-tool 'diff-hl
                       version-control-global-margin t)
 
+     ;; https://develop.spacemacs.org/layers/+lang/yaml/README.html
      yaml
      )
 
@@ -853,6 +962,26 @@ SCHEDULED: %<%Y-%m-%d %H:%M>
     (add-to-list 'flycheck-checkers 'cfn-lint)
     (add-hook 'cfn-yaml-mode-hook 'flycheck-mode))
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; AWS CloudFormation/YAML lookup documentation                ;;
+  ;; Sourced from: https://github.com/fiddlerwoaroof/dotfiles/blob/master/emacs.d/lisp/utils.el#L8 ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (require 'cl)
+  (defun jpt/doc-for-resource-type (resource-type)
+    (cl-format nil
+               "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/~{~a~^-~}"
+               (list* "aws" "resource"
+                      (cdr (s-split "::" (s-downcase resource-type))))))
+  (defun jpt/document-cf (min max)
+    "Jump to AWS Cloudformation docs for a resource type.
+MIN: the point in the buffer where the resource type starts
+MAX: the point in the buffer where the resource type ends
+This uses (interactive \"r\") to automagically populate the arguments
+from the selected region."
+    (interactive "r")
+    (browse-url
+     (jpt/doc-for-resource-type
+      (buffer-substring min max))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -867,7 +996,10 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(epg-gpg-program "/opt/homebrew/bin/gpg")
  '(evil-want-Y-yank-to-eol nil)
+ '(org-agenda-files
+   '("/Users/joetague/org/learning.org" "/Users/joetague/org/life.org" "/Users/joetague/org/work.org" "/Users/joetague/Library/Mobile Documents/com~apple~CloudDocs/org/journal/20220106"))
  '(package-selected-packages
    '(slack circe oauth2 websocket mvn meghanada maven-test-mode lsp-java groovy-mode groovy-imports dap-mode bui dockerfile-mode docker docker-tramp rjsx-mode helm-dash dash-docs dash-at-point yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vi-tilde-fringe verb uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode protobuf-mode prettier-js plantuml-mode pcre2el password-generator paradox ox-gfm overseer osx-trash osx-dictionary osx-clipboard orgit org-superstar org-super-agenda org-rich-yank org-projectile org-present org-pomodoro org-pdftools org-mime org-journal org-download org-cliplink org-brain open-junk-file nodejs-repl nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-section magit-gitflow macrostep lorem-ipsum livid-mode link-hint launchctl json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag grip-mode graphviz-dot-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md fuzzy forge font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav elfeed-org elfeed-goodies editorconfig dumb-jump dotenv-mode dired-quick-sort diminish diff-hl devdocs csv-mode company-web company-statistics company-shell company-quickhelp company-emoji column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
  '(safe-local-variable-values
