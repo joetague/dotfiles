@@ -222,9 +222,9 @@ This function should only modify configuration layer settings."
      ;; Just use Slack client? Although nice to be able to capture
      ;; from slack buffers with direct link back for notes/journal
      ;; https://develop.spacemacs.org/layers/+chat/slack/README.html
-     ;; (slack :variables
-     ;;        slack-spacemacs-layout-name "@Slack"
-     ;;        slack-spacemacs-layout-binding "s")
+     (slack :variables
+            slack-spacemacs-layout-name "@Slack"
+            slack-spacemacs-layout-binding "s")
 
      ;; spacemacs-layouts layer added to set variables
      ;; SPC TAB restricted to current layout buffers
@@ -804,30 +804,30 @@ before packages are loaded."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Slack                              ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; (slack-register-team
-  ;;  :name "dts"
-  ;;  :token (auth-source-pick-first-password
-  ;;          :host "devtechscot.slack.com"
-  ;;          :user "joetague@gmail.com")
-  ;;  :subscribed-channels '((general random))
-  ;;  :default nil
-  ;;  :modeline-enabled t)
-  ;; (slack-register-team
-  ;;  :name "j2k"
-  ;;  :token (auth-source-pick-first-password
-  ;;          :host "judy2k.slack.com"
-  ;;          :user "joetague@gmail.com")
-  ;;  :subscribed-channels '((general))
-  ;;  :default t
-  ;;  :modeline-enabled t)
-  ;; (slack-register-team
-  ;;  :name "clj"
-  ;;  :token (auth-source-pick-first-password
-  ;;           :host "clojurians.slack.com"
-  ;;           :user "joetague@gmail.com")
-  ;;  :subscribed-channels '((clojure-uk))
-  ;;  :default nil
-  ;;  :visible-threads t)
+  (slack-register-team
+   :name "dts"
+   :token (auth-source-pick-first-password
+           :host "devtechscot.slack.com"
+           :user "joetague@gmail.com")
+   :subscribed-channels '((general random))
+   :default nil
+   :modeline-enabled t)
+  (slack-register-team
+   :name "j2k"
+   :token (auth-source-pick-first-password
+           :host "judy2k.slack.com"
+           :user "joetague@gmail.com")
+   :subscribed-channels '((general))
+   :default t
+   :modeline-enabled t)
+  (slack-register-team
+   :name "clj"
+   :token (auth-source-pick-first-password
+            :host "clojurians.slack.com"
+            :user "joetague@gmail.com")
+   :subscribed-channels '((clojure-uk))
+   :default nil
+   :visible-threads t)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Clojure - format settings          ;;
