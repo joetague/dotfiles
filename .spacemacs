@@ -92,11 +92,6 @@ This function should only modify configuration layer settings."
           git-magit-status-fullscreen t
           magit-diff-refine-hunk 'all)
 
-     ;; SPC g h to use GitHub repositories
-     ;; SPC g g to use GitHub Gists
-     ;; https://develop.spacemacs.org/layers/+source-control/github/README.html
-     github
-
      ;; graphviz - open-source graph declaration system
      ;; Used to generated graphs of Clojure project dependencies
      ;; https://develop.spacemacs.org/layers/+lang/graphviz/README.html
@@ -257,6 +252,10 @@ This function should only modify configuration layer settings."
      ;; https://develop.spacemacs.org/layers/+checkers/syntax-checking/README.html
      (syntax-checking :variables
                       syntax-checking-use-original-bitmaps t)
+
+     (terraform :variables
+                terraform-auto-format-on-save t
+                terraform-backend 'lsp)
 
      ;; https://develop.spacemacs.org/layers/+filetree/treemacs/README.html
      (treemacs :variables
@@ -802,32 +801,32 @@ before packages are loaded."
           ("~/proj/" . 2)))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Slack                              ;;
+  ;; Slack                           ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (slack-register-team
-   :name "dts"
-   :token (auth-source-pick-first-password
-           :host "devtechscot.slack.com"
-           :user "joetague@gmail.com")
-   :subscribed-channels '((general random))
-   :default nil
-   :modeline-enabled t)
-  (slack-register-team
-   :name "j2k"
-   :token (auth-source-pick-first-password
-           :host "judy2k.slack.com"
-           :user "joetague@gmail.com")
-   :subscribed-channels '((general))
-   :default t
-   :modeline-enabled t)
-  (slack-register-team
-   :name "clj"
-   :token (auth-source-pick-first-password
-            :host "clojurians.slack.com"
-            :user "joetague@gmail.com")
-   :subscribed-channels '((clojure-uk))
-   :default nil
-   :visible-threads t)
+  ;; (slack-register-team
+  ;;  :name "dts"
+  ;;  :token (auth-source-pick-first-password
+  ;;          :host "devtechscot.slack.com"
+  ;;          :user "joetague@gmail.com")
+  ;;  :subscribed-channels '((general random))
+  ;;  :default nil
+  ;;  :modeline-enabled t)
+  ;; (slack-register-team
+  ;;  :name "j2k"
+  ;;  :token (auth-source-pick-first-password
+  ;;          :host "judy2k.slack.com"
+  ;;          :user "joetague@gmail.com")
+  ;;  :subscribed-channels '((general))
+  ;;  :default t
+  ;;  :modeline-enabled t)
+  ;; (slack-register-team
+  ;;  :name "clj"
+  ;;  :token (auth-source-pick-first-password
+  ;;           :host "clojurians.slack.com"
+  ;;           :user "joetague@gmail.com")
+  ;;  :subscribed-channels '((clojure-uk))
+  ;;  :default nil
+  ;;  :visible-threads t)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Clojure - format settings          ;;
@@ -1071,7 +1070,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-agenda-files
    '("/Users/joetague/org/learning.org" "/Users/joetague/org/life.org" "/Users/joetague/org/work.org" "/Users/joetague/Library/Mobile Documents/com~apple~CloudDocs/org/journal/20220106"))
  '(package-selected-packages
-   '(valign npm-mode skewer-mode js2-mode copy-as-format slack circe oauth2 websocket mvn meghanada maven-test-mode lsp-java groovy-mode groovy-imports dap-mode bui dockerfile-mode docker docker-tramp rjsx-mode helm-dash dash-docs dash-at-point yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vi-tilde-fringe verb uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode protobuf-mode prettier-js plantuml-mode pcre2el password-generator paradox ox-gfm overseer osx-trash osx-dictionary osx-clipboard orgit org-superstar org-super-agenda org-rich-yank org-projectile org-present org-pomodoro org-pdftools org-mime org-journal org-download org-cliplink org-brain open-junk-file nodejs-repl nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-section magit-gitflow macrostep lorem-ipsum livid-mode link-hint launchctl json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag grip-mode graphviz-dot-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md fuzzy forge font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav elfeed-org elfeed-goodies editorconfig dumb-jump dotenv-mode dired-quick-sort diminish diff-hl devdocs csv-mode company-web company-statistics company-shell company-quickhelp company-emoji column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
+   '(company-terraform terraform-mode hcl-mode valign npm-mode skewer-mode js2-mode copy-as-format slack circe oauth2 websocket mvn meghanada maven-test-mode lsp-java groovy-mode groovy-imports dap-mode bui dockerfile-mode docker docker-tramp rjsx-mode helm-dash dash-docs dash-at-point yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vi-tilde-fringe verb uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode protobuf-mode prettier-js plantuml-mode pcre2el password-generator paradox ox-gfm overseer osx-trash osx-dictionary osx-clipboard orgit org-superstar org-super-agenda org-rich-yank org-projectile org-present org-pomodoro org-pdftools org-mime org-journal org-download org-cliplink org-brain open-junk-file nodejs-repl nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-section magit-gitflow macrostep lorem-ipsum livid-mode link-hint launchctl json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag grip-mode graphviz-dot-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md fuzzy forge font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav elfeed-org elfeed-goodies editorconfig dumb-jump dotenv-mode dired-quick-sort diminish diff-hl devdocs csv-mode company-web company-statistics company-shell company-quickhelp company-emoji column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
  '(safe-local-variable-values
    '((cider-shadow-default-options . ":app")
      (cider-default-cljs-repl . shadow)
@@ -1085,5 +1084,5 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
 )
