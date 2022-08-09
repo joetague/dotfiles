@@ -64,8 +64,9 @@ cask "adoptopenjdk11"
 cask "alfred"
 # Memory training application
 cask "anki"
+# Offline programming language reference documentation
 cask "dash4"
-# Draw.io is free online diagram software
+# Draw.io/diagrams.net diagram software
 cask "drawio"
 # Web browser
 cask "google-chrome"
@@ -79,17 +80,10 @@ cask "keepingyouawake"
 cask "rectangle"
 # Music streaming service
 cask "spotify"
-# Open-source code editor
-cask "visual-studio-code"
 # Video communication and virtual meeting platform
 cask "zoom"
 # Collect, organize, cite, and share research sources
 cask "zotero"
 mas "1Blocker", id: 1107421413
 mas "DuckDuckGo Privacy Essentials", id: 1482920575
-mas "GarageBand", id: 682658836
-mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
 mas "Xcode", id: 497799835
