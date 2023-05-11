@@ -55,7 +55,7 @@ This function should only modify configuration layer settings."
      ;; copy-as-format for pasting code blocks into various things like GitHub/Slack/JIRA as formatted code
      ;; https://develop.spacemacs.org/layers/+misc/copy-as-format/README.html
      ;; https://github.com/sshaw/copy-as-format
-     copy-as-format
+     ;; copy-as-format
 
      ;; Tools to work with comma separate values
      ;; Used for data science files
@@ -71,7 +71,8 @@ This function should only modify configuration layer settings."
            dash-autoload-common-docsets nil)
 
      ;; https://develop.spacemacs.org/layers/+tools/docker/README.html
-     (docker :variables docker-dockerfile-backend 'lsp)
+     (docker :variables
+             docker-dockerfile-backend 'lsp)
 
      ;; https://develop.spacemacs.org/layers/+readers/elfeed/README.html
      (elfeed :variables
@@ -92,6 +93,13 @@ This function should only modify configuration layer settings."
           git-magit-status-fullscreen t
           magit-diff-refine-hunk 'all)
 
+     ;; https://develop.spacemacs.org/layers/+lang/go/README.html
+     ;; brew install gopls golangci-lint
+     ;; (go :variables
+     ;;     go-backend 'lsp
+     ;;     go-format-before-save t
+     ;;     go-tab-width 2)
+
      ;; graphviz - open-source graph declaration system
      ;; Used to generated graphs of Clojure project dependencies
      ;; https://develop.spacemacs.org/layers/+lang/graphviz/README.html
@@ -103,7 +111,7 @@ This function should only modify configuration layer settings."
            helm-enable-auto-resize t)
 
      ;; https://develop.spacemacs.org/layers/+lang/html/README.html
-     ;; html
+     html
 
      ;; Just use IntelliJ?
      ;; https://develop.spacemacs.org/layers/+lang/java/README.html 
@@ -118,13 +126,18 @@ This function should only modify configuration layer settings."
                  js2-mode-show-parse-errors nil)
 
      ;; https://develop.spacemacs.org/layers/+lang/json/README.html
-     ;; (json :variables
-     ;;      json-fmt-on-save nil)
+     (json :variables
+          json-fmt-on-save nil)
+
+     ;; (kotlin :variables
+     ;;         kotlin-backend 'lsp
+     ;;         kotlin-lsp-jar-path "/usr/local/bin/kotlin-language-server")
 
      ;; Language server protocol with minimal visual impact
      ;; https://practicalli.github.io/spacemacs/install-spacemacs/clojure-lsp/lsp-variables-reference.html
      ;; https://develop.spacemacs.org/layers/+tools/lsp/README.html
      (lsp :variables
+          lsp-warn-no-matched-clients nil
           ;; Formatting and indentation - use Cider instead
           lsp-enable-on-type-formatting t
           ;; Set to nil to use CIDER features instead of LSP UI
@@ -169,7 +182,8 @@ This function should only modify configuration layer settings."
      markdown
 
      ;; https://develop.spacemacs.org/layers/+misc/multiple-cursors/README.html
-     (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
+     (multiple-cursors :variables
+                       multiple-cursors-backend 'evil-mc)
 
      ;; https://develop.spacemacs.org/layers/+emacs/org/README.html
      (org :variables
@@ -178,7 +192,7 @@ This function should only modify configuration layer settings."
           org-enable-valign t)
 
      ;; https://develop.spacemacs.org/layers/+os/osx/README.html
-     osx
+     ;; osx
 
      ;; https://develop.spacemacs.org/layers/+readers/pdf/README.html
      pdf
@@ -190,7 +204,7 @@ This function should only modify configuration layer settings."
      ;;           plantuml-default-exec-mode 'executable)
 
      ;; https://develop.spacemacs.org/layers/+lang/protobuf/README.html
-     ;; protobuf
+     protobuf
 
      ;; Just use IntelliJ with plugins?
      ;; https://develop.spacemacs.org/layers/+lang/python/README.html
@@ -203,13 +217,14 @@ This function should only modify configuration layer settings."
 
      ;; Just use VSCode?
      ;; https://develop.spacemacs.org/layers/+frameworks/react/README.html
-     ;; react
+     react
 
      ;; https://develop.spacemacs.org/layers/+tools/shell/README.html
      (shell :variables
-             shell-default-shell 'vterm
+             shell-default-shell 'multi-vterm
              shell-default-height 30
-             shell-default-position 'bottom)
+             shell-default-position 'bottom
+             spacemacs-vterm-history-file-location "~/.zsh_history")
 
      ;; https://develop.spacemacs.org/layers/+lang/shell-scripts/README.html
      shell-scripts
@@ -251,17 +266,22 @@ This function should only modify configuration layer settings."
      ;; Use original flycheck fringe bitmaps
      ;; https://develop.spacemacs.org/layers/+checkers/syntax-checking/README.html
      (syntax-checking :variables
-                      syntax-checking-use-original-bitmaps t)
+                      ;; unset the first value to use flycheck's default fringe
+                      syntax-checking-indication-symbol '(nil . nil))
 
-     (terraform :variables
-                terraform-auto-format-on-save t
-                terraform-backend 'lsp)
+     ;; https://develop.spacemacs.org/layers/+tools/terraform/README.html
+     ;; https://github.com/hashicorp/terraform-ls
+     ;; brew install hashicorp/tap/terraform-ls
+     ;; (terraform :variables
+     ;;            terraform-auto-format-on-save t
+     ;;            terraform-backend 'lsp)
 
      ;; https://develop.spacemacs.org/layers/+filetree/treemacs/README.html
      (treemacs :variables
                treemacs-indentation 1
                treemacs-use-filewatch-mode t
-               treemacs-use-follow-mode t)
+               treemacs-use-follow-mode t
+               treemacs-use-scope-type 'Perspectives)
 
      ;; https://develop.spacemacs.org/layers/+source-control/version-control/README.html
      (version-control :variables
@@ -280,11 +300,14 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
+                                      clj-deps-new
+                                      code-review
                                       dash
                                       org-noter
                                       org-pdftools
                                       org-super-agenda
-                                      ox-slack
+                                      (ox-slack :location (recipe :fetcher github :repo "joetague/ox-slack"))
+                                      sound-wav
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -395,6 +418,13 @@ It should only modify the values of Spacemacs settings."
    ;; If the value is nil then no banner is displayed. (default 'official)
    dotspacemacs-startup-banner 'official
 
+   ;; Scale factor controls the scaling (size) of the startup banner. Default
+   ;; value is `auto' for scaling the logo automatically to fit all buffer
+   ;; contents, to a maximum of the full image height and a minimum of 3 line
+   ;; heights. If set to a number (int or float) it is used as a constant
+   ;; scaling factor for the default logo size.
+   dotspacemacs-startup-banner-scale 'auto
+
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -416,6 +446,11 @@ It should only modify the values of Spacemacs settings."
 
    ;; The minimum delay in seconds between number key presses. (default 0.4)
    dotspacemacs-startup-buffer-multi-digit-delay 0.4
+
+   ;; If non-nil, show file icons for entries and headings on Spacemacs home buffer.
+   ;; This has no effect in terminal or if "all-the-icons" package or the font
+   ;; is not installed. (default nil)
+   dotspacemacs-startup-buffer-show-icons nil
 
    ;; Default major mode for a new empty buffer. Possible values are mode
    ;; names such as `text-mode'; and `nil' to use Fundamental mode.
@@ -456,9 +491,11 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
 
-   ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("Monaco"
-                               :size 14.0
+   ;; Default font or prioritized list of fonts. The `:size' can be specified as
+   ;; a non-negative integer (pixel size), or a floating-point (point size).
+   ;; Point size is recommended, because it's device independent. (default 10.0)
+   dotspacemacs-default-font '("Source Code Pro"
+                               :size 10.0
                                :weight normal
                                :width normal)
 
@@ -560,8 +597,8 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
-   ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup t
+   ;; (default t) (Emacs 24.4+ only)
+   dotspacemacs-maximized-at-startup nil
 
    ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
    ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
@@ -578,6 +615,11 @@ It should only modify the values of Spacemacs settings."
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-inactive-transparency 90
 
+   ;; A value from the range (0..100), in increasing opacity, which describes the
+   ;; transparency level of a frame background when it's active or selected. Transparency
+   ;; can be toggled through `toggle-background-transparency'. (default 90)
+   dotspacemacs-background-transparency 90
+
    ;; If non-nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
 
@@ -592,7 +634,11 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling nil
+   dotspacemacs-smooth-scrolling t
+
+   ;; Show the scroll bar while scrolling. The auto hide time can be configured
+   ;; by setting this variable to a number. (default t)
+   dotspacemacs-scroll-bar-while-scrolling t
 
    ;; Control line numbers activation.
    ;; If set to `t', `relative' or `visual' then line numbers are enabled in all
@@ -612,7 +658,7 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers'relative
+   dotspacemacs-line-numbers 'relative
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
@@ -682,6 +728,11 @@ It should only modify the values of Spacemacs settings."
    ;; Format specification for setting the icon title format
    ;; (default nil - same as frame-title-format)
    dotspacemacs-icon-title-format nil
+
+   ;; Color highlight trailing whitespace in all prog-mode and text-mode derived
+   ;; modes such as c++-mode, python-mode, emacs-lisp, html-mode, rst-mode etc.
+   ;; (default t)
+   dotspacemacs-show-trailing-whitespace t
 
    ;; Delete whitespace while saving buffer. Possible values are `all'
    ;; to aggressively delete empty line and long sequences of whitespace,
@@ -755,6 +806,16 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; undo-tree                            ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        `(("." . ,(concat spacemacs-cache-directory "undo-tree-history"))))
+  (unless (file-exists-p (concat spacemacs-cache-directory "undo-tree-history"))
+    (make-directory (concat spacemacs-cache-directory "undo-tree-history")))
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Emacs text rendering optimisations   ;;
   ;; https://200ok.ch/posts/2020-09-29_comprehensive_guide_on_handling_long_lines_in_emacs.html
@@ -779,8 +840,6 @@ before packages are loaded."
   ;; Set the files that are searched for writing tokens
   ;; by default ~/.authinfo will be used
   ;; and write a token in unencrypted format
-  (require 'epa-file)
-  (custom-set-variables '(epg-gpg-program  "/opt/homebrew/bin/gpg"))
   (setq auth-sources '("~/.authinfo.gpg"))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -796,13 +855,13 @@ before packages are loaded."
   ;; GitHub user and organization accounts owned
   ;; used by @ c f  to create a fork
   (setq forge-owned-accounts
-        '(("joetague" "glasgow-clj")))
+        '(("joetague")))
   (setq magit-repository-directories
         '(("~/.emacs.d"  . 0)
           ("~/proj/" . 2)))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Slack                           ;;
+  ;; Slack                              ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; (slack-register-team
   ;;  :name "dts"
@@ -835,6 +894,7 @@ before packages are loaded."
   ;; (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
   ;; (setq clojure-indent-style 'align-arguments)
   ;; (setq clojure-align-forms-automatically t)
+  (require 'clj-deps-new)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; For react dev when CIDER offers to ;;
@@ -866,6 +926,12 @@ before packages are loaded."
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Code Review                                    ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (add-hook 'code-review-mode-hook #'emojify-mode)
+  ;; (spacemacs/set-leader-keys "or" 'code-review-forge-pr-at-point)
+
   ;; ;; update the diary every time the org agenda is refreshed
   ;; (add-hook 'org-agenda-cleanup-fancy-diary-hook 'ab/agenda-update-diary )
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -873,7 +939,8 @@ before packages are loaded."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (with-eval-after-load 'org
 
-  (require 'org-protocol)
+    (add-to-list 'org-modules 'org-protocol)
+    (setq org-confirm-babel-evaluate '(not (y-or-n-p "evaluate block? ")))
 
   (setq org-confirm-babel-evaluate '(not (y-or-n-p "evaluate block? ")))
 
