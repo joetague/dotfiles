@@ -77,6 +77,19 @@ vterm_cmd() {
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(fzf --zsh)"
 
+## History file configuration
+[ -z "$HISTFILE" ] && HISTFILE="$HOME/.history"
+[ "$HISTSIZE" -lt 50000 ] && HISTSIZE=50000
+[ "$SAVEHIST" -lt 10000 ] && SAVEHIST=10000
+
+## History command configuration
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt share_history          # share command history data
+
 #
 # Aliases
 # (sorted alphabetically)
@@ -98,7 +111,8 @@ alias du="du -sh"
 alias less="less --ignore-case --raw-control-chars"
 alias l="eza -l"
 alias ls="eza --classify --group --git"
-alias ll='eza -al'
+alias ll='eza -alh'
+alias tree='eza --tree'
 alias make="nice make"
 alias mkdir="mkdir -vp"
 alias mv="mv -iv"
@@ -109,7 +123,7 @@ alias sha256="shasum -a 256"
 
 alias gss="git status --short"
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign --message "--wip-- [skip ci]"'
-alias gunwip='git rev-list --max-count=1 --format="%s" HEAD | grep -q "\--wip--" && git reset HEAD~1' 
+alias gunwip='git rev-list --max-count=1 --format="%s" HEAD | grep -q "\--wip--" && git reset HEAD~1'
 alias gbrl="git for-each-ref --color=always --sort=-committerdate --format='%(color:yellow)%(refname:short)%09%(color:green)%(authorname)%09%(color:blue)%(committerdate:relative)%09%(color:red)%(objectname:short)%09%(color:magenta)%(upstream:track)%09%(color:white)%(contents:subject)%(color:reset)' refs/heads refs/remotes|column -t -s $'\t'"
 alias gcount='git shortlog --summary --numbered'
 alias glg='git log --stat'

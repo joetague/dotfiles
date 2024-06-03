@@ -333,9 +333,11 @@ This function should only modify configuration layer settings."
                                       ;; tinloaf/org-incoming
                                       ;; felipelalli/org-sort-tasks
                                       ;; alphapapa/org-rifle
+                                      alphapapa/org-ql
+                                      ;; 
                                       ;; unhammer/org-mru-clock
                                       ;; alphapaa/org-recent-headings
-                                      ;; ericdallo/jet.el
+                                      ericdallo/jet.el
                                       )
 
    ;; A list of packages that cannot be updated.
