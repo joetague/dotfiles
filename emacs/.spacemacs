@@ -59,6 +59,10 @@ This function should only modify configuration layer settings."
              clojure-enable-clj-refactor t
              cider-repl-buffer-size-limit 100)
 
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bcompletion/compleseus
+     (compleseus :variables
+                 compleseus-engine 'vertico)
+
      ;; copy-as-format for pasting code blocks into various things like GitHub/Slack/JIRA as formatted code
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+misc/copy-as-format/README.org
      ;; https://github.com/sshaw/copy-as-format
@@ -114,9 +118,9 @@ This function should only modify configuration layer settings."
      ;; graphviz
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+completion/helm/README.org
-     (helm :variables
-           helm-buffer-max-length 60
-           helm-enable-auto-resize t)
+     ;; (helm :variables
+     ;;       helm-buffer-max-length 60
+     ;;       helm-enable-auto-resize t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/html/README.org
      ;; html
@@ -929,7 +933,7 @@ before packages are loaded."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
   ;; of helm-projectile by using a shell that doesn't have a lot of profile information
-  (setq shell-file-name "/bin/sh")
+  ;; (setq shell-file-name "/bin/sh")
   (setq projectile-enable-caching t)
 )
 
