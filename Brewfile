@@ -25,6 +25,8 @@ brew "curl"
 brew "eza"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
+# Fuzzy finder
+brew "fzf"
 # Fast Node Manager - like nvm but better?
 brew "fnm"
 # GNU awk utility
@@ -54,6 +56,8 @@ brew "pyenv"
 brew "ripgrep"
 # Minimal, fast(rust-based) customizable shell prompt
 brew "starship"
+# GNU Stow
+brew "stow"
 # Simpler man pages that will give only the examples
 brew "tldr"
 # Syntax tree-sitter
@@ -64,6 +68,8 @@ brew "tree"
 brew "z"
 # UNIX shell (command interpreter)
 brew "zsh"
+#  Smarter cd command, inspired by z and autojump
+brew "zoxide"
 # The Clojure Programming Language
 brew "clojure/tools/clojure"
 # Memory training application

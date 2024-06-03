@@ -30,15 +30,6 @@ del_stopped(){
 #
 # Container Aliases
 #
-aws(){
-    del_stopped aws
-
-	  docker run -it --rm \
-		       -v "${HOME}/.aws:/root/.aws" \
-		       --log-driver none \
-		       --name aws \
-		       amazon/aws-cli "$@"
-}
 notebook(){
     del_stopped notebook
 
@@ -49,24 +40,6 @@ notebook(){
            --name notebook \
            jupyter/pyspark-notebook "$@"
 }
-pandoc(){
-	  if [[ -n "$(which pandoc)" ]]; then
-		    "$(which pandoc)" "$@"
-	  else
-		    local file=${*: -1}
-		    local lfile
-		    lfile=$(readlink -m "$(pwd)/${file}")
-		    local rfile
-		    rfile=$(readlink -m "/$(basename "$file")")
-		    local args=${*:1:${#@}-1}
-
-		    docker run --rm \
-			         -v "${lfile}:${rfile}" \
-			         -v /tmp:/tmp \
-			         --name pandoc \
-			         ${DOCKER_REPO_PREFIX}/pandoc "${args}" "${rfile}"
-	  fi
-}
 plantuml(){
 	  del_stopped plantuml
 
@@ -74,14 +47,4 @@ plantuml(){
 		       -v "$(pwd):/root/plantuml-workspace" \
 		       --name plantuml \
 		       ${DOCKER_REPO_PREFIX}/plantuml "$@"
-}
-s3cmd(){
-	  del_stopped s3cmd
-
-	  docker run --rm -it \
-		       -e AWS_ACCESS_KEY="${DOCKER_AWS_ACCESS_KEY}" \
-		       -e AWS_SECRET_KEY="${DOCKER_AWS_ACCESS_SECRET}" \
-		       -v "$(pwd):/root/s3cmd-workspace" \
-		       --name s3cmd \
-		       ${DOCKER_REPO_PREFIX}/s3cmd "$@"
 }

@@ -118,8 +118,8 @@
 	amend = commit --amend
 	cl = clone --resursive
 	cb = !git checkout-as-new-branch
-    di = diff --find-copies-harder
-    dc = diff --find-copies-harder --cached
+  di = diff --find-copies-harder
+  dc = diff --find-copies-harder --cached
 	fa = !git fetch --all
 	ff = merge --ff-only
 	noff = merge --no-ff

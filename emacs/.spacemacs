@@ -27,73 +27,85 @@ This function should only modify configuration layer settings."
    dotspacemacs-ask-for-lazy-installation t
 
    ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
+   ;; Paths must have a trailing slash (i.e. "~/.mycontribs/")
    dotspacemacs-configuration-layer-path '()
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ;; Enable asciidoc layer for editing asciidoc content
-     ;; Useful for docs.cider.mx editing
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/asciidoc/README.org
      ;; asciidoc
 
-     ;; https://develop.spacemacs.org/layers/+completion/auto-completion/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+completion/auto-completion/README.org
      (auto-completion :variables
-                      auto-completion-enable-help-tooltip t
+                      auto-completion-return-key-behavior 'complete
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-complete-with-key-sequence nil
+                      auto-completion-complete-with-key-sequence-delay 0.1
+                      auto-completion-minimum-prefix-length 1
+                      auto-completion-idle-delay 0.2
+                      auto-completion-private-snippets-directory nil
                       auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-use-company-box nil
                       auto-completion-enable-sort-by-usage t)
 
-     ;; https://develop.spacemacs.org/layers/+lang/clojure/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/clojure/README.org
      (clojure :variables
-              clojure-backend 'cider
-              clojure-enable-linters 'clj-kondo
-              clojure-toplevel-inside-comment-form t
-              cider-overlays-use-font-lock t
-              clojure-enable-clj-refactor t
-              cider-repl-buffer-size-limit 100)
+             clojure-backend 'cider
+             clojure-enable-linters 'clj-kondo
+             clojure-toplevel-inside-comment-form t
+             cider-overlays-use-font-lock t
+             clojure-enable-clj-refactor t
+             cider-repl-buffer-size-limit 100)
+
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bcompletion/compleseus
+     (compleseus :variables
+                 compleseus-engine 'vertico)
 
      ;; copy-as-format for pasting code blocks into various things like GitHub/Slack/JIRA as formatted code
-     ;; https://develop.spacemacs.org/layers/+misc/copy-as-format/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+misc/copy-as-format/README.org
      ;; https://github.com/sshaw/copy-as-format
-     ;; copy-as-format
+     copy-as-format
 
      ;; Tools to work with comma separate values
      ;; Used for data science files
-     ;; https://develop.spacemacs.org/layers/+lang/csv/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/csv/README.org
      csv
 
-     ;; https://develop.spacemacs.org/layers/+tools/dap/README.html
-     dap
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/dap/README.org
+     ;; dap
 
      ;; Don't autoload docsets use dir.locals.el to load appropriate ones per project
-     ;; https://develop.spacemacs.org/layers/+readers/dash/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/dash/README.org
      (dash :variables
            dash-autoload-common-docsets nil)
 
-     ;; https://develop.spacemacs.org/layers/+tools/docker/README.html
+     ;; Introduces a clash now with builtin TRAMP support
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/docker/README.org
      (docker :variables
              docker-dockerfile-backend 'lsp)
 
-     ;; https://develop.spacemacs.org/layers/+readers/elfeed/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/elfeed/README.org
      (elfeed :variables
              elfeed-db-directory "~/org/feeds/.elfeed"
              rmh-elfeed-org-files (list "~/org/feeds/feeds.org"))
 
-     ;; https://develop.spacemacs.org/layers/+lang/emacs-lisp/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/emacs-lisp/README.org
      emacs-lisp
 
      ;; Include emojis into everything
-     ;; https://develop.spacemacs.org/layers/+fun/emoji/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+fun/emoji/README.org
      emoji
 
      ;; SPC g s opens Magit git client full screen (q restores previous layout)
      ;; refine hunk 'all highlights characters changed on each line
-     ;; https://develop.spacemacs.org/layers/+source-control/git/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+source-control/git/README.org
      (git :variables
           git-magit-status-fullscreen t
           magit-diff-refine-hunk 'all)
 
-     ;; https://develop.spacemacs.org/layers/+lang/go/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/go/README.org
      ;; brew install gopls golangci-lint
      ;; (go :variables
      ;;     go-backend 'lsp
@@ -102,47 +114,49 @@ This function should only modify configuration layer settings."
 
      ;; graphviz - open-source graph declaration system
      ;; Used to generated graphs of Clojure project dependencies
-     ;; https://develop.spacemacs.org/layers/+lang/graphviz/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/graphviz/README.org
      ;; graphviz
 
-     ;; https://develop.spacemacs.org/layers/+completion/helm/README.html
-     (helm :variables
-           helm-buffer-max-length 60
-           helm-enable-auto-resize t)
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+completion/helm/README.org
+     ;; (helm :variables
+     ;;       helm-buffer-max-length 60
+     ;;       helm-enable-auto-resize t)
 
-     ;; https://develop.spacemacs.org/layers/+lang/html/README.html
-     html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/html/README.org
+     ;; html
 
      ;; Just use IntelliJ?
-     ;; https://develop.spacemacs.org/layers/+lang/java/README.html 
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/java/README.org
      ;; (java :variables
      ;;      java-backend 'lsp)
 
-     ;; https://develop.spacemacs.org/layers/+lang/javascript/README.html
-     (javascript :variables
-                 javascript-backend 'lsp
-                 javascript-lsp-linter nil
-                 js2-mode-show-strict-warnings nil
-                 js2-mode-show-parse-errors nil)
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/javascript/README.org
+     ;; (javascript :variables
+     ;;             javascript-backend 'lsp
+     ;;             javascript-lsp-linter nil
+     ;;             js2-mode-show-strict-warnings nil
+     ;;             js2-mode-show-parse-errors nil)
 
-     ;; https://develop.spacemacs.org/layers/+lang/json/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/json/README.org
      (json :variables
           json-fmt-on-save nil)
 
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/kotlin/README.org
      ;; (kotlin :variables
      ;;         kotlin-backend 'lsp
      ;;         kotlin-lsp-jar-path "/usr/local/bin/kotlin-language-server")
 
      ;; Language server protocol with minimal visual impact
      ;; https://practicalli.github.io/spacemacs/install-spacemacs/clojure-lsp/lsp-variables-reference.html
-     ;; https://develop.spacemacs.org/layers/+tools/lsp/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/lsp/README.org
      (lsp :variables
-          lsp-warn-no-matched-clients nil
+          ;; Do not install lsp-ui package
+          lsp-use-lsp-ui nil
           ;; Formatting and indentation - use Cider instead
           lsp-enable-on-type-formatting t
           ;; Set to nil to use CIDER features instead of LSP UI
-          lsp-enable-indentation t
-          lsp-enable-snippet t  ;; to test again
+          lsp-enable-indentation nil
+          lsp-enable-snippet nil  ;; to test again
 
           ;; symbol highlighting - `lsp-toggle-symbol-highlight` toggles highlighting
           ;; subtle highlighting for doom-gruvbox-light theme defined in dotspacemacs/user-config
@@ -153,11 +167,11 @@ This function should only modify configuration layer settings."
           ;; lsp-modeline-diagnostics-scope :workspace
 
           ;; popup documentation boxes
-          ;; lsp-ui-doc-enable nil          ;; disable all doc popups
-          lsp-ui-doc-show-with-cursor nil   ;; doc popup for cursor
+          lsp-ui-doc-enable nil          ;; disable all doc popups
+          ;; lsp-ui-doc-show-with-cursor nil   ;; doc popup for cursor
           ;; lsp-ui-doc-show-with-mouse t   ;; doc popup for mouse
           ;; lsp-ui-doc-delay 2                ;; delay in seconds for popup to display
-          lsp-ui-doc-include-signature t    ;; include function signature
+          ;; lsp-ui-doc-include-signature t    ;; include function signature
           ;; lsp-ui-doc-position 'at-point  ;; top bottom at-point
           lsp-ui-doc-alignment 'window      ;; frame window
 
@@ -165,7 +179,6 @@ This function should only modify configuration layer settings."
           lsp-ui-sideline-enable nil
           lsp-ui-sideline-show-code-actions nil
           ;; lsp-ui-sideline-delay 500
-
           ;; lsp-ui-sideline-show-diagnostics nil
 
           ;; reference count for functions (assume their maybe other lenses in future)
@@ -173,65 +186,81 @@ This function should only modify configuration layer settings."
 
           ;; Efficient use of space in treemacs-lsp display
           treemacs-space-between-root-nodes nil
+          lsp-treemacs-sync-mode 1
 
           ;; Optimization for large files
           lsp-file-watch-threshold 10000
           lsp-log-io nil)
 
-     ;; https://develop.spacemacs.org/layers/+lang/markdown/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/markdown/README.org
      markdown
 
-     ;; https://develop.spacemacs.org/layers/+misc/multiple-cursors/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+misc/multiple-cursors/README.org
      (multiple-cursors :variables
                        multiple-cursors-backend 'evil-mc)
 
-     ;; https://develop.spacemacs.org/layers/+emacs/org/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+emacs/org/README.org
+     ;; Do not use current org-journal from syl20bnr packages.el nor the by patching the emacs file back to bastibe version
+     ;; use forked at joetague (see additional packages)
      (org :variables
           org-enable-github-support t
           org-enable-org-journal-support t
           org-enable-valign t)
 
-     ;; https://develop.spacemacs.org/layers/+os/osx/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+os/osx/README.org
      ;; osx
 
-     ;; https://develop.spacemacs.org/layers/+readers/pdf/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/pdf/README.org
      pdf
 
      ;; Currently got plantuml in a container, needs non-alias executable - not sure bassh script will cut it
      ;; alternative is to install via homebrew and reference plantuml-jar-path
      ;; (plantuml :variables
-     ;;           plantuml-executable-path "~/proj/dotfiles/bin/plantuml"
-     ;;           plantuml-default-exec-mode 'executable)
+     ;;           plantuml-jar-path "/usr/local/Cellar/plantuml/1.2022.7/libexec/plantuml.jar"
+     ;;           org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2022.7/libexec/plantuml.jar")
 
-     ;; https://develop.spacemacs.org/layers/+lang/protobuf/README.html
-     protobuf
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/protobuf/README.org
+     ;; protobuf
 
      ;; Just use IntelliJ with plugins?
-     ;; https://develop.spacemacs.org/layers/+lang/python/README.html
-     ;; (python :variables
-     ;;         python-backend 'lsp
-     ;;         python-auto-set-local-pyenv-version 'on-project-switch)
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/python/README.org
+     (python :variables
+             python-backend 'lsp
+             python-lsp-server 'pyright
+             python-auto-set-local-pyenv-version 'on-project-switch
+             python-auto-set-local-pyvenv-virtualenv 'on-project-switch
+             python-fill-column 120
+             python-formatter 'black
+             python-format-on-save t
+             python-sort-imports-on-save t
+             python-test-runner 'pytest
+             )
 
-     ;; https://develop.spacemacs.org/layers/+tools/restclient/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/restclient/README.org
      ;; restclient
 
      ;; Just use VSCode?
-     ;; https://develop.spacemacs.org/layers/+frameworks/react/README.html
-     react
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+frameworks/react/README.org
+     ;; react
 
-     ;; https://develop.spacemacs.org/layers/+tools/shell/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/scala/README.org
+     ;; (scala :variables
+     ;;        scala-backend 'scala-metals
+     ;;        scala-auto-start-backend t)
+
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/shell/README.org
      (shell :variables
-             shell-default-shell 'multi-vterm
+             shell-default-shell 'vterm
              shell-default-height 30
              shell-default-position 'bottom
              spacemacs-vterm-history-file-location "~/.zsh_history")
 
-     ;; https://develop.spacemacs.org/layers/+lang/shell-scripts/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/shell-scripts/README.org
      shell-scripts
 
      ;; Just use Slack client? Although nice to be able to capture
      ;; from slack buffers with direct link back for notes/journal
-     ;; https://develop.spacemacs.org/layers/+chat/slack/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+chat/slack/README.org
      ;; (slack :variables
      ;;        slack-spacemacs-layout-name "@Slack"
      ;;        slack-spacemacs-layout-binding "s")
@@ -239,16 +268,16 @@ This function should only modify configuration layer settings."
      ;; spacemacs-layouts layer added to set variables
      ;; SPC TAB restricted to current layout buffers
      ;; Kill buffers when killing layer - SPC l x
-     ;; https://develop.spacemacs.org/layers/+spacemacs/spacemacs-layouts/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+spacemacs/spacemacs-layouts/README.org
      (spacemacs-layouts :variables
                         spacemacs-layouts-restrict-spc-tab t
                         persp-autokill-buffer-on-remove t)
 
-     ;; https://develop.spacemacs.org/layers/+checkers/spell-checking/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/spell-checking/README.org
      spell-checking
 
      ;; Just use the Spotify client?
-     ;; https://develop.spacemacs.org/layers/+music/spotify/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+music/spotify/README.org
      ;; (spotify :variables
      ;;          counsel-spotify-client-id "c9d5094ef2894115836951340b68dfe7"
      ;;          counsel-spotify-client-secret (auth-source-pick-first-password
@@ -256,58 +285,63 @@ This function should only modify configuration layer settings."
      ;;                                         :user "c9d5094ef2894115836951340b68dfe7"))
 
      ;; Not used this in anger yet
-     ;; https://develop.spacemacs.org/layers/+lang/sql/README.html
+     ;; Alternative might be: https://github.com/kostafey/ejc-sql
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/sql/README.org
      ;; (sql :variables
      ;;      sql-backend 'lsp
      ;;      sql-lsp-sqls-workspace-config-path 'workspace
      ;;      sql-capitalize-keywords t
      ;;      sql-auto-indent nil)
 
-     ;; Use original flycheck fringe bitmaps
-     ;; https://develop.spacemacs.org/layers/+checkers/syntax-checking/README.html
+     ;; Original flycheck fringe bitmaps is deprecated
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/syntax-checking/README.org
+     ;; syntax-checking-indication-symbol '(nil . nil)
      (syntax-checking :variables
-                      ;; unset the first value to use flycheck's default fringe
-                      syntax-checking-indication-symbol '(nil . nil))
+                      flycheck-indication-mode nil)
 
-     ;; https://develop.spacemacs.org/layers/+tools/terraform/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/terraform/README.org
      ;; https://github.com/hashicorp/terraform-ls
-     ;; brew install hashicorp/tap/terraform-ls
+     ;; Needs: brew install hashicorp/tap/terraform-ls
      ;; (terraform :variables
      ;;            terraform-auto-format-on-save t
      ;;            terraform-backend 'lsp)
 
-     ;; https://develop.spacemacs.org/layers/+filetree/treemacs/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+filetree/treemacs/README.org
      (treemacs :variables
                treemacs-indentation 1
                treemacs-use-filewatch-mode t
                treemacs-use-follow-mode t
                treemacs-use-scope-type 'Perspectives)
 
-     ;; https://develop.spacemacs.org/layers/+source-control/version-control/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+source-control/version-control/README.org
      (version-control :variables
                       version-control-diff-tool 'diff-hl
                       version-control-global-margin t)
 
-     ;; https://develop.spacemacs.org/layers/+lang/yaml/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/yaml/README.org
      yaml
      )
 
-   ;; List of additional packages that will be installed without being
-   ;; wrapped in a layer. If you need some configuration for these
-   ;; packages, then consider creating a layer. You can also put the
-   ;; configuration in `dotspacemacs/user-config'.
-   ;; To use a local version of a package, use the `:location' property:
-   ;; '(your-package :location "~/path/to/your-package/")
+
+   ;; List of additional packages that will be installed without being wrapped
+   ;; in a layer (generally the packages are installed only and should still be
+   ;; loaded using load/require/use-package in the user-config section below in
+   ;; this file). If you need some configuration for these packages, then
+   ;; consider creating a layer. You can also put the configuration in
+   ;; `dotspacemacs/user-config'. To use a local version of a package, use the
+   ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      clj-deps-new
-                                      code-review
-                                      dash
-                                      org-noter
-                                      org-pdftools
-                                      org-super-agenda
-                                      (ox-slack :location (recipe :fetcher github :repo "joetague/ox-slack"))
-                                      sound-wav
+                                      ;; ichernyshovvv/org-timeblock
+                                      ;; akhramov/org-wild-notifier.el
+                                      ;; tinloaf/org-incoming
+                                      ;; felipelalli/org-sort-tasks
+                                      ;; alphapapa/org-rifle
+                                      alphapapa/org-ql
+                                      ;; 
+                                      ;; unhammer/org-mru-clock
+                                      ;; alphapaa/org-recent-headings
+                                      ericdallo/jet.el
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -333,9 +367,13 @@ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
-   ;; If non-nil then enable support for the portable dumper. You'll need
-   ;; to compile Emacs 27 from source following the instructions in file
+   ;; If non-nil then enable support for the portable dumper. You'll need to
+   ;; compile Emacs 27 from source following the instructions in file
    ;; EXPERIMENTAL.org at to root of the git repository.
+   ;;
+   ;; WARNING: pdumper does not work with Native Compilation, so it's disabled
+   ;; regardless of the following setting when native compilation is in effect.
+   ;;
    ;; (default nil)
    dotspacemacs-enable-emacs-pdumper nil
 
@@ -349,7 +387,7 @@ It should only modify the values of Spacemacs settings."
    ;; To load it when starting Emacs add the parameter `--dump-file'
    ;; when invoking Emacs 27.1 executable on the command line, for instance:
    ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
-   ;; (default spacemacs-27.1.pdmp)
+   ;; (default (format "spacemacs-%s.pdmp" emacs-version))
    dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
 
    ;; If non-nil ELPA repositories are contacted via HTTPS whenever it's
@@ -375,11 +413,13 @@ It should only modify the values of Spacemacs settings."
    ;; Setting this >= 1 MB should increase performance for lsp servers
    ;; in emacs 27.
    ;; (default (* 1024 1024))
-   dotspacemacs-read-process-output-max (* 1024 1024)
+   dotspacemacs-read-process-output-max (* 3 (* 1024 1024))
 
    ;; If non-nil then Spacelpa repository is the primary source to install
    ;; a locked version of packages. If nil then Spacemacs will install the
-   ;; latest version of packages from MELPA. (default nil)
+   ;; latest version of packages from MELPA. Spacelpa is currently in
+   ;; experimental state please use only for testing purposes.
+   ;; (default nil)
    dotspacemacs-use-spacelpa nil
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
@@ -435,8 +475,8 @@ It should only modify the values of Spacemacs settings."
    ;; pair of numbers, e.g. `(recents-by-project . (7 .  5))', where the first
    ;; number is the project limit and the second the limit on the recent files
    ;; within a project.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists '((recents . 3)
+                                (projects . 5))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -445,7 +485,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-show-startup-list-numbers t
 
    ;; The minimum delay in seconds between number key presses. (default 0.4)
-   dotspacemacs-startup-buffer-multi-digit-delay 0.4
+   dotspacemacs-startup-buffer-multi-digit-delay 0.2
 
    ;; If non-nil, show file icons for entries and headings on Spacemacs home buffer.
    ;; This has no effect in terminal or if "all-the-icons" package or the font
@@ -567,7 +607,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.2
+   dotspacemacs-which-key-delay 0.3
 
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
@@ -593,22 +633,22 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
-   dotspacemacs-fullscreen-use-non-native t
+   dotspacemacs-fullscreen-use-non-native nil
 
    ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default t) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
 
    ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
-   ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
-   ;; borderless fullscreen. (default nil)
+   ;; variable with `dotspacemacs-maximized-at-startup' to obtain fullscreen
+   ;; without external boxes. Also disables the internal border. (default nil)
    dotspacemacs-undecorated-at-startup nil
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 100
+   dotspacemacs-active-transparency 90
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
@@ -644,8 +684,8 @@ It should only modify the values of Spacemacs settings."
    ;; If set to `t', `relative' or `visual' then line numbers are enabled in all
    ;; `prog-mode' and `text-mode' derivatives. If set to `relative', line
    ;; numbers are relative. If set to `visual', line numbers are also relative,
-   ;; but lines are only visual lines are counted. For example, folded lines
-   ;; will not be counted and wrapped lines are counted as multiple lines.
+   ;; but only visual lines are counted. For example, folded lines will not be
+   ;; counted and wrapped lines are counted as multiple lines.
    ;; This variable can also be set to a property list for finer control:
    ;; '(:relative nil
    ;;   :visual nil
@@ -658,7 +698,7 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers 'relative
+   dotspacemacs-line-numbers nil
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
@@ -685,7 +725,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server t
+   dotspacemacs-enable-server nil
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -696,7 +736,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server t
+   dotspacemacs-persistent-server nil
 
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
@@ -741,8 +781,8 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
 
-   ;; If non nil activate `clean-aindent-mode' which tries to correct
-   ;; virtual indentation of simple modes. This can interfer with mode specific
+   ;; If non-nil activate `clean-aindent-mode' which tries to correct
+   ;; virtual indentation of simple modes. This can interfere with mode specific
    ;; indent handling like has been reported for `go-mode'.
    ;; If it does deactivate it here.
    ;; (default t)
@@ -789,8 +829,8 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-   (setq ispell-program-name "/opt/homebrew/bin/aspell")
-  )
+)
+
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
@@ -806,33 +846,16 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; undo-tree                            ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq undo-tree-auto-save-history t
-        undo-tree-history-directory-alist
-        `(("." . ,(concat spacemacs-cache-directory "undo-tree-history"))))
-  (unless (file-exists-p (concat spacemacs-cache-directory "undo-tree-history"))
-    (make-directory (concat spacemacs-cache-directory "undo-tree-history")))
-
+  ;; Disable undo-tree as it slows everything down
+  (global-undo-tree-mode -1)
+  (setq evil-undo-system 'undo-redo)
+  (evil-set-undo-system 'undo-redo)
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Emacs text rendering optimisations   ;;
   ;; https://200ok.ch/posts/2020-09-29_comprehensive_guide_on_handling_long_lines_in_emacs.html
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Only render text left to right
   (setq-default bidi-paragraph-direction 'left-to-right)
-
-  ;; Disable Bidirectional Parentheses Algorithm
-  (if (version<= "27.1" emacs-version)
-      (setq bidi-inhibit-bpa t))
-
-  ;; Files with known long lines
-  ;; SPC f l to open files literally to disable most text processing
-
-  ;; So long mode when Emacs thinks a file would affect performance
-  (if (version<= "27.1" emacs-version)
-      (global-so-long-mode 1))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Fixes GPG setup                      ;;
@@ -858,268 +881,62 @@ before packages are loaded."
         '(("joetague")))
   (setq magit-repository-directories
         '(("~/.emacs.d"  . 0)
-          ("~/proj/" . 2)))
+          ("~/proj/" . 4)))
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Slack                              ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; (slack-register-team
-  ;;  :name "dts"
-  ;;  :token (auth-source-pick-first-password
-  ;;          :host "devtechscot.slack.com"
-  ;;          :user "joetague@gmail.com")
-  ;;  :subscribed-channels '((general random))
-  ;;  :default nil
-  ;;  :modeline-enabled t)
-  ;; (slack-register-team
-  ;;  :name "j2k"
-  ;;  :token (auth-source-pick-first-password
-  ;;          :host "judy2k.slack.com"
-  ;;          :user "joetague@gmail.com")
-  ;;  :subscribed-channels '((general))
-  ;;  :default t
-  ;;  :modeline-enabled t)
-  ;; (slack-register-team
-  ;;  :name "clj"
-  ;;  :token (auth-source-pick-first-password
-  ;;           :host "clojurians.slack.com"
-  ;;           :user "joetague@gmail.com")
-  ;;  :subscribed-channels '((clojure-uk))
-  ;;  :default nil
-  ;;  :visible-threads t)
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Clojure - format settings          ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
-  ;; (setq clojure-indent-style 'align-arguments)
-  ;; (setq clojure-align-forms-automatically t)
-  (require 'clj-deps-new)
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; For react dev when CIDER offers to ;;
-  ;; visit the url for the started cljs ;;
-  ;; project, open using Google Chrome  ;;
-  ;; and auto open the DevTools         ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (defun browse-url-react-dev-chrome-devtools (url &optional new-window)
-    "Assume Google Chrome is installed on MacOS, use open command to start Chrome with DevTools open at the passed url"
-    (start-process-shell-command "chrome-with-devtools" nil (concat "open -a \"Google Chrome\" --args --new-window --auto-open-devtools-for-tabs " url)))
-
-  (defadvice cider--offer-to-open-app-in-browser (around cider--offer-to-open-app-in-browser activate)
-    "Wrap around the CIDER function, update the browse-url to use my function that start Google Chrome instead of Safari"
-    (let ((browse-url-browser-function
-           'browse-url-react-dev-chrome-devtools))
-      ad-do-it))
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; React/Javascript/Typescript                    ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq-default
-   ;; js2-mode
-   js2-basic-offset 2
-   js-indent-level 2
-   ;; web-mode
-   css-indent-offset 2
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2)
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Code Review                                    ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (add-hook 'code-review-mode-hook #'emojify-mode)
-  ;; (spacemacs/set-leader-keys "or" 'code-review-forge-pr-at-point)
-
-  ;; ;; update the diary every time the org agenda is refreshed
-  ;; (add-hook 'org-agenda-cleanup-fancy-diary-hook 'ab/agenda-update-diary )
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Setup org                                      ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (with-eval-after-load 'org
-
     (add-to-list 'org-modules 'org-protocol)
+    (add-to-list 'org-modules 'org-tempo)
     (setq org-confirm-babel-evaluate '(not (y-or-n-p "evaluate block? ")))
 
-  (setq org-confirm-babel-evaluate '(not (y-or-n-p "evaluate block? ")))
+    (setq org-agenda-files '("~/org/learning.org"))
+    (setq org-projectile-file "~/org/projectile/projects.org")
+    (setq org-agenda-files (append org-agenda-files '("~/org/projectile/projects.org")))
 
-  (setq org-agenda-files '("~/org/work.org"))
-  (setq org-projectile-file "~/org/projectile/projects.org")
-  (setq org-agenda-files (append org-agenda-files '("~/org/projectile/projects.org")))
+    (setq org-journal-dir "~/org/journal/")
+    (setq org-journal-file-format "%Y%m%d")
+    (setq org-journal-encrypt-journal t)
 
-  (setq org-journal-dir "~/org/journal/")
-  (setq org-journal-file-format "%Y%m%d")
-  (setq org-journal-encrypt-journal t)
+    (setq org-noter-default-notes-file-names '("~/org/learning.org")
+          org-noter-notes-search-path '("~/org"))
 
-  (setq org-noter-default-notes-file-names '("~/org/learning.org")
-        org-noter-notes-search-path '("~/org"))
+    (setq org-persp-startup-with-agenda "z")
 
-  (setq org-persp-startup-with-agenda "z")
-
-  (setq org-deadline-warning-days 5)
-  (setq org-clock-into-drawer t)
-  (setq org-clock-persist t)
-  (setq spaceline-org-clock-p t)
-  (setq org-columns-default-format "%60ITEM(Task) %20TODO %10Effort(Effort){:} %10CLOCKSUM")
-  (setq org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
-                                      ("STYLE_ALL" . "habit"))))
-  (setq org-duration-format '((special . h:mm)))
-  (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
-  (setq org-icalendar-timezone "Europe/London")
-
-  ;; Keep the indentation well structured by. OMG this is a must have. Makes
-  ;; it feel less like editing a big text file and more like a purpose built
-  ;; editor for org mode that forces the indentation.
-  (setq org-startup-indented t)
-
-  ;;TODO Keywords
-  (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "IN_PROGRESS(i)" "|" "DONE(d)")
-                (sequence "WAITING(w@/)" "HOLD(h@/)" "|" "CANCELLED(c@/)"))))
-
-  ;;Avoid setting entries as DONE when there are still sub-entries that are not DONE.
-  (setq org-enforce-todo-dependencies t)
-
-  ;;Creating a template for meeting notes
-  (defvar my/org-meeting-template "** Meeting about %^{something}
-SCHEDULED: %<%Y-%m-%d %H:%M>
-*Attendees:*
-- [X] Joe Tague
-- [ ] %?
-*Agenda:*
--
--
-*Notes:*
-" "Meeting Template")
-
-  ;; Configure custom capture templates
-  ;; Note the backtick here, it's required so that the defvar based tempaltes will work!
-  ;;http://comments.gmane.org/gmane.emacs.orgmode/106890
-  (setq org-capture-templates
-        `(
-          ("t" "To-do" entry (file+headline "~/org/work.org" "Inbox")
-           "** TODO %^{Task Description}\nCreated From: %a\n" :clock-in t :clock-resume t :prepend t)
-
-          ("m" "Meeting" entry (file+headline "~/org/work.org" "Meetings"), my/org-meeting-template)
-          ))
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Setup Agenda                                                           ;;
-  ;; Setup org-super-agenda                                                 ;;
-  ;; https://github.com/alphapapa/org-super-agenda/blob/master/examples.org ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-skip-deadline-if-done t)
-  (setq org-agenda-custom-commands
-        '(("z" "Super zaen view"
-           ((agenda "" ((org-agenda-span 'day)
-                        (org-super-agenda-groups
-                         '((:name "Schedule"
-                                  :time-grid t)
-                           (:name "Today"
-                                  :scheduled today
-                                  :deadline today)
-                           (:name "Overdue"
-                                  :deadline past
-                                  :scheduled past)))))
-            (alltodo "" ((org-agenda-overriding-header "")
-                         (org-super-agenda-groups
-                          '((:name "Inbox"
-                                   :category "inbox"
-                                   :order 3)
-                            (:name "In Progress"
-                                   :todo "IN_PROGRESS"
-                                   :order 1)
-                            (:name "Due Today"
-                                   :deadline today
-                                   :order 2)
-                            (:discard (:category "recurring"))
-                            (:name "Important"
-                                   :tag "Important"
-                                   :priority "A"
-                                   :order 6)
-                            (:name "Due Soon"
-                                   :deadline future
-                                   :order 8)
-                            (:name "trivial"
-                                   :priority<= "C"
-                                   :tag ("Trivial" "Unimportant")
-                                   :todo ("SOMEDAY")
-                                   :order 90)))))))))
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; active Babel languages   ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((clojure . t)
-     (emacs-lisp . t)
-     (dot . t)
-     (js . t)
-     (shell . t)
-     (sqlite . t)
-   ))
-  )
+    (setq org-deadline-warning-days 5)
+    (setq org-clock-into-drawer t)
+    (setq org-clock-persist t)
+    (setq spaceline-org-clock-p t)
+    (setq org-columns-default-format "%60ITEM(Task) %20TODO %10Effort(Effort){:} %10CLOCKSUM")
+    (setq org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
+                                        ("STYLE_ALL" . "habit"))))
+    (setq org-duration-format '((special . h:mm)))
+    (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
+    (setq org-icalendar-timezone "Europe/London")
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;; active Babel languages   ;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((clojure . t)
+       (emacs-lisp . t)
+       (dot . t)
+       (js . t)
+       (shell . t)
+       (sqlite . t)
+      ))
+  ) ;; end with-eval-after-load
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Projectile settings             ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
-  ;; of helm-projectile
-  (setq shell-file-name "/bin/sh")
+  ;; of helm-projectile by using a shell that doesn't have a lot of profile information
+  ;; (setq shell-file-name "/bin/sh")
+  (setq projectile-enable-caching t)
+)
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; AWS CloudFormation/YAML setup                               ;;
-  ;; Adds config for Cloudformation YAML Linting using Flycheck  ;;
-  ;; Sourced from: https://gist.github.com/bleggett/89d288e370284ec083d7eb324253a4ef#file-spacemacs-el-L494
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (define-derived-mode cfn-yaml-mode yaml-mode
-    "CFN-YAML"
-    "Simple mode to edit CloudFormation template in YAML format.")
-
-  (add-to-list 'magic-mode-alist
-               '("\\(---\n\\)?AWSTemplateFormatVersion:" . cfn-yaml-mode))
-
-  (add-to-list 'flycheck-global-modes 'cfn-yaml-mode)
-  (with-eval-after-load 'flycheck
-    ;; Set up cfn-lint integration if flycheck is installed
-    ;; Get flycheck here https://www.flycheck.org/
-    (flycheck-define-checker cfn-lint
-      "AWS CloudFormation linter using cfn-lint. Install cfn-lint first: pip install cfn-lint or brew install cfn-lint. See `https://github.com/aws-cloudformation/cfn-python-lint'."
-      :command ("cfn-lint" "-f" "parseable" source)
-      :error-patterns ((warning line-start (file-name) ":" line ":" column
-                                ":" (one-or-more digit) ":" (one-or-more digit) ":"
-                                (id "W" (one-or-more digit)) ":" (message) line-end)
-                       (error line-start (file-name) ":" line ":" column
-                              ":" (one-or-more digit) ":" (one-or-more digit) ":"
-                              (id "E" (one-or-more digit)) ":" (message) line-end))
-      :modes (cfn-yaml-mode))
-
-    (add-to-list 'flycheck-checkers 'cfn-lint)
-    (add-hook 'cfn-yaml-mode-hook 'flycheck-mode))
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; AWS CloudFormation/YAML lookup documentation                ;;
-  ;; Sourced from: https://github.com/fiddlerwoaroof/dotfiles/blob/master/emacs.d/lisp/utils.el#L8 ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (require 'cl)
-  (defun jpt/doc-for-resource-type (resource-type)
-    (cl-format nil
-               "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/~{~a~^-~}"
-               (list* "aws" "resource"
-                      (cdr (s-split "::" (s-downcase resource-type))))))
-  (defun jpt/document-cf (min max)
-    "Jump to AWS Cloudformation docs for a resource type.
-MIN: the point in the buffer where the resource type starts
-MAX: the point in the buffer where the resource type ends
-This uses (interactive \"r\") to automagically populate the arguments
-from the selected region."
-    (interactive "r")
-    (browse-url
-     (jpt/doc-for-resource-type
-      (buffer-substring min max))))
-  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -1133,25 +950,14 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(epg-gpg-program "/opt/homebrew/bin/gpg")
- '(evil-want-Y-yank-to-eol nil)
- '(org-agenda-files nil)
+ '(org-agenda-files '("/Users/joetague/org/learning.org"))
  '(package-selected-packages
-   '(company-terraform terraform-mode hcl-mode valign npm-mode skewer-mode js2-mode copy-as-format slack circe oauth2 websocket mvn meghanada maven-test-mode lsp-java groovy-mode groovy-imports dap-mode bui dockerfile-mode docker docker-tramp rjsx-mode helm-dash dash-docs dash-at-point yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vi-tilde-fringe verb uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode protobuf-mode prettier-js plantuml-mode pcre2el password-generator paradox ox-gfm overseer osx-trash osx-dictionary osx-clipboard orgit org-superstar org-super-agenda org-rich-yank org-projectile org-present org-pomodoro org-pdftools org-mime org-journal org-download org-cliplink org-brain open-junk-file nodejs-repl nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-section magit-gitflow macrostep lorem-ipsum livid-mode link-hint launchctl json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag grip-mode graphviz-dot-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md fuzzy forge font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus emmet-mode elisp-slime-nav elfeed-org elfeed-goodies editorconfig dumb-jump dotenv-mode dired-quick-sort diminish diff-hl devdocs csv-mode company-web company-statistics company-shell company-quickhelp company-emoji column-enforce-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
- '(safe-local-variable-values
-   '((cider-shadow-default-options . ":app")
-     (cider-default-cljs-repl . shadow)
-     (typescript-backend . tide)
-     (typescript-backend . lsp)
-     (javascript-backend . tide)
-     (javascript-backend . tern)
-     (javascript-backend . lsp)))
- '(warning-suppress-log-types '((comp) (comp) (comp)))
- '(warning-suppress-types '((comp) (comp))))
+   '(lsp-mode helm-swoop yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vim-powerline vi-tilde-fringe valign uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org terminal-here term-cursor symon symbol-overlay string-inflection string-edit-at-point sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc smeargle shfmt shell-pop restart-emacs request rainbow-delimiters quickrun pytest pylookup pyenv-mode pydoc py-isort prettier-js poetry pippel pipenv pip-requirements pdf-view-restore pcre2el password-generator paradox ox-gfm overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-journal org-download org-contrib org-cliplink open-junk-file nose nameless multi-vterm multi-term multi-line markdown-toc macrostep lsp-python-ms lsp-pyright lsp-origami lorem-ipsum live-py-mode json-reformat json-navigator json-mode inspector insert-shebang info+ indent-guide importmagic hybrid-mode hungry-delete htmlize holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-git-grep helm-descbinds helm-dash helm-company helm-comint helm-cider helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link gh-md flyspell-correct-helm flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus elisp-slime-nav elisp-def elfeed-org elfeed-goodies editorconfig dumb-jump drag-stuff dotenv-mode dockerfile-mode docker dired-quick-sort diminish diff-hl devdocs define-word dash-at-point dap-mode cython-mode csv-mode copy-as-format company-statistics company-shell company-quickhelp company-emoji company-anaconda column-enforce-mode code-cells clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote blacken auto-highlight-symbol auto-dictionary auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line))
+ '(safe-local-variable-values '((python-shell-interpreter . "ipython"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
+ )
 )
