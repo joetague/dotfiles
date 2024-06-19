@@ -332,16 +332,15 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      ;; ichernyshovvv/org-timeblock
-                                      ;; akhramov/org-wild-notifier.el
-                                      ;; tinloaf/org-incoming
-                                      ;; felipelalli/org-sort-tasks
-                                      ;; alphapapa/org-rifle
-                                      alphapapa/org-ql
-                                      ;; 
-                                      ;; unhammer/org-mru-clock
-                                      ;; alphapaa/org-recent-headings
-                                      ericdallo/jet.el
+                                      ;; org-timeblock
+                                      ;; org-wild-notifier.el
+                                      ;; org-incoming
+                                      ;; org-sort-tasks
+                                      ;; org-rifle
+                                      org-ql
+                                      ;; org-mru-clock
+                                      ;; org-recent-headings
+                                      jet
                                       )
 
    ;; A list of packages that cannot be updated.
