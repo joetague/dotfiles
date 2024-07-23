@@ -205,7 +205,8 @@ This function should only modify configuration layer settings."
      (org :variables
           org-enable-github-support t
           org-enable-org-journal-support t
-          org-enable-valign t)
+          org-enable-valign t
+          org-enable-verb-support t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+os/osx/README.org
      osx
