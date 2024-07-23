@@ -243,6 +243,11 @@ This function should only modify configuration layer settings."
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+frameworks/react/README.org
      ;; react
 
+     ;; https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/rust/README.org
+     (rust :variables
+           lsp-rust-analyzer-cargo-auto-reload t
+           rustic-format-on-save t)
+
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/scala/README.org
      ;; (scala :variables
      ;;        scala-backend 'scala-metals
