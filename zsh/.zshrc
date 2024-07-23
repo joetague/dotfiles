@@ -85,6 +85,7 @@ vterm_cmd() {
 
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(fzf --zsh)"
+eval "$(direnv hook zsh)"
 
 ## History file configuration
 [ -z "$HISTFILE" ] && HISTFILE="$HOME/.history"
