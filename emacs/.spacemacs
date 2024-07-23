@@ -52,12 +52,12 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/clojure/README.org
      (clojure :variables
-             clojure-backend 'cider
-             clojure-enable-linters 'clj-kondo
-             clojure-toplevel-inside-comment-form t
-             cider-overlays-use-font-lock t
-             clojure-enable-clj-refactor t
-             cider-repl-buffer-size-limit 100)
+              clojure-backend 'cider
+              clojure-enable-linters 'clj-kondo
+              clojure-toplevel-inside-comment-form t
+              cider-overlays-use-font-lock t
+              clojure-enable-clj-refactor t
+              cider-repl-buffer-size-limit 100)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bcompletion/compleseus
      ;; (compleseus :variables
@@ -139,7 +139,7 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/json/README.org
      (json :variables
-          json-fmt-on-save nil)
+           json-fmt-on-save nil)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/kotlin/README.org
      ;; (kotlin :variables
@@ -256,10 +256,10 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/shell/README.org
      (shell :variables
-             shell-default-shell 'vterm
-             shell-default-height 30
-             shell-default-position 'bottom
-             spacemacs-vterm-history-file-location "~/.zsh_history")
+            shell-default-shell 'vterm
+            shell-default-height 30
+            shell-default-position 'bottom
+            spacemacs-vterm-history-file-location "~/.zsh_history")
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/shell-scripts/README.org
      shell-scripts
@@ -826,7 +826,7 @@ default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
   (spacemacs/load-spacemacs-env)
-)
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -834,7 +834,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-)
+  )
 
 
 (defun dotspacemacs/user-load ()
@@ -842,7 +842,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-)
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -930,8 +930,8 @@ before packages are loaded."
        (js . t)
        (shell . t)
        (sqlite . t)
-      ))
-  ) ;; end with-eval-after-load
+       ))
+    ) ;; end with-eval-after-load
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Projectile settings             ;;
@@ -940,7 +940,7 @@ before packages are loaded."
   ;; of helm-projectile by using a shell that doesn't have a lot of profile information
   ;; (setq shell-file-name "/bin/sh")
   (setq projectile-enable-caching t)
-)
+  )
 
 
 ;; Do not write anything past this comment. This is where Emacs will
