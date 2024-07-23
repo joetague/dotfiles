@@ -20,6 +20,10 @@ export PATH="$HOME/.jenv/bin:$PATH"
 export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
 export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 
+export XDG_CONFIG_HOME="$HOME"/.config
+export XDG_DATA_HOME="$HOME"/.local/share
+export XDG_CACHE_HOME="$HOME"/.cache
+
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
 export LDFLAGS="-L/opt/homebrew/opt/zlib/lib $LDFLAGS"
@@ -31,6 +35,10 @@ export CPPFLAGS="-I/opt/homebrew/opt/zlib/include $CPPFLAGS"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/curl/lib/pkgconfig"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+# Rust lang setup
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 
 eval "$(starship init zsh)"
 
