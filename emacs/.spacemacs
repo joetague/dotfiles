@@ -889,6 +889,34 @@ before packages are loaded."
           ("~/proj/" . 4)))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Setup tree-sitter grammars                     ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setq treesit-language-source-alist
+        '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+          (css "https://github.com/tree-sitter/tree-sitter-css")
+          (go "https://github.com/tree-sitter/tree-sitter-go")
+          (html "https://github.com/tree-sitter/tree-sitter-html")
+          (java "https://github.com/tree-sitter/tree-sitter-java")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
+          (jsdoc "https://github.com/tree-sitter/tree-sitter-jsdoc")
+          (json "https://github.com/tree-sitter/tree-sitter-json")
+          (python "https://github.com/tree-sitter/tree-sitter-python")
+          (regex "https://github.com/tree-sitter/tree-sitter-regex")
+          (rust "https://github.com/tree-sitter/tree-sitter-rust")
+          (toml "https://github.com/tree-sitter/tree-sitter-toml")
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript")
+          (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+          (clojure "https://github.com/sogaiu/tree-sitter-clojure")
+          (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile")
+          (kotlin "https://github.com/fwcd/tree-sitter-kotlin")
+          (org "https://github.com/milisims/tree-sitter-org")
+          (proto "https://github.com/mitchellh/tree-sitter-proto")
+          ))
+
+
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Setup org                                      ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (with-eval-after-load 'org
