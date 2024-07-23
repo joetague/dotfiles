@@ -52,16 +52,16 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/clojure/README.org
      (clojure :variables
-             clojure-backend 'cider
-             clojure-enable-linters 'clj-kondo
-             clojure-toplevel-inside-comment-form t
-             cider-overlays-use-font-lock t
-             clojure-enable-clj-refactor t
-             cider-repl-buffer-size-limit 100)
+              clojure-backend 'cider
+              clojure-enable-linters 'clj-kondo
+              clojure-toplevel-inside-comment-form t
+              cider-overlays-use-font-lock t
+              clojure-enable-clj-refactor t
+              cider-repl-buffer-size-limit 100)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bcompletion/compleseus
-     (compleseus :variables
-                 compleseus-engine 'vertico)
+     ;; (compleseus :variables
+     ;;             compleseus-engine 'vertico)
 
      ;; copy-as-format for pasting code blocks into various things like GitHub/Slack/JIRA as formatted code
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+misc/copy-as-format/README.org
@@ -118,12 +118,12 @@ This function should only modify configuration layer settings."
      ;; graphviz
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+completion/helm/README.org
-     ;; (helm :variables
-     ;;       helm-buffer-max-length 60
-     ;;       helm-enable-auto-resize t)
+     (helm :variables
+           helm-buffer-max-length 60
+           helm-enable-auto-resize t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/html/README.org
-     ;; html
+     html
 
      ;; Just use IntelliJ?
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/java/README.org
@@ -139,7 +139,7 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/json/README.org
      (json :variables
-          json-fmt-on-save nil)
+           json-fmt-on-save nil)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/kotlin/README.org
      ;; (kotlin :variables
@@ -205,10 +205,11 @@ This function should only modify configuration layer settings."
      (org :variables
           org-enable-github-support t
           org-enable-org-journal-support t
-          org-enable-valign t)
+          org-enable-valign t
+          org-enable-verb-support t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+os/osx/README.org
-     ;; osx
+     osx
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/pdf/README.org
      pdf
@@ -243,6 +244,11 @@ This function should only modify configuration layer settings."
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+frameworks/react/README.org
      ;; react
 
+     ;; https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/rust/README.org
+     (rust :variables
+           lsp-rust-analyzer-cargo-auto-reload t
+           rustic-format-on-save t)
+
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/scala/README.org
      ;; (scala :variables
      ;;        scala-backend 'scala-metals
@@ -250,10 +256,10 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/shell/README.org
      (shell :variables
-             shell-default-shell 'vterm
-             shell-default-height 30
-             shell-default-position 'bottom
-             spacemacs-vterm-history-file-location "~/.zsh_history")
+            shell-default-shell 'vterm
+            shell-default-height 30
+            shell-default-position 'bottom
+            spacemacs-vterm-history-file-location "~/.zsh_history")
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/shell-scripts/README.org
      shell-scripts
@@ -302,9 +308,9 @@ This function should only modify configuration layer settings."
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/terraform/README.org
      ;; https://github.com/hashicorp/terraform-ls
      ;; Needs: brew install hashicorp/tap/terraform-ls
-     ;; (terraform :variables
-     ;;            terraform-auto-format-on-save t
-     ;;            terraform-backend 'lsp)
+     (terraform :variables
+                terraform-auto-format-on-save t
+                terraform-backend 'lsp)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+filetree/treemacs/README.org
      (treemacs :variables
@@ -332,16 +338,15 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      ;; ichernyshovvv/org-timeblock
-                                      ;; akhramov/org-wild-notifier.el
-                                      ;; tinloaf/org-incoming
-                                      ;; felipelalli/org-sort-tasks
-                                      ;; alphapapa/org-rifle
-                                      alphapapa/org-ql
-                                      ;; 
-                                      ;; unhammer/org-mru-clock
-                                      ;; alphapaa/org-recent-headings
-                                      ericdallo/jet.el
+                                      ;; org-timeblock
+                                      ;; org-wild-notifier.el
+                                      ;; org-incoming
+                                      ;; org-sort-tasks
+                                      ;; org-rifle
+                                      org-ql
+                                      ;; org-mru-clock
+                                      ;; org-recent-headings
+                                      jet
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -821,7 +826,7 @@ default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
   (spacemacs/load-spacemacs-env)
-)
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -829,7 +834,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-)
+  )
 
 
 (defun dotspacemacs/user-load ()
@@ -837,7 +842,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-)
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -884,6 +889,34 @@ before packages are loaded."
           ("~/proj/" . 4)))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Setup tree-sitter grammars                     ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setq treesit-language-source-alist
+        '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+          (css "https://github.com/tree-sitter/tree-sitter-css")
+          (go "https://github.com/tree-sitter/tree-sitter-go")
+          (html "https://github.com/tree-sitter/tree-sitter-html")
+          (java "https://github.com/tree-sitter/tree-sitter-java")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
+          (jsdoc "https://github.com/tree-sitter/tree-sitter-jsdoc")
+          (json "https://github.com/tree-sitter/tree-sitter-json")
+          (python "https://github.com/tree-sitter/tree-sitter-python")
+          (regex "https://github.com/tree-sitter/tree-sitter-regex")
+          (rust "https://github.com/tree-sitter/tree-sitter-rust")
+          (toml "https://github.com/tree-sitter/tree-sitter-toml")
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript")
+          (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+          (clojure "https://github.com/sogaiu/tree-sitter-clojure")
+          (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile")
+          (kotlin "https://github.com/fwcd/tree-sitter-kotlin")
+          (org "https://github.com/milisims/tree-sitter-org")
+          (proto "https://github.com/mitchellh/tree-sitter-proto")
+          ))
+
+
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Setup org                                      ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (with-eval-after-load 'org
@@ -925,8 +958,8 @@ before packages are loaded."
        (js . t)
        (shell . t)
        (sqlite . t)
-      ))
-  ) ;; end with-eval-after-load
+       ))
+    ) ;; end with-eval-after-load
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Projectile settings             ;;
@@ -935,7 +968,7 @@ before packages are loaded."
   ;; of helm-projectile by using a shell that doesn't have a lot of profile information
   ;; (setq shell-file-name "/bin/sh")
   (setq projectile-enable-caching t)
-)
+  )
 
 
 ;; Do not write anything past this comment. This is where Emacs will
