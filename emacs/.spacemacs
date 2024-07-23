@@ -307,9 +307,9 @@ This function should only modify configuration layer settings."
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/terraform/README.org
      ;; https://github.com/hashicorp/terraform-ls
      ;; Needs: brew install hashicorp/tap/terraform-ls
-     ;; (terraform :variables
-     ;;            terraform-auto-format-on-save t
-     ;;            terraform-backend 'lsp)
+     (terraform :variables
+                terraform-auto-format-on-save t
+                terraform-backend 'lsp)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+filetree/treemacs/README.org
      (treemacs :variables
