@@ -40,6 +40,9 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 
+export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
+export EDITOR="${EDITOR} --socket-name ${EMACS_SOCKET_NAME}"
+
 eval "$(starship init zsh)"
 
 [ -s "/opt/homebrew/opt/jabba/share/jabba/jabba.sh" ] && . "/opt/homebrew/opt/jabba/share/jabba/jabba.sh"
