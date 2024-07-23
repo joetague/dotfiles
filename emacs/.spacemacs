@@ -123,7 +123,7 @@ This function should only modify configuration layer settings."
            helm-enable-auto-resize t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/html/README.org
-     ;; html
+     html
 
      ;; Just use IntelliJ?
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/java/README.org
@@ -208,7 +208,7 @@ This function should only modify configuration layer settings."
           org-enable-valign t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+os/osx/README.org
-     ;; osx
+     osx
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/pdf/README.org
      pdf
