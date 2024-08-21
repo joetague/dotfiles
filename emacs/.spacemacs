@@ -187,6 +187,7 @@ This function should only modify configuration layer settings."
           ;; Efficient use of space in treemacs-lsp display
           treemacs-space-between-root-nodes nil
           lsp-treemacs-sync-mode 1
+          lsp-treemacs-error-list-current-project-only t  ; limit errors to current project
 
           ;; Optimization for large files
           lsp-file-watch-threshold 10000
@@ -338,14 +339,12 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
+                                      eglot
                                       ;; org-timeblock
-                                      ;; org-wild-notifier.el
-                                      ;; org-incoming
-                                      ;; org-sort-tasks
-                                      ;; org-rifle
+                                      ;; org-incoming ;; ingest PDF files into your org or org-roam files.
+                                      ;; org-sort-tasks ;; sort an unsorted TODO list using mergesort
                                       org-ql
                                       ;; org-mru-clock
-                                      ;; org-recent-headings
                                       jet
                                       )
 
