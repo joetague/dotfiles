@@ -53,6 +53,12 @@
 	# Don't keep the merge tool temporary input/output files.
 	keepTemporaries = false
 
+[init]
+	defaultBranch = main
+
+[hub]
+	protocol = ssh
+
 [diff-so-fancy]
 	stripLeadingSymbols = false
 	markEmptyLines = false
@@ -135,10 +141,19 @@
 	churn = !git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort -n
 
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
-	lo = log --pretty=oneline -n 20 --graph --abbrev-commit
+	# lo = log --pretty=oneline -n 20 --graph --abbrev-commit
+	# lg = log --color --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an (%G?)>%Creset' --abbrev-commit
 
-	lg = log --color --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an (%G?)>%Creset' --abbrev-commit
-[init]
-	defaultBranch = main
-[hub]
-	protocol = ssh
+	lg = log --stat
+	lgp = log --stat --patch
+	lgg = log --graph
+	lgga = log --graph --decorate --all
+	lgm = log --graph --max-count=10
+	lo = log --oneline --decorate
+	lol = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'
+	lols = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat
+	lod = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'
+	lods = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset' --date=short
+	lola = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all
+	log = log --oneline --decorate --graph
+	loga = log --oneline --decorate --graph --all
