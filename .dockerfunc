@@ -30,15 +30,15 @@ del_stopped(){
 #
 # Container Aliases
 #
-notebook(){
+notebooks(){
     del_stopped notebook
 
     docker run --rm \
-           -v "${HOME}/proj/notebooks" \
+           -v "${HOME}/proj/notebooks:/home/jovyan/work" \
            -p 8888:8888 \
            -p 4040-4050:4040-4050 \
-           --name notebook \
-           jupyter/pyspark-notebook "$@"
+           --name notebooks \
+           quay.io/jupyter/all-spark-notebook:2024-08-19 "$@"
 }
 plantuml(){
 	  del_stopped plantuml

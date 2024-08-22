@@ -20,9 +20,12 @@ export PATH="$HOME/.jenv/bin:$PATH"
 export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
 export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 
-export XDG_CONFIG_HOME="$HOME"/.config
-export XDG_DATA_HOME="$HOME"/.local/share
-export XDG_CACHE_HOME="$HOME"/.cache
+# Hoping some CLI apps respect these between Darwin (MacOS) and Linux
+# https://specifications.freedesktop.org/basedir-spec/latest/
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
