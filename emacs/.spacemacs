@@ -969,8 +969,10 @@ before packages are loaded."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
   ;; of helm-projectile by using a shell that doesn't have a lot of profile information
+  ;; Previously tried
   ;; (setq shell-file-name "/bin/sh")
   (setq projectile-enable-caching t)
+  (setq projectile-indexing-method 'native)
   )
 
 
