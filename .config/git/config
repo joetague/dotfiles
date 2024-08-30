@@ -157,3 +157,8 @@
 	lola = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all
 	log = log --oneline --decorate --graph
 	loga = log --oneline --decorate --graph --all
+
+  # wip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign --message "--wip-- [skip ci]"'
+  # unwip='git rev-list --max-count=1 --format="%s" HEAD | grep -q "\--wip--" && git reset HEAD~1'
+  # brl="git for-each-ref --color=always --sort=-committerdate --format='%(color:yellow)%(refname:short)%09%(color:green)%(authorname)%09%(color:blue)%(committerdate:relative)%09%(color:red)%(objectname:short)%09%(color:magenta)%(upstream:track)%09%(color:white)%(contents:subject)%(color:reset)' refs/heads refs/remotes|column -t -s $'\t'"
+  # count='git shortlog --summary --numbered'

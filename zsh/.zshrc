@@ -136,10 +136,3 @@ alias mv="mv -iv"
 alias rm="rm -iv"
 alias rsync="rsync --partial --progress --human-readable --compress"
 alias sha256="shasum -a 256"
-
-alias g="git"
-alias gss="git status --short"
-alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign --message "--wip-- [skip ci]"'
-alias gunwip='git rev-list --max-count=1 --format="%s" HEAD | grep -q "\--wip--" && git reset HEAD~1'
-alias gbrl="git for-each-ref --color=always --sort=-committerdate --format='%(color:yellow)%(refname:short)%09%(color:green)%(authorname)%09%(color:blue)%(committerdate:relative)%09%(color:red)%(objectname:short)%09%(color:magenta)%(upstream:track)%09%(color:white)%(contents:subject)%(color:reset)' refs/heads refs/remotes|column -t -s $'\t'"
-alias gcount='git shortlog --summary --numbered'
