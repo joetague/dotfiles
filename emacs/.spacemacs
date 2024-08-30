@@ -915,7 +915,6 @@ before packages are loaded."
           (proto "https://github.com/mitchellh/tree-sitter-proto")
           ))
 
-
   ;; TODO Checkout other interesting setup here: https://github.com/dakra/dmacs/blob/master/init.org
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
