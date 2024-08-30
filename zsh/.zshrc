@@ -20,9 +20,13 @@ export PATH="$HOME/.jenv/bin:$PATH"
 export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
 export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 
-export XDG_CONFIG_HOME="$HOME"/.config
-export XDG_DATA_HOME="$HOME"/.local/share
-export XDG_CACHE_HOME="$HOME"/.cache
+# Hoping some CLI apps respect these between Darwin (MacOS) and Linux
+# https://specifications.freedesktop.org/basedir-spec/latest/
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
 
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
@@ -133,22 +137,3 @@ alias mv="mv -iv"
 alias rm="rm -iv"
 alias rsync="rsync --partial --progress --human-readable --compress"
 alias sha256="shasum -a 256"
-
-alias gss="git status --short"
-alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign --message "--wip-- [skip ci]"'
-alias gunwip='git rev-list --max-count=1 --format="%s" HEAD | grep -q "\--wip--" && git reset HEAD~1'
-alias gbrl="git for-each-ref --color=always --sort=-committerdate --format='%(color:yellow)%(refname:short)%09%(color:green)%(authorname)%09%(color:blue)%(committerdate:relative)%09%(color:red)%(objectname:short)%09%(color:magenta)%(upstream:track)%09%(color:white)%(contents:subject)%(color:reset)' refs/heads refs/remotes|column -t -s $'\t'"
-alias gcount='git shortlog --summary --numbered'
-alias glg='git log --stat'
-alias glgp='git log --stat --patch'
-alias glgg='git log --graph'
-alias glgga='git log --graph --decorate --all'
-alias glgm='git log --graph --max-count=10'
-alias glo='git log --oneline --decorate'
-alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'"
-alias glols="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat"
-alias glod="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'"
-alias glods="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset' --date=short"
-alias glola="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all"
-alias glog='git log --oneline --decorate --graph'
-alias gloga='git log --oneline --decorate --graph --all'

@@ -40,9 +40,9 @@
 
 [core]
 	# Exclude everything this file. Used for general exclusions.
-	excludesfile = ~/.gitignore
+	excludesfile = $XDG_CONFIG_HOME/git/ignore
 	# Set attributes on files. Used for general diff improvements.
-	attributesfile = ~/.gitattributes
+	attributesfile = $XDG_CONFIG_HOME/git/attributes
 	editor = emacsclient --no-wait --create-frame
 
 [mergetool]
@@ -52,6 +52,12 @@
 	keepBackup = false
 	# Don't keep the merge tool temporary input/output files.
 	keepTemporaries = false
+
+[init]
+	defaultBranch = main
+
+[hub]
+	protocol = ssh
 
 [diff-so-fancy]
 	stripLeadingSymbols = false
@@ -135,10 +141,24 @@
 	churn = !git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort -n
 
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
-	lo = log --pretty=oneline -n 20 --graph --abbrev-commit
+	# lo = log --pretty=oneline -n 20 --graph --abbrev-commit
+	# lg = log --color --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an (%G?)>%Creset' --abbrev-commit
 
-	lg = log --color --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an (%G?)>%Creset' --abbrev-commit
-[init]
-	defaultBranch = main
-[hub]
-	protocol = ssh
+	lg = log --stat
+	lgp = log --stat --patch
+	lgg = log --graph
+	lgga = log --graph --decorate --all
+	lgm = log --graph --max-count=10
+	lo = log --oneline --decorate
+	lol = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'
+	lols = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat
+	lod = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'
+	lods = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset' --date=short
+	lola = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all
+	log = log --oneline --decorate --graph
+	loga = log --oneline --decorate --graph --all
+
+  # wip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign --message "--wip-- [skip ci]"'
+  # unwip='git rev-list --max-count=1 --format="%s" HEAD | grep -q "\--wip--" && git reset HEAD~1'
+  # brl="git for-each-ref --color=always --sort=-committerdate --format='%(color:yellow)%(refname:short)%09%(color:green)%(authorname)%09%(color:blue)%(committerdate:relative)%09%(color:red)%(objectname:short)%09%(color:magenta)%(upstream:track)%09%(color:white)%(contents:subject)%(color:reset)' refs/heads refs/remotes|column -t -s $'\t'"
+  # count='git shortlog --summary --numbered'

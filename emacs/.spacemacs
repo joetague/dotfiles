@@ -187,6 +187,7 @@ This function should only modify configuration layer settings."
           ;; Efficient use of space in treemacs-lsp display
           treemacs-space-between-root-nodes nil
           lsp-treemacs-sync-mode 1
+          lsp-treemacs-error-list-current-project-only t  ; limit errors to current project
 
           ;; Optimization for large files
           lsp-file-watch-threshold 10000
@@ -338,14 +339,14 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
+                                      casual-calc
+                                      casual-dired
+                                      eglot
                                       ;; org-timeblock
-                                      ;; org-wild-notifier.el
-                                      ;; org-incoming
-                                      ;; org-sort-tasks
-                                      ;; org-rifle
+                                      ;; org-incoming ;; ingest PDF files into your org or org-roam files.
+                                      ;; org-sort-tasks ;; sort an unsorted TODO list using mergesort
                                       org-ql
                                       ;; org-mru-clock
-                                      ;; org-recent-headings
                                       jet
                                       )
 
@@ -914,14 +915,14 @@ before packages are loaded."
           (proto "https://github.com/mitchellh/tree-sitter-proto")
           ))
 
-
+  ;; TODO Checkout other interesting setup here: https://github.com/dakra/dmacs/blob/master/init.org
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Setup org                                      ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-protocol)
-    (add-to-list 'org-modules 'org-tempo)
+    ;; (add-to-list 'org-modules 'org-tempo)
     (setq org-confirm-babel-evaluate '(not (y-or-n-p "evaluate block? ")))
 
     (setq org-agenda-files '("~/org/learning.org"))
@@ -956,6 +957,7 @@ before packages are loaded."
        (emacs-lisp . t)
        (dot . t)
        (js . t)
+       (python . t)
        (shell . t)
        (sqlite . t)
        ))
@@ -966,8 +968,10 @@ before packages are loaded."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
   ;; of helm-projectile by using a shell that doesn't have a lot of profile information
+  ;; Previously tried
   ;; (setq shell-file-name "/bin/sh")
   (setq projectile-enable-caching t)
+  (setq projectile-indexing-method 'native)
   )
 
 
