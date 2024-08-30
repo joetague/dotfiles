@@ -914,13 +914,14 @@ before packages are loaded."
           ))
 
 
+  ;; TODO Checkout other interesting setup here: https://github.com/dakra/dmacs/blob/master/init.org
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Setup org                                      ;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-protocol)
-    (add-to-list 'org-modules 'org-tempo)
+    ;; (add-to-list 'org-modules 'org-tempo)
     (setq org-confirm-babel-evaluate '(not (y-or-n-p "evaluate block? ")))
 
     (setq org-agenda-files '("~/org/learning.org"))
@@ -955,6 +956,7 @@ before packages are loaded."
        (emacs-lisp . t)
        (dot . t)
        (js . t)
+       (python . t)
        (shell . t)
        (sqlite . t)
        ))
