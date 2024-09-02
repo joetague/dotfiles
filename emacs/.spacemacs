@@ -342,6 +342,8 @@ This function should only modify configuration layer settings."
                                       casual-calc
                                       casual-dired
                                       eglot
+                                      elfeed-tube
+                                      elfeed-tube-mpv
                                       ;; org-timeblock
                                       ;; org-incoming ;; ingest PDF files into your org or org-roam files.
                                       ;; org-sort-tasks ;; sort an unsorted TODO list using mergesort
