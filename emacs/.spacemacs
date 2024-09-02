@@ -853,7 +853,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;; Disable undo-tree as it slows everything down
-  (global-undo-tree-mode -1)
+  ;; (global-undo-tree-mode -1)
   (setq evil-undo-system 'undo-redo)
   (evil-set-undo-system 'undo-redo)
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
