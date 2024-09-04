@@ -858,24 +858,20 @@ before packages are loaded."
   ;; (global-undo-tree-mode -1)
   (setq evil-undo-system 'undo-redo)
   (evil-set-undo-system 'undo-redo)
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Emacs text rendering optimisations   ;;
+
+  ;; Emacs text rendering optimisations
   ;; https://200ok.ch/posts/2020-09-29_comprehensive_guide_on_handling_long_lines_in_emacs.html
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Only render text left to right
   (setq-default bidi-paragraph-direction 'left-to-right)
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Fixes GPG setup                      ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Fixes GPG setup
   ;; Set the files that are searched for writing tokens
   ;; by default ~/.authinfo will be used
   ;; and write a token in unencrypted format
   (setq auth-sources '("~/.authinfo.gpg"))
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Magit - forge configuration          ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Magit - forge configuration
+
   ;; Configure number of topics show, open and closed
   ;; use negative number to toggle the view of closed topics
   ;; using `SPC SPC forge-toggle-closed-visibility'
@@ -891,9 +887,7 @@ before packages are loaded."
         '(("~/.emacs.d"  . 0)
           ("~/proj/" . 4)))
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Setup tree-sitter grammars                     ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Setup tree-sitter grammars
   (setq treesit-language-source-alist
         '((bash "https://github.com/tree-sitter/tree-sitter-bash")
           (css "https://github.com/tree-sitter/tree-sitter-css")
@@ -919,9 +913,7 @@ before packages are loaded."
 
   ;; TODO Checkout other interesting setup here: https://github.com/dakra/dmacs/blob/master/init.org
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Setup org                                      ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Setup org
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-protocol)
     ;; (add-to-list 'org-modules 'org-tempo)
@@ -950,9 +942,7 @@ before packages are loaded."
     (setq org-duration-format '((special . h:mm)))
     (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
     (setq org-icalendar-timezone "Europe/London")
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;; active Babel languages   ;;
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((clojure . t)
@@ -965,9 +955,7 @@ before packages are loaded."
        ))
     ) ;; end with-eval-after-load
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Projectile settings             ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Projectile settings
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
   ;; of helm-projectile by using a shell that doesn't have a lot of profile information
   ;; Previously tried
