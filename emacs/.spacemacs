@@ -342,6 +342,8 @@ This function should only modify configuration layer settings."
                                       casual-calc
                                       casual-dired
                                       eglot
+                                      elfeed-tube
+                                      elfeed-tube-mpv
                                       ;; org-timeblock
                                       ;; org-incoming ;; ingest PDF files into your org or org-roam files.
                                       ;; org-sort-tasks ;; sort an unsorted TODO list using mergesort
@@ -853,27 +855,23 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;; Disable undo-tree as it slows everything down
-  (global-undo-tree-mode -1)
+  ;; (global-undo-tree-mode -1)
   (setq evil-undo-system 'undo-redo)
   (evil-set-undo-system 'undo-redo)
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Emacs text rendering optimisations   ;;
+
+  ;; Emacs text rendering optimisations
   ;; https://200ok.ch/posts/2020-09-29_comprehensive_guide_on_handling_long_lines_in_emacs.html
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Only render text left to right
   (setq-default bidi-paragraph-direction 'left-to-right)
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Fixes GPG setup                      ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Fixes GPG setup
   ;; Set the files that are searched for writing tokens
   ;; by default ~/.authinfo will be used
   ;; and write a token in unencrypted format
   (setq auth-sources '("~/.authinfo.gpg"))
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Magit - forge configuration          ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Magit - forge configuration
+
   ;; Configure number of topics show, open and closed
   ;; use negative number to toggle the view of closed topics
   ;; using `SPC SPC forge-toggle-closed-visibility'
@@ -889,9 +887,7 @@ before packages are loaded."
         '(("~/.emacs.d"  . 0)
           ("~/proj/" . 4)))
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Setup tree-sitter grammars                     ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Setup tree-sitter grammars
   (setq treesit-language-source-alist
         '((bash "https://github.com/tree-sitter/tree-sitter-bash")
           (css "https://github.com/tree-sitter/tree-sitter-css")
@@ -917,9 +913,7 @@ before packages are loaded."
 
   ;; TODO Checkout other interesting setup here: https://github.com/dakra/dmacs/blob/master/init.org
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Setup org                                      ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Setup org
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-protocol)
     ;; (add-to-list 'org-modules 'org-tempo)
@@ -948,9 +942,7 @@ before packages are loaded."
     (setq org-duration-format '((special . h:mm)))
     (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
     (setq org-icalendar-timezone "Europe/London")
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;; active Babel languages   ;;
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((clojure . t)
@@ -963,9 +955,33 @@ before packages are loaded."
        ))
     ) ;; end with-eval-after-load
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Projectile settings             ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;; Elfeed settings
+  (with-eval-after-load 'elfeed
+    (require 'elfeed-tube)
+
+    (elfeed-tube-setup)
+    (define-key elfeed-show-mode-map (kbd "F") 'elfeed-tube-fetch)
+    (define-key elfeed-show-mode-map [remap save-buffer] 'elfeed-tube-save)
+    (define-key elfeed-search-mode-map (kbd "F") 'elfeed-tube-fetch)
+    (define-key elfeed-search-mode-map [remap save-buffer] 'elfeed-tube-save))
+
+  ;; Casual Suite setup for tools
+  ;; see: https://github.com/kickingvegas/casual-suite settings
+  (with-eval-after-load 'calc
+    (require 'casual-calc) ;; optional
+    (keymap-set calc-mode-map "C-o" #'casual-calc-tmenu)
+    (keymap-set calc-alg-map "C-o" #'casual-calc-tmenu)
+    ) ;; end with-eval-after-load
+
+  (with-eval-after-load 'dired
+    (require 'casual-dired)
+    (keymap-set dired-mode-map "C-o" #'casual-dired-tmenu)
+    (keymap-set dired-mode-map "s" #'casual-dired-sort-by-tmenu) ; optional
+    (keymap-set dired-mode-map "/" #'casual-dired-search-replace-tmenu) ; optional
+    ) ;; end with-eval-after-load
+
+  ;; Projectile settings
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
   ;; of helm-projectile by using a shell that doesn't have a lot of profile information
   ;; Previously tried
