@@ -16,7 +16,7 @@ export PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/jpeg/bin:$PATH"
 export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
-export PATH="$HOME/.jenv/bin:$PATH"
+export PATH="$XDG_DATA_HOME/jenv/bin:$PATH"
 export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
 export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 
@@ -41,17 +41,17 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # Rust lang setup
-export CARGO_HOME="$XDG_DATA_HOME"/cargo
-export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
-
-export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
-export EDITOR="${EDITOR} --socket-name ${EMACS_SOCKET_NAME}"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 eval "$(starship init zsh)"
 
 [ -s "/opt/homebrew/opt/jabba/share/jabba/jabba.sh" ] && . "/opt/homebrew/opt/jabba/share/jabba/jabba.sh"
 
+export JENV_ROOT="$XDG_DATA_HOME/jenv"
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+
+export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 export PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811/bin":$PATH
@@ -63,6 +63,9 @@ export FNM_NODE_DIST_MIRROR="https://nodejs.org/dist"
 export FNM_ARCH="arm64"
 rehash
 
+# Emacs related
+export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
+export EDITOR="${EDITOR} --socket-name ${EMACS_SOCKET_NAME}"
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 fi
