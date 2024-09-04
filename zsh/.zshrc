@@ -27,7 +27,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
-
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
 export LDFLAGS="-L/opt/homebrew/opt/zlib/lib $LDFLAGS"
@@ -98,7 +97,7 @@ eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
 
 ## History file configuration
-[ -z "$HISTFILE" ] && HISTFILE="$HOME/.history"
+[ -z "$HISTFILE" ] && HISTFILE="$XDG_STATE_HOME/zsh/history"
 [ "$HISTSIZE" -lt 50000 ] && HISTSIZE=50000
 [ "$SAVEHIST" -lt 10000 ] && SAVEHIST=10000
 
