@@ -955,6 +955,7 @@ before packages are loaded."
        ))
     ) ;; end with-eval-after-load
 
+
   ;; Elfeed settings
   (with-eval-after-load 'elfeed
     (require 'elfeed-tube)
@@ -964,6 +965,22 @@ before packages are loaded."
     (define-key elfeed-show-mode-map [remap save-buffer] 'elfeed-tube-save)
     (define-key elfeed-search-mode-map (kbd "F") 'elfeed-tube-fetch)
     (define-key elfeed-search-mode-map [remap save-buffer] 'elfeed-tube-save))
+
+  ;; Casual Suite setup for tools
+  ;; see: https://github.com/kickingvegas/casual-suite settings
+  (with-eval-after-load 'calc
+    (require 'casual-calc) ;; optional
+    (keymap-set calc-mode-map "C-o" #'casual-calc-tmenu)
+    (keymap-set calc-alg-map "C-o" #'casual-calc-tmenu)
+    ) ;; end with-eval-after-load
+
+  (with-eval-after-load 'dired
+    (require 'casual-dired)
+    (keymap-set dired-mode-map "C-o" #'casual-dired-tmenu)
+    (keymap-set dired-mode-map "s" #'casual-dired-sort-by-tmenu) ; optional
+    (keymap-set dired-mode-map "/" #'casual-dired-search-replace-tmenu) ; optional
+    ) ;; end with-eval-after-load
+
   ;; Projectile settings
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
   ;; of helm-projectile by using a shell that doesn't have a lot of profile information
