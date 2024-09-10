@@ -53,6 +53,9 @@ if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
+# Move aspell config and personal dictionary
+export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_DATA_HOME/aspell/en.pws; repl $XDG_DATA_HOME/aspell/en.prepl"
+
 export PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811/bin":$PATH
 export FNM_DIR="/Users/joetague/Library/Application Support/fnm"
 export FNM_MULTISHELL_PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811"
