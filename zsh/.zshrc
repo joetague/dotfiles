@@ -8,9 +8,6 @@ export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
 export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
 
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
-export PATH="/opt/homebrew/opt/uutils-coreutils/libexec/uubin:$PATH"
-export PATH="/opt/homebrew/opt/uutils-diffutils/libexec/uubin:$PATH"
-export PATH="/opt/homebrew/opt/uutils-findutils/libexec/uubin:$PATH"
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 export PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"

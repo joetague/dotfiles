@@ -15,10 +15,6 @@ tap "homebrew/cask-versions"
 brew "aspell"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
-# Rust-based GNU File, Shell, and Text utilities
-brew "uutils-coreutils"
-brew "uutils-diffutils"
-brew "uutils-findutils"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Modern replacement for 'ls'
