@@ -3,19 +3,9 @@
 export HOMEBREW_PREFIX="/opt/homebrew"
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
 export HOMEBREW_REPOSITORY="/opt/homebrew"
-export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
-export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:"
+export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
 export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
-
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
-export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-export PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
-export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="/opt/homebrew/opt/jpeg/bin:$PATH"
-export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
-export PATH="$XDG_DATA_HOME/jenv/bin:$PATH"
-export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
-export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 
 # Hoping some CLI apps respect these between Darwin (MacOS) and Linux
 # https://specifications.freedesktop.org/basedir-spec/latest/
@@ -23,6 +13,15 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
+
+export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}"
+export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/gawk/libexec/gnubin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/jpeg/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/sqlite/bin:$PATH"
+export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/rustup/bin:$PATH"
 
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
@@ -32,9 +31,9 @@ export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
 export CPPFLAGS="-I/opt/homebrew/opt/jpeg/include $CPPFLAGS"
 export CPPFLAGS="-I/opt/homebrew/opt/zlib/include $CPPFLAGS"
 
-export PKG_CONFIG_PATH="/opt/homebrew/opt/curl/lib/pkgconfig"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
+export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # Rust lang setup
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -42,7 +41,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 eval "$(starship init zsh)"
 
-[ -s "/opt/homebrew/opt/jabba/share/jabba/jabba.sh" ] && . "/opt/homebrew/opt/jabba/share/jabba/jabba.sh"
+[ -s "$HOMEBREW_PREFIX/opt/jabba/share/jabba/jabba.sh" ] && . "$HOMEBREW_PREFIX/opt/jabba/share/jabba/jabba.sh"
 
 export JENV_ROOT="$XDG_DATA_HOME/jenv"
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
