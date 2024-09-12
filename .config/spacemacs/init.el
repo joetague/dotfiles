@@ -107,10 +107,10 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/go/README.org
      ;; brew install gopls golangci-lint
-     ;; (go :variables
-     ;;     go-backend 'lsp
-     ;;     go-format-before-save t
-     ;;     go-tab-width 2)
+     (go :variables
+         go-backend 'lsp
+         go-format-before-save t
+         go-tab-width 2)
 
      ;; graphviz - open-source graph declaration system
      ;; Used to generated graphs of Clojure project dependencies
@@ -892,6 +892,7 @@ before packages are loaded."
         '((bash "https://github.com/tree-sitter/tree-sitter-bash")
           (css "https://github.com/tree-sitter/tree-sitter-css")
           (go "https://github.com/tree-sitter/tree-sitter-go")
+          (gomod "https://github.com/camdencheek/tree-sitter-go-mod")
           (html "https://github.com/tree-sitter/tree-sitter-html")
           (java "https://github.com/tree-sitter/tree-sitter-java")
           (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
