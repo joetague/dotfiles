@@ -269,6 +269,7 @@ This function should only modify configuration layer settings."
 
      ;; Just use Slack client? Although nice to be able to capture
      ;; from slack buffers with direct link back for notes/journal
+     ;; MAIN PACKAGE DEPRECATED: https://github.com/yuya373/emacs-slack
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+chat/slack/README.org
      ;; (slack :variables
      ;;        slack-spacemacs-layout-name "@Slack"
@@ -285,13 +286,13 @@ This function should only modify configuration layer settings."
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/spell-checking/README.org
      spell-checking
 
-     ;; Just use the Spotify client?
+     ;; Just use the Spotify client - this controls via applescript with some web sdk lookups but it's really distracting
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+music/spotify/README.org
      ;; (spotify :variables
      ;;          counsel-spotify-client-id "c9d5094ef2894115836951340b68dfe7"
      ;;          counsel-spotify-client-secret (auth-source-pick-first-password
      ;;                                         :host "api.spotify.com"
-     ;;                                         :user "c9d5094ef2894115836951340b68dfe7"))
+     ;;                                         :user "joetague"))
 
      ;; Not used this in anger yet
      ;; Alternative might be: https://github.com/kostafey/ejc-sql
