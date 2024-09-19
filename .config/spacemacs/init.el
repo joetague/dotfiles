@@ -110,7 +110,9 @@ This function should only modify configuration layer settings."
      (go :variables
          go-backend 'lsp
          go-format-before-save t
-         go-tab-width 2)
+         go-tab-width 2
+         go-use-golangci-lint t
+         go-use-testify-for-testing t)
 
      ;; graphviz - open-source graph declaration system
      ;; Used to generated graphs of Clojure project dependencies
@@ -915,6 +917,11 @@ before packages are loaded."
           ))
 
   ;; TODO Checkout other interesting setup here: https://github.com/dakra/dmacs/blob/master/init.org
+
+  ;; Projectile
+  (setq projectile-create-missing-test-files t)
+  (with-eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
 
   ;; Setup org
   (with-eval-after-load 'org
