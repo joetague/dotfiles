@@ -3,22 +3,9 @@
 export HOMEBREW_PREFIX="/opt/homebrew"
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
 export HOMEBREW_REPOSITORY="/opt/homebrew"
-export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
-export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:"
+export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
 export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
-
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
-export PATH="/opt/homebrew/opt/uutils-coreutils/libexec/uubin:$PATH"
-export PATH="/opt/homebrew/opt/uutils-diffutils/libexec/uubin:$PATH"
-export PATH="/opt/homebrew/opt/uutils-findutils/libexec/uubin:$PATH"
-export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-export PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
-export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="/opt/homebrew/opt/jpeg/bin:$PATH"
-export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
-export PATH="$HOME/.jenv/bin:$PATH"
-export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
-export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 
 # Hoping some CLI apps respect these between Darwin (MacOS) and Linux
 # https://specifications.freedesktop.org/basedir-spec/latest/
@@ -27,6 +14,14 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}"
+export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/gawk/libexec/gnubin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/jpeg/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/sqlite/bin:$PATH"
+export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/rustup/bin:$PATH"
 
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
@@ -36,24 +31,30 @@ export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
 export CPPFLAGS="-I/opt/homebrew/opt/jpeg/include $CPPFLAGS"
 export CPPFLAGS="-I/opt/homebrew/opt/zlib/include $CPPFLAGS"
 
-export PKG_CONFIG_PATH="/opt/homebrew/opt/curl/lib/pkgconfig"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
+export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # Rust lang setup
-export CARGO_HOME="$XDG_DATA_HOME"/cargo
-export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
-export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
-export EDITOR="${EDITOR} --socket-name ${EMACS_SOCKET_NAME}"
+# Go lang setup
+export GOPATH="$XDG_DATA_HOME/go"
+export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
+export PATH="$GOPATH/bin:$PATH"
 
-eval "$(starship init zsh)"
-
-[ -s "/opt/homebrew/opt/jabba/share/jabba/jabba.sh" ] && . "/opt/homebrew/opt/jabba/share/jabba/jabba.sh"
-
+# Java lang setup
+[ -s "$HOMEBREW_PREFIX/opt/jabba/share/jabba/jabba.sh" ] && . "$HOMEBREW_PREFIX/opt/jabba/share/jabba/jabba.sh"
+export JENV_ROOT="$XDG_DATA_HOME/jenv"
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+
+# Python lang setup
+export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
+# NodeJS lang setup
 export PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811/bin":$PATH
 export FNM_DIR="/Users/joetague/Library/Application Support/fnm"
 export FNM_MULTISHELL_PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811"
@@ -63,6 +64,12 @@ export FNM_NODE_DIST_MIRROR="https://nodejs.org/dist"
 export FNM_ARCH="arm64"
 rehash
 
+# Move aspell config and personal dictionary
+export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_DATA_HOME/aspell/en.pws; repl $XDG_DATA_HOME/aspell/en.prepl"
+
+# Emacs related
+export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
+export EDITOR="${EDITOR} --socket-name ${EMACS_SOCKET_NAME}"
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 fi
@@ -90,12 +97,13 @@ vterm_cmd() {
     vterm_printf "51;E$vterm_elisp"
 }
 
+eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
 
 ## History file configuration
-[ -z "$HISTFILE" ] && HISTFILE="$HOME/.history"
+[ -z "$HISTFILE" ] && HISTFILE="$XDG_STATE_HOME/zsh/history"
 [ "$HISTSIZE" -lt 50000 ] && HISTSIZE=50000
 [ "$SAVEHIST" -lt 10000 ] && SAVEHIST=10000
 

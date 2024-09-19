@@ -107,10 +107,12 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/go/README.org
      ;; brew install gopls golangci-lint
-     ;; (go :variables
-     ;;     go-backend 'lsp
-     ;;     go-format-before-save t
-     ;;     go-tab-width 2)
+     (go :variables
+         go-backend 'lsp
+         go-format-before-save t
+         go-tab-width 2
+         go-use-golangci-lint t
+         go-use-testify-for-testing t)
 
      ;; graphviz - open-source graph declaration system
      ;; Used to generated graphs of Clojure project dependencies
@@ -267,6 +269,7 @@ This function should only modify configuration layer settings."
 
      ;; Just use Slack client? Although nice to be able to capture
      ;; from slack buffers with direct link back for notes/journal
+     ;; MAIN PACKAGE DEPRECATED: https://github.com/yuya373/emacs-slack
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+chat/slack/README.org
      ;; (slack :variables
      ;;        slack-spacemacs-layout-name "@Slack"
@@ -283,13 +286,13 @@ This function should only modify configuration layer settings."
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/spell-checking/README.org
      spell-checking
 
-     ;; Just use the Spotify client?
+     ;; Just use the Spotify client - this controls via applescript with some web sdk lookups but it's really distracting
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+music/spotify/README.org
      ;; (spotify :variables
      ;;          counsel-spotify-client-id "c9d5094ef2894115836951340b68dfe7"
      ;;          counsel-spotify-client-secret (auth-source-pick-first-password
      ;;                                         :host "api.spotify.com"
-     ;;                                         :user "c9d5094ef2894115836951340b68dfe7"))
+     ;;                                         :user "joetague"))
 
      ;; Not used this in anger yet
      ;; Alternative might be: https://github.com/kostafey/ejc-sql
@@ -320,6 +323,9 @@ This function should only modify configuration layer settings."
                treemacs-use-follow-mode t
                treemacs-use-scope-type 'Perspectives)
 
+     (typescript :variables
+                 tide-tsserver-executable "/opt/homebrew/bin/tsserver")
+
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+source-control/version-control/README.org
      (version-control :variables
                       version-control-diff-tool 'diff-hl
@@ -339,8 +345,10 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
+                                      casual-agenda
                                       casual-calc
                                       casual-dired
+                                      casual-isearch
                                       eglot
                                       elfeed-tube
                                       elfeed-tube-mpv
@@ -892,6 +900,7 @@ before packages are loaded."
         '((bash "https://github.com/tree-sitter/tree-sitter-bash")
           (css "https://github.com/tree-sitter/tree-sitter-css")
           (go "https://github.com/tree-sitter/tree-sitter-go")
+          (gomod "https://github.com/camdencheek/tree-sitter-go-mod")
           (html "https://github.com/tree-sitter/tree-sitter-html")
           (java "https://github.com/tree-sitter/tree-sitter-java")
           (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
@@ -913,10 +922,19 @@ before packages are loaded."
 
   ;; TODO Checkout other interesting setup here: https://github.com/dakra/dmacs/blob/master/init.org
 
+  ;; Projectile
+  (setq projectile-create-missing-test-files t)
+  (with-eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+
   ;; Setup org
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-protocol)
     ;; (add-to-list 'org-modules 'org-tempo)
+
+    (require 'casual-agenda) ; optional
+    (keymap-set org-agenda-mode-map "C-o" #'casual-agenda-tmenu)
+
     (setq org-confirm-babel-evaluate '(not (y-or-n-p "evaluate block? ")))
 
     (setq org-agenda-files '("~/org/learning.org"))
@@ -955,11 +973,9 @@ before packages are loaded."
        ))
     ) ;; end with-eval-after-load
 
-
   ;; Elfeed settings
   (with-eval-after-load 'elfeed
     (require 'elfeed-tube)
-
     (elfeed-tube-setup)
     (define-key elfeed-show-mode-map (kbd "F") 'elfeed-tube-fetch)
     (define-key elfeed-show-mode-map [remap save-buffer] 'elfeed-tube-save)
@@ -968,18 +984,17 @@ before packages are loaded."
 
   ;; Casual Suite setup for tools
   ;; see: https://github.com/kickingvegas/casual-suite settings
-  (with-eval-after-load 'calc
-    (require 'casual-calc) ;; optional
-    (keymap-set calc-mode-map "C-o" #'casual-calc-tmenu)
-    (keymap-set calc-alg-map "C-o" #'casual-calc-tmenu)
-    ) ;; end with-eval-after-load
+  (require 'casual-calc) ;; optional
+  (keymap-set calc-mode-map "C-o" #'casual-calc-tmenu)
+  (keymap-set calc-alg-map "C-o" #'casual-calc-tmenu)
 
-  (with-eval-after-load 'dired
-    (require 'casual-dired)
-    (keymap-set dired-mode-map "C-o" #'casual-dired-tmenu)
-    (keymap-set dired-mode-map "s" #'casual-dired-sort-by-tmenu) ; optional
-    (keymap-set dired-mode-map "/" #'casual-dired-search-replace-tmenu) ; optional
-    ) ;; end with-eval-after-load
+  (require 'casual-dired)
+  (keymap-set dired-mode-map "C-o" #'casual-dired-tmenu)
+  (keymap-set dired-mode-map "s" #'casual-dired-sort-by-tmenu) ; optional
+  (keymap-set dired-mode-map "/" #'casual-dired-search-replace-tmenu) ; optional
+
+  (require 'casual-isearch)
+  (keymap-set isearch-mode-map "C-o" #'casual-isearch-tmenu)
 
   ;; Projectile settings
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
