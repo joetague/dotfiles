@@ -322,6 +322,9 @@ This function should only modify configuration layer settings."
                treemacs-use-follow-mode t
                treemacs-use-scope-type 'Perspectives)
 
+     (typescript :variables
+                 tide-tsserver-executable "/opt/homebrew/bin/tsserver")
+
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+source-control/version-control/README.org
      (version-control :variables
                       version-control-diff-tool 'diff-hl
