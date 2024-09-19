@@ -50,9 +50,11 @@ export JENV_ROOT="$XDG_DATA_HOME/jenv"
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
+# Python lang setup
 export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
+# NodeJS lang setup
 export PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811/bin":$PATH
 export FNM_DIR="/Users/joetague/Library/Application Support/fnm"
 export FNM_MULTISHELL_PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811"
