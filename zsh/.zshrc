@@ -39,7 +39,6 @@ export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
-eval "$(starship init zsh)"
 # Go lang setup
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
@@ -96,6 +95,7 @@ vterm_cmd() {
     vterm_printf "51;E$vterm_elisp"
 }
 
+eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
