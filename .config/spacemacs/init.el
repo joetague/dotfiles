@@ -339,8 +339,10 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
+                                      casual-agenda
                                       casual-calc
                                       casual-dired
+                                      casual-isearch
                                       eglot
                                       elfeed-tube
                                       elfeed-tube-mpv
@@ -918,6 +920,10 @@ before packages are loaded."
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-protocol)
     ;; (add-to-list 'org-modules 'org-tempo)
+
+    (require 'casual-agenda) ; optional
+    (keymap-set org-agenda-mode-map "C-o" #'casual-agenda-tmenu)
+
     (setq org-confirm-babel-evaluate '(not (y-or-n-p "evaluate block? ")))
 
     (setq org-agenda-files '("~/org/learning.org"))
@@ -956,11 +962,9 @@ before packages are loaded."
        ))
     ) ;; end with-eval-after-load
 
-
   ;; Elfeed settings
   (with-eval-after-load 'elfeed
     (require 'elfeed-tube)
-
     (elfeed-tube-setup)
     (define-key elfeed-show-mode-map (kbd "F") 'elfeed-tube-fetch)
     (define-key elfeed-show-mode-map [remap save-buffer] 'elfeed-tube-save)
@@ -969,18 +973,17 @@ before packages are loaded."
 
   ;; Casual Suite setup for tools
   ;; see: https://github.com/kickingvegas/casual-suite settings
-  (with-eval-after-load 'calc
-    (require 'casual-calc) ;; optional
-    (keymap-set calc-mode-map "C-o" #'casual-calc-tmenu)
-    (keymap-set calc-alg-map "C-o" #'casual-calc-tmenu)
-    ) ;; end with-eval-after-load
+  (require 'casual-calc) ;; optional
+  (keymap-set calc-mode-map "C-o" #'casual-calc-tmenu)
+  (keymap-set calc-alg-map "C-o" #'casual-calc-tmenu)
 
-  (with-eval-after-load 'dired
-    (require 'casual-dired)
-    (keymap-set dired-mode-map "C-o" #'casual-dired-tmenu)
-    (keymap-set dired-mode-map "s" #'casual-dired-sort-by-tmenu) ; optional
-    (keymap-set dired-mode-map "/" #'casual-dired-search-replace-tmenu) ; optional
-    ) ;; end with-eval-after-load
+  (require 'casual-dired)
+  (keymap-set dired-mode-map "C-o" #'casual-dired-tmenu)
+  (keymap-set dired-mode-map "s" #'casual-dired-sort-by-tmenu) ; optional
+  (keymap-set dired-mode-map "/" #'casual-dired-search-replace-tmenu) ; optional
+
+  (require 'casual-isearch)
+  (keymap-set isearch-mode-map "C-o" #'casual-isearch-tmenu)
 
   ;; Projectile settings
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
