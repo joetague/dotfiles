@@ -45,10 +45,11 @@ export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 export PATH="$GOPATH/bin:$PATH"
 
+# Java lang setup
 [ -s "$HOMEBREW_PREFIX/opt/jabba/share/jabba/jabba.sh" ] && . "$HOMEBREW_PREFIX/opt/jabba/share/jabba/jabba.sh"
-
 export JENV_ROOT="$XDG_DATA_HOME/jenv"
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
 export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
