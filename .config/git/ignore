@@ -38,8 +38,6 @@ Temporary Items
 xcuserdata/
 
 
-
-
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -135,3 +133,27 @@ fabric.properties
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# Emacs
+# Org-mode
+.org-id-locations
+*_archive
+
+# flymake-mode
+*_flymake.*
+
+# eshell files
+/eshell/history
+/eshell/lastdir
+
+# elpa packages
+/elpa/
+
+# Flycheck
+flycheck_*.el
+
+# projectiles files
+.projectile
+
+# directory configuration
+.dir-locals.el
