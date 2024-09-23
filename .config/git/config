@@ -13,8 +13,7 @@
 	browse = true
 
 [credential]
-	# Use macOS Keychain to store HTTP passwords.
-	helper = osxkeychain
+	helper = /usr/local/bin/git-credential-manager
 
 [push]
 	# Push to the set upstream branch being tracked by default.
@@ -162,3 +161,5 @@
   # unwip='git rev-list --max-count=1 --format="%s" HEAD | grep -q "\--wip--" && git reset HEAD~1'
   # brl="git for-each-ref --color=always --sort=-committerdate --format='%(color:yellow)%(refname:short)%09%(color:green)%(authorname)%09%(color:blue)%(committerdate:relative)%09%(color:red)%(objectname:short)%09%(color:magenta)%(upstream:track)%09%(color:white)%(contents:subject)%(color:reset)' refs/heads refs/remotes|column -t -s $'\t'"
   # count='git shortlog --summary --numbered'
+[credential "https://dev.azure.com"]
+	useHttpPath = true
