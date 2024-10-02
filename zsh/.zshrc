@@ -25,6 +25,7 @@ export PATH="$HOMEBREW_PREFIX/opt/sqlite/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/rustup/bin:$PATH"
 export PATH="$XDG_CONFIG_HOME/emacs/bin:$PATH"
 export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
