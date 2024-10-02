@@ -33,8 +33,6 @@ brew "git"
 brew "gnu-sed"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
-# Manage installed versions of java
-brew "jabba"
 # Manage your Java environment
 brew "jenv"
 # Mac App Store command-line interface
