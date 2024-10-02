@@ -29,7 +29,6 @@ brew "fnm"
 brew "gawk"
 # Distributed revision control system
 brew "git"
-cask "git-credential-manager"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
 # GNU Pretty Good Privacy (PGP) package
