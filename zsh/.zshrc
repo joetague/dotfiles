@@ -22,9 +22,9 @@ export PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/jpeg/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/sqlite/bin:$PATH"
-export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/rustup/bin:$PATH"
 export PATH="$XDG_CONFIG_HOME/emacs/bin:$PATH"
+export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
 
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
@@ -50,12 +50,12 @@ export PATH="$GOPATH/bin:$PATH"
 # Java lang setup
 [ -s "$HOMEBREW_PREFIX/opt/jabba/share/jabba/jabba.sh" ] && . "$HOMEBREW_PREFIX/opt/jabba/share/jabba/jabba.sh"
 export JENV_ROOT="$XDG_DATA_HOME/jenv"
-if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+if which jenv >/dev/null; then eval "$(jenv init -)"; fi
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
 # Python lang setup
 export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv >/dev/null; then eval "$(pyenv init -)"; fi
 
 # NodeJS lang setup
 export PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811/bin":$PATH
