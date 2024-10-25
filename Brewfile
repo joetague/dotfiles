@@ -29,13 +29,10 @@ brew "fnm"
 brew "gawk"
 # Distributed revision control system
 brew "git"
-cask "git-credential-manager"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
-# Manage installed versions of java
-brew "jabba"
 # Manage your Java environment
 brew "jenv"
 # Mac App Store command-line interface

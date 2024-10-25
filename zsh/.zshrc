@@ -17,11 +17,15 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}"
 export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/gawk/libexec/gnubin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/jpeg/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/sqlite/bin:$PATH"
-export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/rustup/bin:$PATH"
+export PATH="$XDG_CONFIG_HOME/emacs/bin:$PATH"
+export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
@@ -35,6 +39,8 @@ export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
 export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+
 # Rust lang setup
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
@@ -45,14 +51,15 @@ export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 export PATH="$GOPATH/bin:$PATH"
 
 # Java lang setup
-[ -s "$HOMEBREW_PREFIX/opt/jabba/share/jabba/jabba.sh" ] && . "$HOMEBREW_PREFIX/opt/jabba/share/jabba/jabba.sh"
+export JABBA_HOME="$HOME/.jabba"
+[ -s "$JABBA_HOME/jabba.sh" ] && source "$JABBA_HOME/jabba.sh"
 export JENV_ROOT="$XDG_DATA_HOME/jenv"
-if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+if which jenv >/dev/null; then eval "$(jenv init -)"; fi
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
 # Python lang setup
 export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv >/dev/null; then eval "$(pyenv init -)"; fi
 
 # NodeJS lang setup
 export PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811/bin":$PATH
