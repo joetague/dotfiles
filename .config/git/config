@@ -34,10 +34,6 @@
 	whitespace = fix
 
 [core]
-	# Exclude everything this file. Used for general exclusions.
-	excludesfile = $XDG_CONFIG_HOME/git/ignore
-	# Set attributes on files. Used for general diff improvements.
-	attributesfile = $XDG_CONFIG_HOME/git/attributes
 	editor = emacsclient --no-wait --create-frame
 
 [mergetool]
