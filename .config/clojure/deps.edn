@@ -1,19 +1,7 @@
-;; --------------------------------------------------
-;; Bassed heaily on Practicalli Clojure CLI Configuration
-;; from https://github.com/practicalli/clojure-cli-config/blob/main/deps.edn
-;; --------------------------------------------------
-
-;; `:aliases` - tools to enhance a development workflow
-
-;; Other top-level keys that could be used in a user or project `deps.edn` configuration:
-
-;; `:mvn/repos` - Maven & Clojars repositories, examples of other repositories
-;; `:mvn/local-repo` - set local repository path - defaults to $HOME/.m2/repository
-;; `:paths` - directory paths to add to the class path
-;; `:deps` - library dependencies to add to the class path
+;; `:aliases` - tools to enhance a development workflow.
+;; See https://clojure.org/reference/clojure_cli#aliases and https://clojure.org/reference/deps_edn
 
 ;; Keys used within :aliases
-
 ;; resolve-deps aliases affect dependency resolution:
 ;;   `:extra-deps` - libraries merged into the top-level :deps dependencies
 ;;   `:replace-deps` - libraries replacing all those in the top-level :deps dependencies
@@ -30,49 +18,10 @@
 ;;   `:exec-fn` - clojure.exec fully qualified function name to call (symbol)
 ;;   `:exec-args` - clojure.exec arguments (hash-map) passed to `:exec-fn`
 ;; ---------------------------------------------------
-
-{;; ---------------------------------------------------
- ;; Alias definitions
-
+{
  :aliases
- {;; ---------------------------------------------------
-  ;; Development environment
-  ;; Aliases work with Clojure CLI -M -X or -T execution options
-
-  ;; Custom REPL startup
-  ;; A `user` namespace is loaded during REPL startup if found on the class path
-  ;; `dev/user.clj` defines a custom `user` namespace, requring libraries and
-  ;; including code to start tools as the REPL starts
-  ;; Development environment aliases include the `dev` directory on the class path
-  ;; https://practical.li/clojure/clojure-cli/repl-startup/
-
-  :dev/env
-  {:extra-paths ["dev"]}
-
-  :dev/repl-with-portal
-  {:extra-paths ["dev" "test"]
-   :extra-deps  {djblue/portal                {:mvn/version "0.58.1"}   ; portal data inspector
-                 clj-commons/clj-yaml         {:mvn/version "1.0.28"}   ; portal yaml support (optional)
-                 org.clojure/tools.namespace  {:mvn/version "1.5.0"}
-                 org.clojure/tools.trace      {:mvn/version "0.8.0"}
-                 org.slf4j/slf4j-nop          {:mvn/version "2.0.16"}
-                 com.brunobonacci/mulog       {:mvn/version "0.9.0"}
-                 lambdaisland/kaocha          {:mvn/version "1.91.1392"}
-                 org.clojure/test.check       {:mvn/version "1.1.1"}
-                 criterium/criterium          {:mvn/version "0.4.6"}}}
-
-  ;; ClojureScript tools during REPl startup
-  :dev/repl-cljs-with-portal
-  {:extra-paths ["dev" "test"]
-   :extra-deps  {djblue/portal             {:mvn/version "0.58.1"}   ; portal data inspector
-                 org.clojure/clojurescript {:mvn/version "1.10.844"}
-                 lambdaisland/kaocha-cljs  {:mvn/version "1.5.154"}
-                 org.clojure/test.check    {:mvn/version "1.1.1"}}}
-
-  ;; ---------------------------------------------------
-  ;; Running a REPL
-
-  ;; Basic REPL UI with nREPL server for Clojure Editor support
+ {
+  ;; Basic REPL UI with nREPL server for CIDER support
   :repl/basic
   {:extra-deps {nrepl/nrepl       {:mvn/version "1.3.0"}
                 cider/cider-nrepl {:mvn/version "0.50.2"}}
@@ -80,22 +29,12 @@
                 "--middleware" "[cider.nrepl/cider-middleware]"
                 "--interactive"]}
 
-  ;; Headless REPL with nREPL server for Clojure Editor support
+  ;; Headless REPL with nREPL server for CIDER support
   :repl/headless
   {:extra-deps {nrepl/nrepl       {:mvn/version "1.3.0"}
                 cider/cider-nrepl {:mvn/version "0.50.2"}}
    :main-opts  ["--main" "nrepl.cmdline"
                 "--middleware" "[cider.nrepl/cider-middleware]"]}
-
-  ;; Basic REPL UI, nREPL server and Portal data inspector
-  :repl/inspect
-  {:extra-deps
-   {nrepl/nrepl       {:mvn/version "1.3.0"}
-    cider/cider-nrepl {:mvn/version "0.50.2"}
-    djblue/portal     {:mvn/version "0.58.1"}}
-   :main-opts ["--main" "nrepl.cmdline"
-               "--middleware"
-               "[cider.nrepl/cider-middleware,portal.nrepl/wrap-portal]"]}
 
   ;; Start REPL with Clerk notebook receiving evaluation results as a tap> source
   ;; Recommend using custom `user` namespace to start Clerk as tap> source
@@ -114,11 +53,6 @@
   ;; Rebel Readline enhanced REPL UI
   ;; https://github.com/bhauman/rebel-readline
   ;; REPL UI with syntax highlighting, built in docs and a quit command `:repl/quit`
-
-  ;; Clojure REPL with rebel readline with nrepl for editor connection
-  ;; Conjure: opening a Clojure file will automatically connect to the REPL process
-  ;; CIDER: run `cider-connect-clj` and select REPL host and port
-  ;; Calva: connect to REPL command and select build tool, REPL host and port
 
   ;; clojure -M:repl/rebel
   :repl/rebel
@@ -160,44 +94,14 @@
   ;; Include Rebel Readline library
   :lib/rebel
   {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}}}
-  ;; ---------------------------------------------------
 
-  ;; ---------------------------------------------------
   ;; Remote REPL connection
-
   ;; Connect to the nREPL server of a remote REPL
   ;; clojure -M:repl/remote --host hostname --port 12345
   ;; replace --host and --port values with that of remote nREPL server
   :repl/remote
   {:extra-deps {nrepl/nrepl {:mvn/version "1.3.0"}}
    :main-opts ["--main" "nrepl.cmdline" "--connect"]}
-
-  ;; Creating projects from templates
-
-  :project/create
-  {:replace-deps {io.github.seancorfield/deps-new
-                  {:git/tag "v0.8.0" :git/sha "2f96530"}
-                  io.github.practicalli/project-templates
-                  {:git/tag "2024-09-09" :git/sha "0d11ca4"}}
-   :exec-fn      org.corfield.new/create
-   :exec-args    {:template practicalli/minimal
-                  :name practicalli/playground}}
-
-  ;; Local testing of Practicalli Project Templates
-  :project/create-local
-  {:replace-deps {io.github.seancorfield/deps-new
-                  {:git/tag "v0.8.0" :git/sha "2f96530"}
-                  practicalli/project-templates
-                  {:local/root "/home/practicalli/projects/practicalli/project-templates/"}}
-   :exec-fn      org.corfield.new/create
-   :exec-args    {:template practicalli/minimal
-                  :name practicalli/playground}}
-
-  :project/templates
-  {:extra-deps {io.github.practicalli/project-templates
-                {:git/tag "2024-09-09" :git/sha "0d11ca4"}}}
-  ;; ---------------------------------------------------
-
 
   ;; Dependency version management
   ;; https://github.com/liquidz/antq
@@ -229,12 +133,8 @@
                 {:git/url "https://github.com/borkdude/carve"
                  :sha     "e02b65f9de679450176a3fa26c89ffd5600d7eb8"}}
    :main-opts  ["--main" "carve.main"]}
-  ;; ---------------------------------------------------
 
-
-  ;; ---------------------------------------------------
   ;; Databases and drivers uses only during development
-
   :lib/next.jdbc
   {:extra-deps {com.github.seancorfield/next.jdbc {:mvn/version "1.3.955"}}}
 
@@ -243,21 +143,15 @@
   {:extra-deps
    {com.h2database/h2                 {:mvn/version "2.3.232"}
     com.github.seancorfield/next.jdbc {:mvn/version "1.3.955"}}}
-  ;; ---------------------------------------------------
 
-  ;; ---------------------------------------------------
   ;; Data Science
-
   ;; Notebooks for Clojure
   ;; https://github.com/nextjournal/clerk
   ;; Alias can be used as an optional library for projects or REPL workflow
   :lib/clerk
   {:extra-deps {io.github.nextjournal/clerk {:mvn/version "0.17.1102"}}}
-  ;; ---------------------------------------------------
 
-  ;; ---------------------------------------------------
   ;; Data inspectors / visualizers
-
   ;; Portal
   ;; Navigate data - edn, json, transit
   ;; https://github.com/djblue/portal
@@ -278,38 +172,14 @@
   :inspect/morse
   {:extra-deps {io.github.nubank/morse
                 {:git/tag "v2023.10.06.02" :git/sha "88b5ff7"}}}
-  ;; ---------------------------------------------------
 
-  ;; ---------------------------------------------------
   ;; Clojure Specifications
-
   ;; Clojure spec test.check (clojure spec included in Clojure 1.9 onwards)
   :lib/spec-test
   {:extra-deps
    {org.clojure/test.check {:mvn/version "1.1.1"}}}
 
-  ;; Clojure spec 2 - under active development
-  ;; https://github.com/clojure/spec-alpha2
-  ;; latest commit SHA is returned by the command
-  ;; git ls-remote https://github.com/clojure/spec-alpha2.git refs/heads/master
-  :lib/spec2
-  {:extra-deps {org.clojure/spec-alpha2
-                {:git/url "https://github.com/clojure/spec-alpha2"
-                 :sha     "4cbfa677c4cd66339f18e1c122222c05c69e0d8e"}}}
-  ;; ---------------------------------------------------
-
-  ;; Local testing of Project Templates
-  ;; :project/create-local
-  ;; {:replace-deps {io.github.seancorfield/deps-new
-  ;;                 {:git/tag "v0.8.0" :git/sha "2f96530"}
-  ;;                 joetague/project-templates
-  ;;                 {:local/root "/Users/joetague/proj/templates/clojure/"}}
-  ;;  :exec-fn      org.corfield.new/create
-  ;;  :exec-args    {:template joetague/minimal
-  ;;                 :name joetague/playground}}
-  ;; ---------------------------------------------------
   ;; Testing Environment / Libraries
-
   ;; Include the test directory on the class path
   :test/env
   {:extra-paths ["test"]
@@ -317,11 +187,8 @@
 
   :lib/ring-mock
   {:extra-deps {ring/ring-mock {:mvn/version "0.4.0"}}}
-  ;; ---------------------------------------------------
 
-  ;; ---------------------------------------------------
   ;; Test runners
-
   ;; Cognitect test-runner
   ;; https://github.com/cognitect-labs/test-runner
   ;; clojure -X:test/cognitect
@@ -373,15 +240,12 @@
                  lambdaisland/kaocha-cljs {:mvn/version "1.5.154"}}
    :main-opts   ["--main" "kaocha.runner" "unit-cljs"]}
 
-  ;; https://github.com/lambdaisland/kaocha-cucumbe
+  ;; https://github.com/lambdaisland/kaocha-cucumber
   ;; - used for kaocha-runner.el to run Kaocha test runner in Emacs Cider
   :lib/kaocha
   {:extra-deps {lambdaisland/kaocha {:mvn/version "1.91.1392"}}}
-  ;; ---------------------------------------------------
 
-  ;; ---------------------------------------------------
   ;; Test Coverage tools
-
   ;; Cloverage - Simple clojure coverage tool
   ;; https://github.com/cloverage/cloverage
   ;; In the root of your Clojure project, run the command:
@@ -396,11 +260,8 @@
    :exec-fn     cloverage.coverage/run-project
    :exec-args   {:src-ns-path  ["src"]
                  :test-ns-path ["test"]}}
-  ;; ---------------------------------------------------
 
-  ;; ---------------------------------------------------
   ;; Performance testing
-
   ;; Benchmarking library for Clojure
   ;; https://github.com/hugoduncan/criterium/
   ;; (require '[criterium.core :refer [bench quick-bench]]) ; require criterium
@@ -419,8 +280,6 @@
   :performance/memory-meter
   {:extra-deps {com.clojure-goes-fast/clj-memory-meter {:mvn/version "0.3.0"}}
    :jvm-opts   ["-Djdk.attach.allowAttachSelf"]}
-  ;; ---------------------------------------------------
 
-  ;; Format tool friendly way to highlight end of configuration sections
   :end/aliases {}}
  :end/config {}}
