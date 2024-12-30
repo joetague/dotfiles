@@ -5,10 +5,12 @@ cask_args appdir: "/Applications"
 # Additional sources
 # -----------------------------------------------------------------------------
 tap "babashka/brew"
+tap "borkdude/brew"
 tap "clojure/tools"
 tap "d12frosted/emacs-plus"
+tap "hashicorp/tap"
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
+tap "homebrew/services"
 tap "homebrew/cask-versions"
 
 # Spell checker with better logic than ispell
@@ -35,8 +37,6 @@ brew "gnu-sed"
 brew "gnupg"
 # Manage your Java environment
 brew "jenv"
-# Mac App Store command-line interface
-brew "mas"
 # Remote terminal application
 brew "mosh"
 # Free (GNU) replacement for the Pico text editor
@@ -65,20 +65,6 @@ brew "zsh"
 brew "zoxide"
 # The Clojure Programming Language
 brew "clojure/tools/clojure"
-# Memory training application
-cask "anki"
-# Offline programming language reference documentation
-cask "dash@6"
-# Draw.io/diagrams.net diagram software
-cask "drawio"
-# IDE for Java development - community edition
-cask "intellij-idea-ce"
-# Move and resize windows using keyboard shortcuts or snap areas
-cask "rectangle"
-# Music streaming service
-cask "spotify"
-# Video communication and virtual meeting platform
-cask "zoom"
 # Emacs - will install a lot of dependencies to compile - may need libvterm
 brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-xwidgets", "with-imagemagic", "with-native-comp"]
 # Ad-hoc ClojureScript scripting of Mac applications via Apple's Open Scripting Architecture
@@ -88,12 +74,20 @@ brew "borkdude/brew/babashka"
 # Transform JSON into EDN into Transit
 brew "borkdude/brew/jet"
 
-# Font for Emacs
+
+# Memory training application
+cask "anki"
+# Offline API documentation browser and code snippet manager
+cask "dash@6"
+# Draw.io/diagrams.net diagram software
+cask "drawio"
+# Font for emacs
 cask "font-source-code-pro"
-
-# Cheap-ish web blocker working across all devices
-mas "1Blocker", id: 1107421413
-
-mas "DuckDuckGo Privacy Essentials", id: 1482920575
-
-mas "Xcode", id: 497799835
+# IDE for Java development - community edition
+cask "intellij-idea-ce"
+# Scientific and technical publishing system built on Pandoc
+cask "quarto"
+# Binary releases of VS Code without MS branding/telemetry/licensing
+cask "vscodium"
+# Video communication and virtual meeting platform
+cask "zoom"
