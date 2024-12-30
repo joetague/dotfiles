@@ -80,7 +80,7 @@ cask "spotify"
 # Video communication and virtual meeting platform
 cask "zoom"
 # Emacs - will install a lot of dependencies to compile - may need libvterm
-brew "d12frosted/emacs-plus/emacs-plus@29", args: ["with-native-comp", "with-no-frame-refocus", "with-poll"]
+brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-xwidgets", "with-imagemagic", "with-native-comp"]
 # Ad-hoc ClojureScript scripting of Mac applications via Apple's Open Scripting Architecture
 brew "babashka/brew/obb"
 # Native, fast starting Clojure interpreter for scripting
