@@ -26,20 +26,22 @@ export PATH="$HOMEBREW_PREFIX/opt/rustup/bin:$PATH"
 export PATH="$XDG_CONFIG_HOME/emacs/bin:$PATH"
 export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.docker/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
-export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
-export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
-export LDFLAGS="-L/opt/homebrew/opt/zlib/lib $LDFLAGS"
+#export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
+#export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
+#export LDFLAGS="-L/opt/homebrew/opt/zlib/lib $LDFLAGS"
 
-export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
-export CPPFLAGS="-I/opt/homebrew/opt/jpeg/include $CPPFLAGS"
-export CPPFLAGS="-I/opt/homebrew/opt/zlib/include $CPPFLAGS"
+#export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
+#export CPPFLAGS="-I/opt/homebrew/opt/jpeg/include $CPPFLAGS"
+#export CPPFLAGS="-I/opt/homebrew/opt/zlib/include $CPPFLAGS"
 
-export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
-export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
+#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
+#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
+#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+#export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 
 # Rust lang setup
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -52,14 +54,14 @@ export PATH="$GOPATH/bin:$PATH"
 
 # Java lang setup
 export JABBA_HOME="$HOME/.jabba"
-[ -s "$JABBA_HOME/jabba.sh" ] && source "$JABBA_HOME/jabba.sh"
+# [ -s "$JABBA_HOME/jabba.sh" ] && source "$JABBA_HOME/jabba.sh"
 export JENV_ROOT="$XDG_DATA_HOME/jenv"
-if which jenv >/dev/null; then eval "$(jenv init -)"; fi
+# if which jenv >/dev/null; then eval "$(jenv init -)"; fi
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
 # Python lang setup
 export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-if which pyenv >/dev/null; then eval "$(pyenv init -)"; fi
+# if which pyenv >/dev/null; then eval "$(pyenv init -)"; fi
 
 # NodeJS lang setup
 export PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811/bin":$PATH
@@ -69,14 +71,15 @@ export FNM_VERSION_FILE_STRATEGY="local"
 export FNM_LOGLEVEL="info"
 export FNM_NODE_DIST_MIRROR="https://nodejs.org/dist"
 export FNM_ARCH="arm64"
-rehash
+# rehash
 
 # Move aspell config and personal dictionary
 export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_DATA_HOME/aspell/en.pws; repl $XDG_DATA_HOME/aspell/en.prepl"
 
 # Emacs related
 export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
-export EDITOR="${EDITOR} --socket-name ${EMACS_SOCKET_NAME}"
+export EDITOR="emacsclient -c --socket-name ${EMACS_SOCKET_NAME}"
+# export EDITOR="nano"
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 fi
@@ -148,7 +151,6 @@ alias tree='eza --tree'
 alias make="nice make"
 alias mkdir="mkdir -vp"
 alias mv="mv -iv"
-
 alias rm="rm -iv"
 alias rsync="rsync --partial --progress --human-readable --compress"
 alias sha256="shasum -a 256"

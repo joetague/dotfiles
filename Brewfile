@@ -1,17 +1,17 @@
 # Installation dependencies and settings
 # -----------------------------------------------------------------------------
-cask_args appdir: "/Applications"
+cask_args appdir: "~/Applications", require_sha: true
 
 # Additional sources
 # -----------------------------------------------------------------------------
 tap "babashka/brew"
 tap "borkdude/brew"
 tap "clojure/tools"
+tap "candid82/brew"
 tap "d12frosted/emacs-plus"
 tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/services"
-tap "homebrew/cask-versions"
 
 # Spell checker with better logic than ispell
 brew "aspell"
@@ -63,17 +63,17 @@ brew "z"
 brew "zsh"
 #  Smarter cd command, inspired by z and autojump
 brew "zoxide"
+
 # The Clojure Programming Language
 brew "clojure/tools/clojure"
 # Emacs - will install a lot of dependencies to compile - may need libvterm
-brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-xwidgets", "with-imagemagic", "with-native-comp"]
+brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-imagemagick", "with-mailutils", "with-native-comp", "with-xwidgets"]
 # Ad-hoc ClojureScript scripting of Mac applications via Apple's Open Scripting Architecture
 brew "babashka/brew/obb"
 # Native, fast starting Clojure interpreter for scripting
 brew "borkdude/brew/babashka"
 # Transform JSON into EDN into Transit
 brew "borkdude/brew/jet"
-
 
 # Memory training application
 cask "anki"
@@ -83,11 +83,7 @@ cask "dash@6"
 cask "drawio"
 # Font for emacs
 cask "font-source-code-pro"
-# IDE for Java development - community edition
-cask "intellij-idea-ce"
 # Scientific and technical publishing system built on Pandoc
 cask "quarto"
-# Binary releases of VS Code without MS branding/telemetry/licensing
-cask "vscodium"
 # Video communication and virtual meeting platform
 cask "zoom"

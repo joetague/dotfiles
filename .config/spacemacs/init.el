@@ -51,14 +51,15 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-sort-by-usage t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/clojure/README.org
-     (clojure :variables
-              clojure-backend 'cider
-              clojure-enable-linters 'clj-kondo
-              clojure-toplevel-inside-comment-form t
-              cider-overlays-use-font-lock t
-              clojure-enable-clj-refactor t
-              cider-repl-buffer-size-limit 100)
+     ;; (clojure :variables
+     ;;          clojure-backend 'cider
+     ;;          clojure-enable-linters 'clj-kondo
+     ;;          clojure-toplevel-inside-comment-form t
+     ;;          cider-overlays-use-font-lock t
+     ;;          clojure-enable-clj-refactor t
+     ;;          cider-repl-buffer-size-limit 100)
 
+     ;; Alternative to Helm
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bcompletion/compleseus
      ;; (compleseus :variables
      ;;             compleseus-engine 'vertico)
@@ -66,15 +67,15 @@ This function should only modify configuration layer settings."
      ;; copy-as-format for pasting code blocks into various things like GitHub/Slack/JIRA as formatted code
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+misc/copy-as-format/README.org
      ;; https://github.com/sshaw/copy-as-format
-     copy-as-format
+     ;; copy-as-format
 
      ;; Tools to work with comma separate values
      ;; Used for data science files
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/csv/README.org
-     csv
+     ;; csv
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/dap/README.org
-     ;; dap
+     dap
 
      ;; Don't autoload docsets use dir.locals.el to load appropriate ones per project
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/dash/README.org
@@ -83,8 +84,8 @@ This function should only modify configuration layer settings."
 
      ;; Introduces a clash now with builtin TRAMP support
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/docker/README.org
-     (docker :variables
-             docker-dockerfile-backend 'lsp)
+     ;; (docker :variables
+     ;;         docker-dockerfile-backend 'lsp)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/elfeed/README.org
      (elfeed :variables
@@ -107,12 +108,12 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/go/README.org
      ;; brew install gopls golangci-lint
-     (go :variables
-         go-backend 'lsp
-         go-format-before-save t
-         go-tab-width 2
-         go-use-golangci-lint t
-         go-use-testify-for-testing t)
+     ;; (go :variables
+     ;;     go-backend 'lsp
+     ;;     go-format-before-save t
+     ;;     go-tab-width 2
+     ;;     go-use-golangci-lint t
+     ;;     go-use-testify-for-testing t)
 
      ;; graphviz - open-source graph declaration system
      ;; Used to generated graphs of Clojure project dependencies
@@ -129,8 +130,8 @@ This function should only modify configuration layer settings."
 
      ;; Just use IntelliJ?
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/java/README.org
-     ;; (java :variables
-     ;;      java-backend 'lsp)
+     (java :variables
+           java-backend 'lsp)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/javascript/README.org
      ;; (javascript :variables
@@ -140,8 +141,8 @@ This function should only modify configuration layer settings."
      ;;             js2-mode-show-parse-errors nil)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/json/README.org
-     (json :variables
-           json-fmt-on-save nil)
+     ;; (json :variables
+     ;;       json-fmt-on-save nil)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/kotlin/README.org
      ;; (kotlin :variables
@@ -212,7 +213,8 @@ This function should only modify configuration layer settings."
           org-enable-verb-support t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+os/osx/README.org
-     osx
+     (osx :variables
+          osx-dictionary-dictionary-choice "English")
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/pdf/README.org
      pdf
@@ -231,26 +233,26 @@ This function should only modify configuration layer settings."
      (python :variables
              python-backend 'lsp
              python-lsp-server 'pyright
-             python-auto-set-local-pyenv-version 'on-project-switch
-             python-auto-set-local-pyvenv-virtualenv 'on-project-switch
-             python-fill-column 120
-             python-formatter 'black
-             python-format-on-save t
-             python-sort-imports-on-save t
-             python-test-runner 'pytest
+             ;; python-auto-set-local-pyenv-version 'on-project-switch
+             ;; python-auto-set-local-pyvenv-virtualenv 'on-project-switch
+             ;; python-fill-column 120
+             ;; python-formatter 'black
+             ;; python-format-on-save t
+             ;; python-sort-imports-on-save t
+             ;; python-test-runner 'pytest
              )
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/restclient/README.org
-     ;; restclient
+     restclient
 
      ;; Just use VSCode?
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+frameworks/react/README.org
      ;; react
 
      ;; https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/rust/README.org
-     (rust :variables
-           lsp-rust-analyzer-cargo-auto-reload t
-           rustic-format-on-save t)
+     ;; (rust :variables
+     ;;       lsp-rust-analyzer-cargo-auto-reload t
+     ;;       rustic-format-on-save t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/scala/README.org
      ;; (scala :variables
@@ -259,14 +261,14 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/shell/README.org
      (shell :variables
-            shell-default-shell 'vterm
+            shell-default-shell 'multi-vterm
             shell-default-height 30
             shell-default-position 'bottom
             spacemacs-vterm-history-file-location "~/.zsh_history")
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/shell-scripts/README.org
-     shell-scripts
-
+     (shell-scripts :variables
+                    shell-scripts-backend 'lsp)
      ;; Just use Slack client? Although nice to be able to capture
      ;; from slack buffers with direct link back for notes/journal
      ;; MAIN PACKAGE DEPRECATED: https://github.com/yuya373/emacs-slack
@@ -284,7 +286,7 @@ This function should only modify configuration layer settings."
                         persp-autokill-buffer-on-remove t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/spell-checking/README.org
-     spell-checking
+     ;; spell-checking
 
      ;; Just use the Spotify client - this controls via applescript with some web sdk lookups but it's really distracting
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+music/spotify/README.org
@@ -297,11 +299,11 @@ This function should only modify configuration layer settings."
      ;; Not used this in anger yet
      ;; Alternative might be: https://github.com/kostafey/ejc-sql
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/sql/README.org
-     ;; (sql :variables
-     ;;      sql-backend 'lsp
-     ;;      sql-lsp-sqls-workspace-config-path 'workspace
-     ;;      sql-capitalize-keywords t
-     ;;      sql-auto-indent nil)
+     (sql :variables
+          sql-backend 'lsp
+          sql-lsp-sqls-workspace-config-path 'workspace
+          sql-capitalize-keywords t
+          sql-auto-indent nil)
 
      ;; Original flycheck fringe bitmaps is deprecated
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/syntax-checking/README.org
@@ -312,9 +314,9 @@ This function should only modify configuration layer settings."
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/terraform/README.org
      ;; https://github.com/hashicorp/terraform-ls
      ;; Needs: brew install hashicorp/tap/terraform-ls
-     (terraform :variables
-                terraform-auto-format-on-save t
-                terraform-backend 'lsp)
+     ;; (terraform :variables
+     ;;            terraform-auto-format-on-save t
+     ;;            terraform-backend 'lsp)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+filetree/treemacs/README.org
      (treemacs :variables
@@ -323,8 +325,9 @@ This function should only modify configuration layer settings."
                treemacs-use-follow-mode t
                treemacs-use-scope-type 'Perspectives)
 
-     (typescript :variables
-                 tide-tsserver-executable "/opt/homebrew/bin/tsserver")
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/typescript
+     ;; (typescript :variables
+     ;;             tide-tsserver-executable "/opt/homebrew/bin/tsserver")
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+source-control/version-control/README.org
      (version-control :variables
@@ -332,7 +335,8 @@ This function should only modify configuration layer settings."
                       version-control-global-margin t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/yaml/README.org
-     yaml
+     (yaml :variables
+           yaml-enable-lsp t)
      )
 
 
@@ -345,17 +349,16 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      casual-agenda
-                                      casual-calc
-                                      casual-dired
-                                      casual-isearch
-                                      eglot
-                                      elfeed-tube
-                                      elfeed-tube-mpv
+                                      ;; casual-agenda
+                                      ;; casual-calc
+                                      ;; casual-dired
+                                      ;; casual-isearch
+                                      ;; elfeed-tube
+                                      ;; elfeed-tube-mpv
                                       ;; org-timeblock
                                       ;; org-incoming ;; ingest PDF files into your org or org-roam files.
                                       ;; org-sort-tasks ;; sort an unsorted TODO list using mergesort
-                                      org-ql
+                                      ;; org-ql
                                       ;; org-mru-clock
                                       jet
                                       )
@@ -1013,19 +1016,19 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files '("/Users/joetague/org/learning.org"))
- '(package-selected-packages
-   '(lsp-mode helm-swoop yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vim-powerline vi-tilde-fringe valign uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org terminal-here term-cursor symon symbol-overlay string-inflection string-edit-at-point sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc smeargle shfmt shell-pop restart-emacs request rainbow-delimiters quickrun pytest pylookup pyenv-mode pydoc py-isort prettier-js poetry pippel pipenv pip-requirements pdf-view-restore pcre2el password-generator paradox ox-gfm overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-journal org-download org-contrib org-cliplink open-junk-file nose nameless multi-vterm multi-term multi-line markdown-toc macrostep lsp-python-ms lsp-pyright lsp-origami lorem-ipsum live-py-mode json-reformat json-navigator json-mode inspector insert-shebang info+ indent-guide importmagic hybrid-mode hungry-delete htmlize holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-git-grep helm-descbinds helm-dash helm-company helm-comint helm-cider helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link gh-md flyspell-correct-helm flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus elisp-slime-nav elisp-def elfeed-org elfeed-goodies editorconfig dumb-jump drag-stuff dotenv-mode dockerfile-mode docker dired-quick-sort diminish diff-hl devdocs define-word dash-at-point dap-mode cython-mode csv-mode copy-as-format company-statistics company-shell company-quickhelp company-emoji company-anaconda column-enforce-mode code-cells clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote blacken auto-highlight-symbol auto-dictionary auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line))
- '(safe-local-variable-values '((python-shell-interpreter . "ipython"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(org-agenda-files '("/Users/joetague/org/learning.org"))
+   '(package-selected-packages
+     '(lsp-mode helm-swoop yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vim-powerline vi-tilde-fringe valign uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org terminal-here term-cursor symon symbol-overlay string-inflection string-edit-at-point sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc smeargle shfmt shell-pop restart-emacs request rainbow-delimiters quickrun pytest pylookup pyenv-mode pydoc py-isort prettier-js poetry pippel pipenv pip-requirements pdf-view-restore pcre2el password-generator paradox ox-gfm overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-journal org-download org-contrib org-cliplink open-junk-file nose nameless multi-vterm multi-term multi-line markdown-toc macrostep lsp-python-ms lsp-pyright lsp-origami lorem-ipsum live-py-mode json-reformat json-navigator json-mode inspector insert-shebang info+ indent-guide importmagic hybrid-mode hungry-delete htmlize holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-git-grep helm-descbinds helm-dash helm-company helm-comint helm-cider helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link gh-md flyspell-correct-helm flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus elisp-slime-nav elisp-def elfeed-org elfeed-goodies editorconfig dumb-jump drag-stuff dotenv-mode dockerfile-mode docker dired-quick-sort diminish diff-hl devdocs define-word dash-at-point dap-mode cython-mode csv-mode copy-as-format company-statistics company-shell company-quickhelp company-emoji company-anaconda column-enforce-mode code-cells clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote blacken auto-highlight-symbol auto-dictionary auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line))
+   '(safe-local-variable-values '((python-shell-interpreter . "ipython"))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  )
