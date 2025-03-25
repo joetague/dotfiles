@@ -1,6 +1,10 @@
 ;; `:aliases` - tools to enhance a development workflow.
 ;; See https://clojure.org/reference/clojure_cli#aliases and https://clojure.org/reference/deps_edn
 
+;; - Ref. deps configs by Sean Corfield and practicalli, for ideas.
+;;   https://github.com/seancorfield/dot-clojure/blob/develop/deps.edn
+;;   https://github.com/practicalli/clojure-cli-config/blob/main/deps.edn
+
 ;; Keys used within :aliases
 ;; resolve-deps aliases affect dependency resolution:
 ;;   `:extra-deps` - libraries merged into the top-level :deps dependencies
@@ -23,32 +27,18 @@
  {
   ;; Basic REPL UI with nREPL server for CIDER support
   :repl/basic
-  {:extra-deps {nrepl/nrepl       {:mvn/version "1.3.0"}
-                cider/cider-nrepl {:mvn/version "0.50.2"}}
+  {:extra-deps {nrepl/nrepl       {:mvn/version "1.3.1"}
+                cider/cider-nrepl {:mvn/version "0.52.0"}}
    :main-opts  ["--main" "nrepl.cmdline"
                 "--middleware" "[cider.nrepl/cider-middleware]"
                 "--interactive"]}
 
   ;; Headless REPL with nREPL server for CIDER support
   :repl/headless
-  {:extra-deps {nrepl/nrepl       {:mvn/version "1.3.0"}
-                cider/cider-nrepl {:mvn/version "0.50.2"}}
+  {:extra-deps {nrepl/nrepl       {:mvn/version "1.3.1"}
+                cider/cider-nrepl {:mvn/version "0.52.0"}}
    :main-opts  ["--main" "nrepl.cmdline"
                 "--middleware" "[cider.nrepl/cider-middleware]"]}
-
-  ;; Start REPL with Clerk notebook receiving evaluation results as a tap> source
-  ;; Recommend using custom `user` namespace to start Clerk as tap> source
-  ;; Alpha stage alias design - may change
-  ;; clojure -M:repl/clerk
-  :repl/clerk
-  {:extra-deps {io.github.nextjournal/clerk   {:mvn/version "0.17.1102"}
-                nrepl/nrepl                   {:mvn/version "1.3.0"}
-                cider/cider-nrepl             {:mvn/version "0.50.2"}
-                refactor-nrepl/refactor-nrepl {:mvn/version "3.10.0"}}
-   :main-opts  ["--eval" "(require '[nextjournal.clerk])(nextjournal.clerk/show! 'nextjournal.clerk.tap)(nextjournal.clerk/serve! {:browse? true})"
-                "-m" "nrepl.cmdline"
-                "--middleware" "[refactor-nrepl.middleware/wrap-refactor,cider.nrepl/cider-middleware]"
-                "--interactive"]}
 
   ;; Rebel Readline enhanced REPL UI
   ;; https://github.com/bhauman/rebel-readline
@@ -56,8 +46,8 @@
 
   ;; clojure -M:repl/rebel
   :repl/rebel
-  {:extra-deps {nrepl/nrepl                {:mvn/version "1.3.0"}
-                cider/cider-nrepl          {:mvn/version "0.50.2"}
+  {:extra-deps {nrepl/nrepl                {:mvn/version "1.3.1"}
+                cider/cider-nrepl          {:mvn/version "0.52.0"}
                 com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
    :main-opts  ["--eval" "(apply require clojure.main/repl-requires)"
                 "--main" "nrepl.cmdline"
@@ -72,11 +62,11 @@
   ;; clojure -M:repl/reloaded
   :repl/reloaded
   {:extra-paths ["dev" "test"]
-   :extra-deps {nrepl/nrepl                  {:mvn/version "1.3.0"}
-                cider/cider-nrepl            {:mvn/version "0.50.2"}
+   :extra-deps {nrepl/nrepl                  {:mvn/version "1.3.1"}
+                cider/cider-nrepl            {:mvn/version "0.53.0"}
                 com.bhauman/rebel-readline   {:mvn/version "0.1.4"}
-                djblue/portal                {:mvn/version "0.58.1"}   ; portal data inspector
-                clj-commons/clj-yaml         {:mvn/version "1.0.28"}   ; portal yaml support (optional)
+                djblue/portal                {:mvn/version "0.58.5"}   ; portal data inspector
+                clj-commons/clj-yaml         {:mvn/version "1.0.29"}   ; portal yaml support (optional)
                 org.clojure/tools.namespace  {:mvn/version "1.5.0"}
                 org.clojure/tools.trace      {:mvn/version "0.8.0"}
                 org.slf4j/slf4j-nop          {:mvn/version "2.0.16"}
@@ -91,6 +81,33 @@
                 "--interactive"
                 "-f" "rebel-readline.main/-main"]}
 
+  ;; DEVELOPMENT CONFIGURATION
+  ;; - We want to do fullstack development by default
+  ;; - Assumes we start a standalone REPL at the terminal, and
+  ;;   `cider-connect-clj&cljs` from our Emacs.
+  ;; - nb. To prevent figwheel-main auto compiler output from polluting the
+  ;;   GUI of vlaaad/reveal, configure figwhell-main's log level as :error.
+  ;; - We set nREPL middleware here instead of global ~/.nrepl/nrepl.edn,
+  ;;   or project-specific .nrepl.edn, to avoid splitting related configs
+  ;;   in too many places.
+  ;;   cf. https://nrepl.org/nrepl/1.0/usage/server.html#server-configuration
+  :dev/cljx
+  {:extra-paths ["src" "resources" "target" "dev" "test"]
+   :extra-deps {org.clojure/clojure {:mvn/version "1.12.0"}
+                org.clojure/clojurescript {:mvn/version "1.11.132"}
+                cider/cider-nrepl {:mvn/version "0.52.0"}
+                refactor-nrepl/refactor-nrepl {:mvn/version "3.10.0"}
+                cider/piggieback {:mvn/version "0.6.0"}
+                com.bhauman/figwheel-main {:mvn/version "0.2.20"}
+                ;; vlaaad/reveal {:mvn/version "1.3.280"}
+                ;; Suppress spammy jetty server logs emitted by figwheel's
+                ;; development server that powers hot reloading. Bleh.
+                org.slf4j/slf4j-nop {:mvn/version "2.0.16"}}
+   :main-opts ["-m" "nrepl.cmdline"
+               "--middleware"
+               "[cider.nrepl/cider-middleware,refactor-nrepl.middleware/wrap-refactor,cider.piggieback/wrap-cljs-repl,vlaaad.reveal.nrepl/middleware]"
+               "--interactive"]}
+
   ;; Include Rebel Readline library
   :lib/rebel
   {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}}}
@@ -100,7 +117,7 @@
   ;; clojure -M:repl/remote --host hostname --port 12345
   ;; replace --host and --port values with that of remote nREPL server
   :repl/remote
-  {:extra-deps {nrepl/nrepl {:mvn/version "1.3.0"}}
+  {:extra-deps {nrepl/nrepl {:mvn/version "1.3.1"}}
    :main-opts ["--main" "nrepl.cmdline" "--connect"]}
 
   ;; Dependency version management
@@ -113,7 +130,7 @@
   ;; cd $XDG_CONFIG_HOME/clojure && clojure -T:search/outdated
   :search/outdated
   {:replace-paths ["."]
-   :replace-deps  {com.github.liquidz/antq {:mvn/version "2.10.1241"}
+   :replace-deps  {com.github.liquidz/antq {:mvn/version "2.11.1264"}
                    org.slf4j/slf4j-nop     {:mvn/version "2.0.16"}}
    :exec-fn antq.tool/outdated
    :exec-args {:directory ["."] ; default
@@ -136,13 +153,13 @@
 
   ;; Databases and drivers uses only during development
   :lib/next.jdbc
-  {:extra-deps {com.github.seancorfield/next.jdbc {:mvn/version "1.3.955"}}}
+  {:extra-deps {com.github.seancorfield/next.jdbc {:mvn/version "1.3.994"}}}
 
   ;; H2 embedded database
   :database/h2
   {:extra-deps
    {com.h2database/h2                 {:mvn/version "2.3.232"}
-    com.github.seancorfield/next.jdbc {:mvn/version "1.3.955"}}}
+    com.github.seancorfield/next.jdbc {:mvn/version "1.3.994"}}}
 
   ;; Data Science
   ;; Notebooks for Clojure
@@ -156,15 +173,15 @@
   ;; Navigate data - edn, json, transit
   ;; https://github.com/djblue/portal
   :inspect/portal-cli
-  {:extra-deps {djblue/portal {:mvn/version "0.58.1"}}}
+  {:extra-deps {djblue/portal {:mvn/version "0.58.5"}}}
 
   :inspect/portal-web
-  {:extra-deps {djblue/portal             {:mvn/version "0.58.1"}
+  {:extra-deps {djblue/portal             {:mvn/version "0.58.5"}
                 org.clojure/clojurescript {:mvn/version "1.11.60"}}
    :main-opts  ["--main" "cljs.main"]}
 
   :inspect/portal-node
-  {:extra-deps {djblue/portal             {:mvn/version "0.58.1"}
+  {:extra-deps {djblue/portal             {:mvn/version "0.58.5"}
                 org.clojure/clojurescript {:mvn/version "1.11.60"}}
    :main-opts  ["--main" "cljs.main" "-re" "node"]}
 
