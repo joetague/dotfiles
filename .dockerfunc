@@ -38,7 +38,7 @@ notebooks(){
            -p 8888:8888 \
            -p 4040-4050:4040-4050 \
            --name notebooks \
-           quay.io/jupyter/all-spark-notebook:2024-08-19 "$@"
+           quay.io/jupyter/all-spark-notebook:2025-03-14 "$@"
 }
 plantuml(){
 	  del_stopped plantuml

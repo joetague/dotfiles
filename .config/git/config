@@ -34,10 +34,6 @@
 	whitespace = fix
 
 [core]
-	# Exclude everything this file. Used for general exclusions.
-	excludesfile = $XDG_CONFIG_HOME/git/ignore
-	# Set attributes on files. Used for general diff improvements.
-	attributesfile = $XDG_CONFIG_HOME/git/attributes
 	editor = emacsclient --no-wait --create-frame
 
 [mergetool]
@@ -158,3 +154,8 @@
   # brl="git for-each-ref --color=always --sort=-committerdate --format='%(color:yellow)%(refname:short)%09%(color:green)%(authorname)%09%(color:blue)%(committerdate:relative)%09%(color:red)%(objectname:short)%09%(color:magenta)%(upstream:track)%09%(color:white)%(contents:subject)%(color:reset)' refs/heads refs/remotes|column -t -s $'\t'"
   # count='git shortlog --summary --numbered'
 [credential "https://dev.azure.com"]
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

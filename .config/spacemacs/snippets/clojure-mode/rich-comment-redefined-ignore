@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+#name : rich-comment-redefined-ignore
+#key : rich-comment-redefined-ignore
+# --
+;; Rich comment block with redefined vars ignored
+#_{:clj-kondo/ignore [:redefined-var]}
+(comment
+
+  $0
+
+  #_()) ;; End of rich comment block

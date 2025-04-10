@@ -26,20 +26,22 @@ export PATH="$HOMEBREW_PREFIX/opt/rustup/bin:$PATH"
 export PATH="$XDG_CONFIG_HOME/emacs/bin:$PATH"
 export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.docker/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
-export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
-export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
-export LDFLAGS="-L/opt/homebrew/opt/zlib/lib $LDFLAGS"
+#export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
+#export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
+#export LDFLAGS="-L/opt/homebrew/opt/zlib/lib $LDFLAGS"
 
-export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
-export CPPFLAGS="-I/opt/homebrew/opt/jpeg/include $CPPFLAGS"
-export CPPFLAGS="-I/opt/homebrew/opt/zlib/include $CPPFLAGS"
+#export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
+#export CPPFLAGS="-I/opt/homebrew/opt/jpeg/include $CPPFLAGS"
+#export CPPFLAGS="-I/opt/homebrew/opt/zlib/include $CPPFLAGS"
 
-export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
-export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
+#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
+#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
+#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+#export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 
 # Rust lang setup
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -76,7 +78,8 @@ export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_
 
 # Emacs related
 export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
-export EDITOR="${EDITOR} --socket-name ${EMACS_SOCKET_NAME}"
+export EDITOR="emacsclient -c --socket-name ${EMACS_SOCKET_NAME}"
+# export EDITOR="nano"
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 fi
@@ -148,7 +151,6 @@ alias tree='eza --tree'
 alias make="nice make"
 alias mkdir="mkdir -vp"
 alias mv="mv -iv"
-
 alias rm="rm -iv"
 alias rsync="rsync --partial --progress --human-readable --compress"
 alias sha256="shasum -a 256"
