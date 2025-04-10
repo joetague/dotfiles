@@ -31,7 +31,7 @@
                 cider/cider-nrepl          {:mvn/version "0.52.1"}
                 refactor-nrepl/refactor-nrepl {:mvn/version "3.10.0"}}
    :main-opts  ["--main" "nrepl.cmdline"
-                "--middleware" "[cider.nrepl/cider-middleware]"
+                "--middleware" "[refactor-nrepl.middleware/wrap-refactor,cider.nrepl/cider-middleware]"
                 "--interactive"]}
 
   ;; Headless REPL with nREPL server for CIDER support
@@ -40,7 +40,7 @@
    cider/cider-nrepl          {:mvn/version "0.52.1"}
    refactor-nrepl/refactor-nrepl {:mvn/version "3.10.0"}}
    :main-opts  ["--main" "nrepl.cmdline"
-                "--middleware" "[cider.nrepl/cider-middleware]"]}
+                "--middleware" "[refactor-nrepl.middleware/wrap-refactor,cider.nrepl/cider-middleware]"]}
 
   ;; Rebel Readline enhanced REPL UI
   ;; https://github.com/bhauman/rebel-readline
@@ -54,7 +54,7 @@
                 com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
    :main-opts  ["--eval" "(apply require clojure.main/repl-requires)"
                 "--main" "nrepl.cmdline"
-                "--middleware" "[cider.nrepl/cider-middleware]"
+                "--middleware" "[refactor-nrepl.middleware/wrap-refactor,cider.nrepl/cider-middleware]"
                 "--interactive"
                 "-f" "rebel-readline.main/-main"]}
 
@@ -81,7 +81,7 @@
                 criterium/criterium          {:mvn/version "0.4.6"}}
    :main-opts  ["--eval" "(apply require clojure.main/repl-requires)"
                 "--main" "nrepl.cmdline"
-                "--middleware" "[cider.nrepl/cider-middleware,portal.nrepl/wrap-portal]"
+                "--middleware" "[refactor-nrepl.middleware/wrap-refactor,cider.nrepl/cider-middleware,portal.nrepl/wrap-portal]"
                 "--interactive"
                 "-f" "rebel-readline.main/-main"]}
 
