@@ -219,8 +219,8 @@ This function should only modify configuration layer settings."
           org-enable-org-journal-support t
           org-enable-valign t
           org-enable-verb-support t
-          org-project-capture-projects-file "~/org/projects.org"
-          org-persp-startup-org-file "~/org/life.org")
+          org-project-capture-projects-file "~/org/projects.org")
+     ;; org-persp-startup-org-file "~/org/life.org")
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+os/osx/README.org
      (osx :variables
@@ -248,7 +248,7 @@ This function should only modify configuration layer settings."
              python-test-runner 'pytest)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/restclient/README.org
-     restclient
+     ;; restclient
 
      ;; Just use VSCode?
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+frameworks/react/README.org
@@ -305,11 +305,11 @@ This function should only modify configuration layer settings."
      ;; Not used this in anger yet
      ;; Alternative might be: https://github.com/kostafey/ejc-sql
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/sql/README.org
-     (sql :variables
-          sql-backend 'lsp
-          sql-lsp-sqls-workspace-config-path 'workspace
-          sql-capitalize-keywords t
-          sql-auto-indent nil)
+     ;; (sql :variables
+     ;;      sql-backend 'lsp
+     ;;      sql-lsp-sqls-workspace-config-path 'workspace
+     ;;      sql-capitalize-keywords t
+     ;;      sql-auto-indent nil)
 
      ;; Original flycheck fringe bitmaps is deprecated
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/syntax-checking/README.org
