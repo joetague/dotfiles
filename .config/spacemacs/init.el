@@ -1205,22 +1205,25 @@ before packages are loaded."
   ;; (setq projectile-create-missing-test-files t)
   ;; (setq projectile-enable-caching t)
   ;; (setq projectile-indexing-method 'native)
+  ;; OPTIONAL configuration
 
   ;; LLM GPTel setup
-  (setq
-   gptel-model 'llama3.3:latest
-   gptel-backend (gptel-make-ollama "Ollama"
-                   :host "localhost:11434"
-                   :stream t
-                   :models (s-split "\n"
-                                    (shell-command-to-string "curl -s --connect-timeout 0.5 'http://localhost:11434/api/tags' | jq -r '.models[].name' | head -c -1"))))
+  (with-eval-after-load 'gptel
+    ;; (gptel-make-kagi "Kagi" :key (auth-source-pick-first-password :host "api.kagi.com" :user "joetague")) Needs API Credits
+    (setopt
+     gptel-model 'llama3.3:latest
+     gptel-backend (gptel-make-ollama "Ollama"
+                     :host "localhost:11434"
+                     :stream t
+                     :models (s-split "\n"
+                                      (shell-command-to-string "curl -s --connect-timeout 0.5 'http://localhost:11434/api/tags' | jq -r '.models[].name' | head -c -1"))))
 
-  ;; Use the system prompt builder function
-  (let ((build-directives-fun "~/proj/llm-prompts/gptel-build-directives.el"))
-    (when (f-exists-p build-directives-fun)
-      (load build-directives-fun)
-      (setq gptel-directives (jpt/gptel-build-directives "~/proj/llm-prompts/system-prompts/")
-            gptel-system-message (alist-get 'default gptel-directives))))
+    ;; Use the system prompt builder function
+    (let ((build-directives-fun "~/proj/llm-prompts/gptel-build-directives.el"))
+      (when (f-exists-p build-directives-fun)
+        (load build-directives-fun)
+        (setq gptel-directives (jpt/gptel-build-directives "~/proj/llm-prompts/system-prompts/")
+              gptel-system-message (alist-get 'default gptel-directives)))))
 
   )
 
