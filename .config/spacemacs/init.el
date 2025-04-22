@@ -931,8 +931,21 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+
+  (setopt user-full-name "Joe Tague"
+          user-mail-address "joetague@gmail.com")
+
+  ;; Fixes GPG setup
+  ;; Set the files that are searched for writing tokens
+  ;; by default ~/.authinfo will be used
+  ;; and write a token in unencrypted format
+  (setopt auth-sources '("~/.authinfo.gpg"))
+
+  ;; Always load newest byte code
+  (setopt load-prefer-newer t)
+
   ;; Remove window decoration
-  (setq default-frame-alist '((undecorated-round . t)))
+  (setopt default-frame-alist '((undecorated-round . t)))
   ;; Disable undo-tree as it slows everything down
   ;; (global-undo-tree-mode -1)
   (envrc-global-mode)
@@ -942,25 +955,20 @@ before packages are loaded."
   ;; Emacs text rendering optimisations
   ;; https://200ok.ch/posts/2020-09-29_comprehensive_guide_on_handling_long_lines_in_emacs.html
   ;; Only render text left to right
-  (setq-default bidi-paragraph-direction 'left-to-right)
+  (setopt bidi-paragraph-direction 'left-to-right)
 
-  ;; Fixes GPG setup
-  ;; Set the files that are searched for writing tokens
-  ;; by default ~/.authinfo will be used
-  ;; and write a token in unencrypted format
-  (setq auth-sources '("~/.authinfo.gpg"))
 
   ;; Clojure and tools
   (require 'clj-deps-new)
   (require 'jet)
   (require 'clay)
-  (setq neil-inject-dep-to-project-p t)
-  (setq neil-prompt-for-version-p t)
+  (setopt neil-inject-dep-to-project-p t)
+  (setopt neil-prompt-for-version-p t)
 
   ;; CIDER
-  (setq cider-overlays-use-font-lock t)
-  (setq cider-repl-buffer-size-limit 100)
-  (setq cider-repl-display-help-banner nil)
+  (setopt cider-overlays-use-font-lock t)
+  (setopt cider-repl-buffer-size-limit 100)
+  (setopt cider-repl-display-help-banner nil)
   ;; enable safe structural editing for all supported modes
   (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 
@@ -1011,13 +1019,13 @@ before packages are loaded."
 
 
   ;; Magit - forge configuration
-  (setq magit-diff-refine-hunk 'all)
-  (setq forge-topic-list-limit '(100 . -5))
-  (setq forge-owned-accounts
-        '(("joetague")))
-  (setq magit-repository-directories
-        '(("~/.emacs.d"  . 0)
-          ("~/proj/" . 4)))
+  (setopt magit-diff-refine-hunk 'all)
+  (setopt forge-topic-list-limit '(100 . -5))
+  (setopt forge-owned-accounts
+          '(("joetague")))
+  (setopt magit-repository-directories
+          '(("~/.emacs.d"  . 0)
+            ("~/proj/" . 4)))
 
   ;; Setup org
   (with-eval-after-load 'org
@@ -1027,17 +1035,17 @@ before packages are loaded."
     ;; Crypt
     (require 'org-crypt)
     (org-crypt-use-before-save-magic)
-    (setq org-tags-exclude-from-inheritance (quote ("crypt")))
-    (setq org-crypt-key "F4E72EEA776B3FBC")
+    (setopt org-tags-exclude-from-inheritance (quote ("crypt")))
+    (setopt org-crypt-key "F4E72EEA776B3FBC")
     ;; ;; GPG key to use for encryption
     ;; ;; Either the Key ID or set to nil to use symmetric encryption.
-    (setq auto-save-default nil)
+    (setopt auto-save-default nil)
 
     ;; ;; Capturing
-    (setq org-refile-targets '((nil :maxlevel . 4)
-                               (org-agenda-files :maxlevel . 4)))
-    (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
-    (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
+    (setopt org-refile-targets '((nil :maxlevel . 4)
+                                 (org-agenda-files :maxlevel . 4)))
+    (setopt org-outline-path-complete-in-steps nil)         ; Refile in a single go
+    (setopt org-refile-use-outline-path t)                  ; Show full paths for refiling
 
     ;; https://emacs.stackexchange.com/questions/12900/passing-a-variable-to-template-function-in-org-capture-templates
     ;; Creating a template for meeting notes
@@ -1079,11 +1087,11 @@ before packages are loaded."
     ;;         ))
 
     ;; TODO Keywords
-    (setq org-todo-keywords
-          (quote ((sequence "TODO(t)" "IN_PROGRESS(i)" "|" "DONE(d)")
-                  (sequence "WAITING(w@/)" "HOLD(h@/)" "|" "CANCELLED(c@/)"))))
+    (setopt org-todo-keywords
+            (quote ((sequence "TODO(t)" "IN_PROGRESS(i)" "|" "DONE(d)")
+                    (sequence "WAITING(w@/)" "HOLD(h@/)" "|" "CANCELLED(c@/)"))))
     ;;Avoid setting entries as DONE when there are still sub-entries that are not DONE.
-    (setq org-enforce-todo-dependencies t)
+    (setopt org-enforce-todo-dependencies t)
 
     ;; Assumes org-clock-taskbar is installed to always visible menubar?
     ;; (add-hook 'org-clock-in-hook (lambda () (call-process "/usr/bin/osascript" nil 0 nil "-e" (concat "tell application \"org-clock-statusbar\" to clock in \"" (replace-regexp-in-string "\"" "\\\\\"" org-clock-current-task) "\""))))
@@ -1091,68 +1099,68 @@ before packages are loaded."
 
 
     ;; Agenda
-    (setq org-agenda-files (list "~/org/learning.org" "~/org/life.org" "~/org/projects.org"))
-    (setq org-agenda-skip-scheduled-if-done t)
-    (setq org-agenda-skip-deadline-if-done t)
-    (setq org-agenda-custom-commands
-          '(("z" "Super zaen view"
-             ((agenda "" ((org-agenda-span 'day)
-                          (org-super-agenda-groups
-                           '((:name "Schedule"
-                                    :time-grid t)
-                             (:name "Today"
-                                    :scheduled today
-                                    :deadline today)
-                             (:name "Overdue"
-                                    :deadline past
-                                    :scheduled past)))))
-              (alltodo "" ((org-agenda-overriding-header "")
-                           (org-super-agenda-groups
-                            '((:name "Inbox"
-                                     :category "inbox"
-                                     :order 3)
-                              (:name "In Progress"
-                                     :todo "IN_PROGRESS"
-                                     :order 1)
-                              (:name "Due Today"
-                                     :deadline today
-                                     :order 2)
-                              (:discard (:category "recurring"))
-                              (:name "Important"
-                                     :tag "Important"
-                                     :priority "A"
-                                     :order 6)
-                              (:name "Due Soon"
-                                     :deadline future
-                                     :order 8)
-                              (:name "trivial"
-                                     :priority<= "C"
-                                     :tag ("Trivial" "Unimportant")
-                                     :todo ("SOMEDAY")
-                                     :order 90)))))))))
-    (setq org-persp-startup-with-agenda "z")
+    (setopt org-agenda-files '("~/org/learning.org" "~/org/life.org" "~/org/projects.org"))
+    (setopt org-agenda-skip-scheduled-if-done t)
+    (setopt org-agenda-skip-deadline-if-done t)
+    (setopt org-agenda-custom-commands
+            '(("z" "Super zaen view"
+               ((agenda "" ((org-agenda-span 'day)
+                            (org-super-agenda-groups
+                             '((:name "Schedule"
+                                      :time-grid t)
+                               (:name "Today"
+                                      :scheduled today
+                                      :deadline today)
+                               (:name "Overdue"
+                                      :deadline past
+                                      :scheduled past)))))
+                (alltodo "" ((org-agenda-overriding-header "")
+                             (org-super-agenda-groups
+                              '((:name "Inbox"
+                                       :category "inbox"
+                                       :order 3)
+                                (:name "In Progress"
+                                       :todo "IN_PROGRESS"
+                                       :order 1)
+                                (:name "Due Today"
+                                       :deadline today
+                                       :order 2)
+                                (:discard (:category "recurring"))
+                                (:name "Important"
+                                       :tag "Important"
+                                       :priority "A"
+                                       :order 6)
+                                (:name "Due Soon"
+                                       :deadline future
+                                       :order 8)
+                                (:name "trivial"
+                                       :priority<= "C"
+                                       :tag ("Trivial" "Unimportant")
+                                       :todo ("SOMEDAY")
+                                       :order 90)))))))))
+    (setopt org-persp-startup-with-agenda "z")
 
     ;; Journal
-    (setq org-journal-dir "~/org/journal/")
-    (setq org-journal-file-format "%Y%m%d")
-    (setq org-journal-file-type 'weekly)
-    (setq org-journal-start-on-weekday 1)
-    (setq org-journal-encrypt-journal t)
+    (setopt org-journal-dir "~/org/journal/")
+    (setopt org-journal-file-format "%Y%m%d")
+    (setopt org-journal-file-type 'weekly)
+    (setopt org-journal-start-on-weekday 1)
+    (setopt org-journal-encrypt-journal t)
 
     ;; Noter
     ;; (setq org-noter-default-notes-file-names '("~/org/learning.org")
     ;;       org-noter-notes-search-path '("~/org"))
 
     ;; Time management and recording
-    (setq org-deadline-warning-days 5)
-    (setq org-clock-into-drawer t)
-    (setq org-clock-persist t)
-    (setq org-clocktable-defaults '(:scope ("~/org/work.org" "~/org/work.org_archive") :maxlevel 2 :narrow 200! :block today))
-    (setq spaceline-org-clock-p t) ;; Mode line display of task
-    (setq org-columns-default-format "%60ITEM(Task) %20TODO %10Effort(Effort){:} %10CLOCKSUM")
-    (setq org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
-                                        ("STYLE_ALL" . "habit"))))
-    (setq org-duration-format '((special . h:mm)))
+    (setopt org-deadline-warning-days 5)
+    (setopt org-clock-into-drawer t)
+    (setopt org-clock-persist t)
+    ;; (setopt org-clocktable-defaults '(:scope ("~/org/work.org" "~/org/work.org_archive") :maxlevel 2 :narrow 200! :block today))
+    (setopt spaceline-org-clock-p t) ;; Mode line display of task
+    (setopt org-columns-default-format "%60ITEM(Task) %20TODO %10Effort(Effort){:} %10CLOCKSUM")
+    (setopt org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
+                                          ("STYLE_ALL" . "habit"))))
+    (setopt org-duration-format '((special . h:mm)))
     ;;THis has been replaced by org-duration-format above: (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
     ;; (setq org-icalendar-timezone "Europe/London") ;; for ox-icalendar.el if nil uses (current-time-zone) output
 
@@ -1171,29 +1179,29 @@ before packages are loaded."
     ) ;; end with-eval-after-load
 
   ;; tree-sitter settings
-  (setq treesit-language-source-alist
-        '((bash "https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3")
-          (css "https://github.com/tree-sitter/tree-sitter-css" "v0.23.2")
-          (clojure "https://github.com/sogaiu/tree-sitter-clojure" "v0.0.13")
-          (elisp "https://github.com/Wilfred/tree-sitter-elisp" "1.5.0")
-          (go "https://github.com/tree-sitter/tree-sitter-go" "v0.23.4")
-          (html "https://github.com/tree-sitter/tree-sitter-html" "v0.23.2")
-          (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "v0.23.1")
-          (json "https://github.com/tree-sitter/tree-sitter-json" "v0.24.8")
-          (make "https://github.com/alemuller/tree-sitter-make")
-          (markdown "https://github.com/ikatyang/tree-sitter-markdown" "v0.7.1")
-          (python "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6")
-          (toml "https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1")
-          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
-          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
-          (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0")))
+  (setopt treesit-language-source-alist
+          '((bash "https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3")
+            (css "https://github.com/tree-sitter/tree-sitter-css" "v0.23.2")
+            (clojure "https://github.com/sogaiu/tree-sitter-clojure" "v0.0.13")
+            (elisp "https://github.com/Wilfred/tree-sitter-elisp" "1.5.0")
+            (go "https://github.com/tree-sitter/tree-sitter-go" "v0.23.4")
+            (html "https://github.com/tree-sitter/tree-sitter-html" "v0.23.2")
+            (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "v0.23.1")
+            (json "https://github.com/tree-sitter/tree-sitter-json" "v0.24.8")
+            (make "https://github.com/alemuller/tree-sitter-make")
+            (markdown "https://github.com/ikatyang/tree-sitter-markdown" "v0.7.1")
+            (python "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6")
+            (toml "https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1")
+            (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
+            (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
+            (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0")))
 
   ;; Projectile settings
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
   ;; of helm-projectile by using a shell that doesn't have a lot of profile information
   ;; Previously tried
   ;; (setq shell-file-name "/bin/sh")
-  (setq projectile-project-search-path '("~/proj/"))
+  (setopt projectile-project-search-path '(("~/proj/" . 2)))
   ;; (setq projectile-create-missing-test-files t)
   ;; (setq projectile-enable-caching t)
   ;; (setq projectile-indexing-method 'native)
