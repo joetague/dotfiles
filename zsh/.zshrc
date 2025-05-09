@@ -154,3 +154,9 @@ alias mv="mv -iv"
 alias rm="rm -iv"
 alias rsync="rsync --partial --progress --human-readable --compress"
 alias sha256="shasum -a 256"
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/joetague/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
