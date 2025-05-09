@@ -38,13 +38,5 @@ notebooks(){
            -p 8888:8888 \
            -p 4040-4050:4040-4050 \
            --name notebooks \
-           quay.io/jupyter/all-spark-notebook:2025-03-14 "$@"
-}
-plantuml(){
-	  del_stopped plantuml
-
-	  docker run --rm -it \
-		       -v "$(pwd):/root/plantuml-workspace" \
-		       --name plantuml \
-		       ${DOCKER_REPO_PREFIX}/plantuml "$@"
+           quay.io/jupyter/all-spark-notebook:2025-05-05 "$@"
 }
