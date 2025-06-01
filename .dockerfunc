@@ -35,6 +35,7 @@ notebooks(){
 
     docker run --rm \
            -v "${HOME}/proj/notebooks:/home/jovyan/work" \
+           -v "${HOME}/proj/data:/home/jovyan/data" \
            -p 8888:8888 \
            -p 4040-4050:4040-4050 \
            --name notebooks \
