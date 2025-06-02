@@ -219,8 +219,8 @@ This function should only modify configuration layer settings."
           org-enable-org-journal-support t
           org-enable-valign t
           org-enable-verb-support t
+          org-persp-startup-org-file "~/org/life.org"
           org-project-capture-projects-file "~/org/projects.org")
-     ;; org-persp-startup-org-file "~/org/life.org")
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+os/osx/README.org
      (osx :variables
@@ -338,6 +338,7 @@ This function should only modify configuration layer settings."
                treemacs-use-follow-mode t
                treemacs-use-scope-type 'Perspectives)
 
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/tree-sitter/README.org
      ;; (tree-sitter :variables
      ;;              spacemacs-tree-sitter-hl-black-list '(js2-mode rjsx-mode)
      ;;              tree-sitter-syntax-highlight-enable t
@@ -935,6 +936,8 @@ before packages are loaded."
   (setopt user-full-name "Joe Tague"
           user-mail-address "joetague@gmail.com")
 
+  (setopt spacemacs-keep-legacy-current-buffer-delete-bindings nil)
+
   ;; Fixes GPG setup
   ;; Set the files that are searched for writing tokens
   ;; by default ~/.authinfo will be used
@@ -1027,7 +1030,7 @@ before packages are loaded."
           '(("~/.emacs.d"  . 0)
             ("~/proj/" . 4)))
 
-  ;; Setup org
+  ;; Org Mode
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-protocol)
     ;; (add-to-list 'org-modules 'org-tempo)
@@ -1097,9 +1100,8 @@ before packages are loaded."
     ;; (add-hook 'org-clock-in-hook (lambda () (call-process "/usr/bin/osascript" nil 0 nil "-e" (concat "tell application \"org-clock-statusbar\" to clock in \"" (replace-regexp-in-string "\"" "\\\\\"" org-clock-current-task) "\""))))
     ;; (add-hook 'org-clock-out-hook (lambda () (call-process "/usr/bin/osascript" nil 0 nil "-e" "tell application \"org-clock-statusbar\" to clock out")))
 
-
     ;; Agenda
-    (setopt org-agenda-files '("~/org/learning.org" "~/org/life.org" "~/org/projects.org"))
+    (setopt org-agenda-files '("~/org/learning.org" "~/org/life.org"))
     (setopt org-agenda-skip-scheduled-if-done t)
     (setopt org-agenda-skip-deadline-if-done t)
     (setopt org-agenda-custom-commands
@@ -1148,8 +1150,8 @@ before packages are loaded."
     (setopt org-journal-encrypt-journal t)
 
     ;; Noter
-    ;; (setq org-noter-default-notes-file-names '("~/org/learning.org")
-    ;;       org-noter-notes-search-path '("~/org"))
+    (setq org-noter-default-notes-file-names '("~/org/learning.org")
+          org-noter-notes-search-path '("~/org"))
 
     ;; Time management and recording
     (setopt org-deadline-warning-days 5)
@@ -1161,7 +1163,7 @@ before packages are loaded."
     (setopt org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
                                           ("STYLE_ALL" . "habit"))))
     (setopt org-duration-format '((special . h:mm)))
-    ;;THis has been replaced by org-duration-format above: (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
+    ;; This has been replaced by org-duration-format above: (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
     ;; (setq org-icalendar-timezone "Europe/London") ;; for ox-icalendar.el if nil uses (current-time-zone) output
 
     ;; Babel
@@ -1196,6 +1198,20 @@ before packages are loaded."
             (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
             (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0")))
 
+  ;;
+  ;; (spacemacs|define-custom-layout "@K9s"
+  ;;   :binding "K"
+  ;;   :body
+  ;;   (progn
+  ;;     ;; hook to add all ERC buffers to the layout
+  ;;     (defun spacemacs-layouts/add-k9s-buffer-to-persp ()
+  ;;       (persp-add-buffer (current-buffer)
+  ;;                         (persp-get-by-name
+  ;;                          k9s-spacemacs-layout-name)))
+  ;;     (add-hook 'vterm-mode-hook #'spacemacs-layouts/add-k9s-buffer-to-persp)
+  ;;     ;; Start vterm maximized and running k9s
+  ;;     (call-interactively 'erc)))
+
   ;; Projectile settings
   ;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
   ;; of helm-projectile by using a shell that doesn't have a lot of profile information
@@ -1208,10 +1224,12 @@ before packages are loaded."
   ;; OPTIONAL configuration
 
   ;; LLM GPTel setup
+  ;; See options at: https://github.com/karthink/gptel?tab=readme-ov-file#ollama
+  ;; TODO: Evaluate switching this to LM Studio to make use of MLX
   (with-eval-after-load 'gptel
     ;; (gptel-make-kagi "Kagi" :key (auth-source-pick-first-password :host "api.kagi.com" :user "joetague")) Needs API Credits
     (setopt
-     gptel-model 'llama3.3:latest
+     gptel-model 'llama4:scout
      gptel-backend (gptel-make-ollama "Ollama"
                      :host "localhost:11434"
                      :stream t
