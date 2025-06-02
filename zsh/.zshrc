@@ -22,12 +22,8 @@ export PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/jpeg/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/sqlite/bin:$PATH"
-export PATH="$HOMEBREW_PREFIX/opt/rustup/bin:$PATH"
-export PATH="$XDG_CONFIG_HOME/emacs/bin:$PATH"
-export PATH="$HOME/proj/apache-maven-3.9.6/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.docker/bin:$PATH"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 #export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 #export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
@@ -40,17 +36,6 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 #export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
 #export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
 #export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
-
-#export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-
-# Rust lang setup
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-
-# Go lang setup
-export GOPATH="$XDG_DATA_HOME/go"
-export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
-export PATH="$GOPATH/bin:$PATH"
 
 # Java lang setup
 export JABBA_HOME="$HOME/.jabba"
@@ -110,7 +95,6 @@ vterm_cmd() {
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(fzf --zsh)"
-eval "$(direnv hook zsh)"
 
 ## History file configuration
 [ -z "$HISTFILE" ] && HISTFILE="$XDG_STATE_HOME/zsh/history"
@@ -155,8 +139,6 @@ alias rm="rm -iv"
 alias rsync="rsync --partial --progress --human-readable --compress"
 alias sha256="shasum -a 256"
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/joetague/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
-# End of Docker CLI completions
