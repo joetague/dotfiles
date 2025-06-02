@@ -13,6 +13,8 @@ tap "homebrew/services"
 brew "aspell"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Modern replacement for 'ls'
@@ -29,6 +31,8 @@ brew "gawk"
 brew "git"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
+# GNU version of the tar archiving utility
+brew "gnu-tar"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
 # Manage your Java environment
@@ -43,6 +47,10 @@ brew "pinentry-mac"
 brew "pyenv"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Autoformat shell script source code
+brew "shfmt"
 # Minimal, fast(rust-based) customizable shell prompt
 brew "starship"
 # GNU Stow
@@ -53,6 +61,8 @@ brew "tldr"
 brew "tree-sitter"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Check your $HOME for unwanted files and directories
+brew "xdg-ninja"
 # UNIX shell (command interpreter)
 brew "zsh"
 #  Smarter cd command, inspired by z and autojump
@@ -60,7 +70,6 @@ brew "zoxide"
 
 # Emacs - will install a lot of dependencies to compile - may need libvterm
 brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-imagemagick", "with-mailutils", "with-native-comp", "with-xwidgets"]
-
 # Offline API documentation browser and code snippet manager
 cask "dash@6"
 # Draw.io/diagrams.net diagram software
