@@ -67,9 +67,6 @@ brew "zoxide"
 
 # Emacs - will install a lot of dependencies to compile - may need libvterm
 brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-imagemagick", "with-mailutils", "with-xwidgets"]
-# Offline API documentation browser and code snippet manager
-cask "dash@6"
-# Draw.io/diagrams.net diagram software
-cask "drawio"
+
 # Font for emacs
 cask "font-source-code-pro"
