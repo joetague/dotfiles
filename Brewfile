@@ -5,9 +5,6 @@ cask_args appdir: "~/Applications", require_sha: true
 # Additional sources
 # -----------------------------------------------------------------------------
 tap "d12frosted/emacs-plus"
-tap "homebrew/bundle"
-tap "homebrew/services"
-
 
 # Spell checker with better logic than ispell
 brew "aspell"
