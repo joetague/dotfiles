@@ -4,19 +4,11 @@ cask_args appdir: "~/Applications", require_sha: true
 
 # Additional sources
 # -----------------------------------------------------------------------------
-tap "babashka/brew"
-tap "borkdude/brew"
-tap "bufbuild/buf"
-tap "clojure/tools"
-tap "candid82/brew"
 tap "d12frosted/emacs-plus"
-tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/services"
 
 
-# Architecture Decision Record tools
-brew "adrtools"
 # Spell checker with better logic than ispell
 brew "aspell"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -61,33 +53,17 @@ brew "tldr"
 brew "tree-sitter"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
-# Tracks most-used directories to make cd smarter
-brew "z"
 # UNIX shell (command interpreter)
 brew "zsh"
 #  Smarter cd command, inspired by z and autojump
 brew "zoxide"
 
-# The Clojure Programming Language
-brew "clojure/tools/clojure"
 # Emacs - will install a lot of dependencies to compile - may need libvterm
 brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-imagemagick", "with-mailutils", "with-native-comp", "with-xwidgets"]
-# Ad-hoc ClojureScript scripting of Mac applications via Apple's Open Scripting Architecture
-brew "babashka/brew/obb"
-# Native, fast starting Clojure interpreter for scripting
-brew "borkdude/brew/babashka"
-# Transform JSON into EDN into Transit
-brew "borkdude/brew/jet"
 
-# Memory training application
-cask "anki"
 # Offline API documentation browser and code snippet manager
 cask "dash@6"
 # Draw.io/diagrams.net diagram software
 cask "drawio"
 # Font for emacs
 cask "font-source-code-pro"
-# Scientific and technical publishing system built on Pandoc
-cask "quarto"
-# Video communication and virtual meeting platform
-cask "zoom"

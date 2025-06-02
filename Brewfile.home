@@ -1,0 +1,19 @@
+# Additional sources: mostly for Clojure
+# -----------------------------------------------------------------------------
+tap "babashka/brew"
+tap "borkdude/brew"
+tap "clojure/tools"
+tap "candid82/brew"          #joker
+
+# The Clojure Programming Language
+brew "clojure/tools/clojure"
+# Ad-hoc ClojureScript scripting of Mac applications via Apple's Open Scripting Architecture
+brew "babashka/brew/obb"
+# Native, fast starting Clojure interpreter for scripting
+brew "borkdude/brew/babashka"
+# Transform JSON into EDN into Transit
+brew "borkdude/brew/jet"
+# Memory training application
+cask "anki"
+# Scientific and technical publishing system built on Pandoc
+cask "quarto"
