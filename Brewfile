@@ -13,6 +13,9 @@ tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/services"
 
+
+# Architecture Decision Record tools
+brew "adrtools"
 # Spell checker with better logic than ispell
 brew "aspell"
 # Clone of cat(1) with syntax highlighting and Git integration
