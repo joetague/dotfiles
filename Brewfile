@@ -6,6 +6,7 @@ cask_args appdir: "~/Applications", require_sha: true
 # -----------------------------------------------------------------------------
 tap "babashka/brew"
 tap "borkdude/brew"
+tap "bufbuild/buf"
 tap "clojure/tools"
 tap "candid82/brew"
 tap "d12frosted/emacs-plus"
