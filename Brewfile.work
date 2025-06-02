@@ -5,5 +5,11 @@ tap "bufbuild/buf"
 # Architecture Decision Record tools
 brew "adrtools"
 
+# Kubernetes package manager
+brew "helm"
+
+# TUI vs learning so much kubectl
+brew "k9s"
+
 # Video communication and virtual meeting platform
 cask "zoom"
