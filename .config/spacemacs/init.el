@@ -1052,6 +1052,24 @@ before packages are loaded."
             (cons "emacs-lsp-booster" orig-result))
         orig-result)))
   (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+
+
+  ;; LSP - Java
+  (with-eval-after-load 'lsp-java
+    (setq lsp-java-vmargs
+          `("-XX:+UseParallelGC"
+            "-XX:GCTimeRatio=4"
+            "-XX:AdaptiveSizePolicyWeight=90"
+            "-Dsun.zip.disableMemoryMapping=true"
+            "-Xmx4G")
+          lsp-enable-indentation nil
+          lsp-java-completion-max-results 50
+          lsp-java-progress-reports nil
+          lsp-java-autobuild-enabled nil)
+    (setq c-basic-offset 4
+          tab-width 4
+          indent-tabs-mode nil))
+
   ;; Magit - forge configuration
   (setopt magit-diff-refine-hunk 'all)
   (setopt forge-topic-list-limit '(100 . -5))
