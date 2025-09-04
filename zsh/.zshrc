@@ -122,6 +122,15 @@ alias rm="rm -iv"
 alias rsync="rsync --partial --progress --human-readable --compress"
 alias sha256="shasum -a 256"
 
+# Smarter completion initialization
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+    compinit
+else
+    compinit -C
+fi
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/joetague/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
+# End of Docker CLI completions
