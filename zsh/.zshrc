@@ -1,5 +1,6 @@
 # Set PATH, MANPATH, etc., for Homebrew.
 # Skip: eval "$(/opt/homebrew/bin/brew shellenv)" use output explicitly below for perf reasons
+export HOMEBREW_DOWNLOAD_CONCURRENCY=auto
 export HOMEBREW_PREFIX="/opt/homebrew"
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
 export HOMEBREW_REPOSITORY="/opt/homebrew"
