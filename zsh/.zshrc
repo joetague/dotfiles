@@ -37,26 +37,7 @@ export PATH="$HOME/.docker/bin:$PATH"
 #export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
 #export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-# Java lang setup
-export JABBA_HOME="$HOME/.jabba"
-[ -s "$JABBA_HOME/jabba.sh" ] && source "$JABBA_HOME/jabba.sh"
-export JENV_ROOT="$XDG_DATA_HOME/jenv"
-if which jenv >/dev/null; then eval "$(jenv init -)"; fi
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
-
-# Python lang setup
-export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-if which pyenv >/dev/null; then eval "$(pyenv init -)"; fi
-
-# NodeJS lang setup
-export PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811/bin":$PATH
-export FNM_DIR="/Users/joetague/Library/Application Support/fnm"
-export FNM_MULTISHELL_PATH="/Users/joetague/Library/Caches/fnm_multishells/56669_1686339042811"
-export FNM_VERSION_FILE_STRATEGY="local"
-export FNM_LOGLEVEL="info"
-export FNM_NODE_DIST_MIRROR="https://nodejs.org/dist"
-export FNM_ARCH="arm64"
-rehash
 
 # Move aspell config and personal dictionary
 export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_DATA_HOME/aspell/en.pws; repl $XDG_DATA_HOME/aspell/en.prepl"
@@ -92,9 +73,10 @@ vterm_cmd() {
     vterm_printf "51;E$vterm_elisp"
 }
 
-eval "$(starship init zsh)"
-eval "$(zoxide init --cmd cd zsh)"
+eval "$(mise activate zsh)"
 eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+eval "$(starship init zsh)"
 
 ## History file configuration
 [ -z "$HISTFILE" ] && HISTFILE="$XDG_STATE_HOME/zsh/history"
