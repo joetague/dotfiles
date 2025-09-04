@@ -25,7 +25,7 @@ export PATH="$HOMEBREW_PREFIX/opt/jpeg/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/sqlite/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.docker/bin:$PATH"
-
+export PATH="$HOME/.cargo/bin:$PATH"
 #export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 #export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
 #export LDFLAGS="-L/opt/homebrew/opt/zlib/lib $LDFLAGS"
