@@ -33,6 +33,8 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/aider
+     (aider)
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/asciidoc/README.org
      ;; asciidoc
 
@@ -79,8 +81,8 @@ This function should only modify configuration layer settings."
 
      ;; Don't autoload docsets use dir.locals.el to load appropriate ones per project
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/dash/README.org
-     (dash :variables
-           dash-autoload-common-docsets nil)
+     ;; (dash :variables
+     ;;       dash-autoload-common-docsets nil)
 
      ;; Introduces a clash now with builtin TRAMP support
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/docker/README.org
@@ -103,8 +105,7 @@ This function should only modify configuration layer settings."
      ;; refine hunk 'all highlights characters changed on each line
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+source-control/git/README.org
      (git :variables
-          git-magit-status-fullscreen t
-          )
+          git-magit-status-fullscreen t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/go/README.org
      ;; brew install gopls golangci-lint
@@ -165,49 +166,23 @@ This function should only modify configuration layer settings."
      (lsp :variables
           ;; Do not install lsp-ui package
           lsp-use-lsp-ui nil
-          ;; Formatting and indentation - use Cider instead
-          lsp-enable-on-type-formatting t
-          ;; Set to nil to use CIDER features instead of LSP UI
-          lsp-enable-indentation nil
-          lsp-enable-snippet nil  ;; to test again
-
-          ;; symbol highlighting - `lsp-toggle-symbol-highlight` toggles highlighting
-          ;; subtle highlighting for doom-gruvbox-light theme defined in dotspacemacs/user-config
-          lsp-enable-symbol-highlighting t
-
-          ;; Show lint error indicator in the mode line
-          lsp-modeline-diagnostics-enable t
-          ;; lsp-modeline-diagnostics-scope :workspace
-
-          ;; popup documentation boxes
-          lsp-ui-doc-enable nil          ;; disable all doc popups
-          ;; lsp-ui-doc-show-with-cursor nil   ;; doc popup for cursor
-          ;; lsp-ui-doc-show-with-mouse t   ;; doc popup for mouse
-          ;; lsp-ui-doc-delay 2                ;; delay in seconds for popup to display
-          ;; lsp-ui-doc-include-signature t    ;; include function signature
-          ;; lsp-ui-doc-position 'at-point  ;; top bottom at-point
-          lsp-ui-doc-alignment 'window      ;; frame window
-
-          ;; code actions and diagnostics text as right-hand side of buffer
+          ;; Disable lsp-ui-doc overlay
+          lsp-ui-doc-enable nil
+          ;; Disable type signature included in the lsp-ui-doc overlay
+          lsp-ui-doc-include-signature nil
+          ;; Disable lsp-ui-sideline overlay
           lsp-ui-sideline-enable nil
-          lsp-ui-sideline-show-code-actions nil
-          ;; lsp-ui-sideline-delay 500
-          ;; lsp-ui-sideline-show-diagnostics nil
-
-          ;; reference count for functions (assume their maybe other lenses in future)
-          lsp-lens-enable t
-
-          ;; Efficient use of space in treemacs-lsp display
-          treemacs-space-between-root-nodes nil
-          lsp-treemacs-sync-mode 1
-          lsp-treemacs-error-list-current-project-only t  ; limit errors to current project
-
-          ;; Optimization for large files
-          lsp-file-watch-threshold 10000
-          lsp-log-io nil)
+          ;; Disable sideline includes symbol info
+          lsp-ui-sideline-show-symbol nil
+          ;; Ignore duplicates
+          lsp-ui-sideline-ignore-duplicate t
+          ;; Disable map keys to lsp-command-map
+          lsp-use-upstream-bindings nil
+          ;; Disable lsp-sonarlint package
+          lsp-sonarlint nil)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/markdown/README.org
-     markdown
+     ;; markdown
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+misc/multiple-cursors/README.org
      (multiple-cursors :variables
@@ -375,10 +350,19 @@ This function should only modify configuration layer settings."
                                                        :repo "scicloj/clay.el"))
                                       clj-deps-new
                                       clojure-ts-mode
+                                      consult-gh
+                                      consult-gh-forge
+                                      consult-gh-with-pr-review
                                       ;; consult-omni
                                       ;; elfeed-tube
                                       ;; elfeed-tube-mpv
                                       envrc
+                                      ;; (gptel-project :location (recipe
+                                      ;;                  :fetcher github
+                                      ;;                  :repo "cvdub/gptel-project"))
+                                      (gptel-quick :location (recipe
+                                                              :fetcher github
+                                                              :repo "karthink/gptel-quick"))
                                       ;; org-timeblock
                                       (jet :location (recipe
                                                       :fetcher github
@@ -386,6 +370,10 @@ This function should only modify configuration layer settings."
                                       (neil :location (recipe
                                                        :fetcher github
                                                        :repo "babashka/neil"))
+
+                                      (ob-gptel :location (recipe
+                                                           :fetcher github
+                                                           :repo "jwiegley/ob-gptel"))
                                       ;; org-incoming ;; ingest PDF files into your org or org-roam files.
                                       ;; org-noter
                                       org-pdftools
@@ -417,35 +405,12 @@ This function should only modify configuration layer settings."
 
 (defun dotspacemacs/init ()
   "Initialization:
-This function is called at the very beginning of Spacemacs startup,
-before layer configuration.
-It should only modify the values of Spacemacs settings."
+          This function is called at the very beginning of Spacemacs startup,
+          before layer configuration.
+          It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
-   ;; If non-nil then enable support for the portable dumper. You'll need to
-   ;; compile Emacs 27 from source following the instructions in file
-   ;; EXPERIMENTAL.org at to root of the git repository.
-   ;;
-   ;; WARNING: pdumper does not work with Native Compilation, so it's disabled
-   ;; regardless of the following setting when native compilation is in effect.
-   ;;
-   ;; (default nil)
-   dotspacemacs-enable-emacs-pdumper nil
-
-   ;; Name of executable file pointing to emacs 27+. This executable must be
-   ;; in your PATH.
-   ;; (default "emacs")
-   dotspacemacs-emacs-pdumper-executable-file "emacs"
-
-   ;; Name of the Spacemacs dump file. This is the file will be created by the
-   ;; portable dumper in the cache directory under dumps sub-directory.
-   ;; To load it when starting Emacs add the parameter `--dump-file'
-   ;; when invoking Emacs 27.1 executable on the command line, for instance:
-   ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
-   ;; (default (format "spacemacs-%s.pdmp" emacs-version))
-   dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
-
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
    dotspacemacs-elpa-timeout 5
@@ -454,7 +419,7 @@ It should only modify the values of Spacemacs settings."
    ;; This is an advanced option and should not be changed unless you suspect
    ;; performance issues due to garbage collection operations.
    ;; (default '(100000000 0.1))
-   dotspacemacs-gc-cons '(16777216 0.1)
+   dotspacemacs-gc-cons '(100000000 0.1)
 
    ;; Set `read-process-output-max' when startup finishes.
    ;; This defines how much data is read from a foreign process.
@@ -523,9 +488,8 @@ It should only modify the values of Spacemacs settings."
    ;; pair of numbers, e.g. `(recents-by-project . (7 .  5))', where the first
    ;; number is the project limit and the second the limit on the recent files
    ;; within a project.
-   dotspacemacs-startup-lists '((agenda . 3)
-                                (recents-by-project . (3 .  1))
-                                (projects . 5))
+   dotspacemacs-startup-lists '((recents . 5)
+                                (projects . 7))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -537,7 +501,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-startup-buffer-multi-digit-delay 0.4
 
    ;; If non-nil, show file icons for entries and headings on Spacemacs home buffer.
-   ;; This has no effect in terminal or if "all-the-icons" package or the font
+   ;; This has no effect in terminal or if "nerd-icons" package or the font
    ;; is not installed. (default nil)
    dotspacemacs-startup-buffer-show-icons nil
 
@@ -567,8 +531,10 @@ It should only modify the values of Spacemacs settings."
    ;; package can be defined with `:package', or a theme can be defined with
    ;; `:location' to download the theme package, refer the themes section in
    ;; DOCUMENTATION.org for the full theme specifications.
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(modus-vivendi
+                         modus-vivendi-deuteranopia
+                         modus-vivendi-tinted
+                         modus-vivendi-tritanopia)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -593,6 +559,9 @@ It should only modify the values of Spacemacs settings."
                                :weight normal
                                :width normal)
 
+   ;; Default icons font, it can be `all-the-icons' or `nerd-icons'.
+   dotspacemacs-default-icons-font 'all-the-icons
+
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
 
@@ -612,10 +581,10 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-major-mode-leader-key ","
 
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
-   ;; (default "C-M-m" for terminal mode, "<M-return>" for GUI mode).
+   ;; (default "C-M-m" for terminal mode, "M-<return>" for GUI mode).
    ;; Thus M-RET should work as leader key in both GUI and terminal modes.
    ;; C-M-m also should work in terminal mode, but not in GUI mode.
-   dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
+   dotspacemacs-major-mode-emacs-leader-key (if window-system "M-<return>" "C-M-m")
 
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs `C-i', `TAB' and `C-m', `RET'.
@@ -813,9 +782,9 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-persistent-server t
 
    ;; List of search tool executable names. Spacemacs uses the first installed
-   ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
-   ;; (default '("rg" "ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+   ;; tool of the list. Supported tools are `rg', `ag', `ack' and `grep'.
+   ;; (default '("rg" "ag" "ack" "grep"))
+   dotspacemacs-search-tools '("rg" "ag" "ack" "grep")
 
    ;; The backend used for undo/redo functionality. Possible values are
    ;; `undo-fu', `undo-redo' and `undo-tree' see also `evil-undo-system'.
@@ -917,6 +886,12 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
   (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
   (add-to-list 'package-pinned-packages '(clj-refactor . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(transient . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(magit . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(magit-popup . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(magit-section . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(forge . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(gptel . "melpa-stable") t)
   )
 
 (defun dotspacemacs/user-load ()
@@ -925,6 +900,120 @@ This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
   )
+
+(defun lsp-booster--advice-json-parse (old-fn &rest args)
+  "Try to parse bytecode instead of json."
+  (or
+   (when (equal (following-char) ?#)
+     (let ((bytecode (read (current-buffer))))
+       (when (byte-code-function-p bytecode)
+         (funcall bytecode))))
+   (apply old-fn args)))
+(advice-add (if (progn (require 'json)
+                       (fboundp 'json-parse-buffer))
+                'json-parse-buffer
+              'json-read)
+            :around
+            #'lsp-booster--advice-json-parse)
+
+(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+  "Prepend emacs-lsp-booster command to lsp CMD."
+  (let ((orig-result (funcall old-fn cmd test?)))
+    (if (and (not test?)                             ;; for check lsp-server-present?
+             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+             lsp-use-plists
+             (not (functionp 'json-rpc-connection))  ;; native json-rpc
+             (executable-find "emacs-lsp-booster"))
+        (progn
+          (when-let ((command-from-exec-path (executable-find (car orig-result))))  ;; resolve command from exec-path (in case not found in $PATH)
+            (setcar orig-result command-from-exec-path))
+          (message "Using emacs-lsp-booster for %s!" orig-result)
+          (cons "emacs-lsp-booster" orig-result))
+      orig-result)))
+
+(defun jpt/delete-to-bol (delete-newline)
+  "Delete current line and preceding newline char if DELETE-NEWLINE is set."
+  (interactive "p")
+  (delete-region (pos-bol) (pos-eol))
+  (when delete-newline
+    (delete-char -1)))
+
+(defun jpt/move-line-up ()
+  "Move current line up."
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2))
+
+(defun jpt/move-line-down ()
+  "Move current line down."
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1))
+
+(defun jpt/duplicate-line ()
+  "Duplicate current line and append under the current one."
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (forward-line 1)
+  (yank))
+
+(defun jpt/decode-jwt ()
+  "Decode JWT that is on the current line."
+  (interactive)
+  (let* ((data (split-string (thing-at-point 'filename) "\\."))
+         (header (car data))
+         (claims (cadr data)))
+    (with-temp-buffer
+      (insert (format "%s\n\n%s"
+                      (base64-decode-string header t)
+                      (base64-decode-string claims t)))
+      (json-pretty-print-buffer)
+      (with-output-to-temp-buffer "*JWT*"
+        (special-mode)
+        (princ (buffer-string))))) t)
+
+(defun jpt/generate-uuid ()
+  "Insert a generated UUID at point."
+  (interactive)
+  (insert (downcase (string-trim (shell-command-to-string "uuidgen")))))
+
+(defun jpt/projectile-kill-other-buffers ()
+  "Kill all buffers in current project except for current buffer."
+  (interactive)
+  (let* ((current-buffer (current-buffer))
+         (buffers (projectile-project-buffers)))
+    (dolist (buffer buffers)
+      (unless (eq buffer current-buffer)
+        (kill-buffer buffer)))
+    (message "Kill all buffers in project %s except %s"
+             (projectile-project-name)
+             (buffer-name current-buffer))))
+
+(defun jpt/toggle-true-false ()
+  "Toggle the word at point between `true' and `false'."
+  (interactive)
+  (let ((bounds (bounds-of-thing-at-point 'word))
+        (case-fold-search nil)) ;; Make search case-sensitive
+    (when bounds
+      (let* ((start (car bounds))
+             (end (cdr bounds))
+             (word (buffer-substring-no-properties start end)))
+        (cond
+         ((string-equal word "true") (delete-region start end) (insert "false"))
+         ((string-equal word "false") (delete-region start end) (insert "true")))))))
+
+(defun jpt/unix-timestamp-to-iso8601 ()
+  "Convert Unix timestamp at point to an ISO8601 formatted date and display in minibuffer."
+  (interactive)
+  (let* ((timestamp (thing-at-point 'number t))
+         (time (when timestamp (seconds-to-time timestamp))))
+    (if time
+        (message "ISO 8601 Date: %s" (format-time-string "%Y-%m-%dT%H:%M:%SZ" time t))
+      (message "No valid Unix timestamp found at point."))))
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
@@ -1021,55 +1110,6 @@ before packages are loaded."
   ;; (global-set-key (kbd "C-c j j e") 'copy-json-as-edn)
 
 
-  ;; LSP Booster
-  (defun lsp-booster--advice-json-parse (old-fn &rest args)
-    "Try to parse bytecode instead of json."
-    (or
-     (when (equal (following-char) ?#)
-       (let ((bytecode (read (current-buffer))))
-         (when (byte-code-function-p bytecode)
-           (funcall bytecode))))
-     (apply old-fn args)))
-  (advice-add (if (progn (require 'json)
-                         (fboundp 'json-parse-buffer))
-                  'json-parse-buffer
-                'json-read)
-              :around
-              #'lsp-booster--advice-json-parse)
-
-  (defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
-    "Prepend emacs-lsp-booster command to lsp CMD."
-    (let ((orig-result (funcall old-fn cmd test?)))
-      (if (and (not test?)                             ;; for check lsp-server-present?
-               (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
-               lsp-use-plists
-               (not (functionp 'json-rpc-connection))  ;; native json-rpc
-               (executable-find "emacs-lsp-booster"))
-          (progn
-            (when-let ((command-from-exec-path (executable-find (car orig-result))))  ;; resolve command from exec-path (in case not found in $PATH)
-              (setcar orig-result command-from-exec-path))
-            (message "Using emacs-lsp-booster for %s!" orig-result)
-            (cons "emacs-lsp-booster" orig-result))
-        orig-result)))
-  (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
-
-
-  ;; LSP - Java
-  (with-eval-after-load 'lsp-java
-    (setq lsp-java-vmargs
-          `("-XX:+UseParallelGC"
-            "-XX:GCTimeRatio=4"
-            "-XX:AdaptiveSizePolicyWeight=90"
-            "-Dsun.zip.disableMemoryMapping=true"
-            "-Xmx4G")
-          lsp-enable-indentation nil
-          lsp-java-completion-max-results 50
-          lsp-java-progress-reports nil
-          lsp-java-autobuild-enabled nil)
-    (setq c-basic-offset 4
-          tab-width 4
-          indent-tabs-mode nil))
-
   ;; Magit - forge configuration
   (setopt magit-diff-refine-hunk 'all)
   (setopt forge-topic-list-limit '(100 . -5))
@@ -1079,10 +1119,67 @@ before packages are loaded."
           '(("~/.emacs.d"  . 0)
             ("~/proj/" . 4)))
 
+
+  ;; LSP - General and UI setup
+  (with-eval-after-load 'lsp
+    (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+    (setopt
+     ;; Formatting and indentation - use Cider instead
+     lsp-enable-on-type-formatting t
+     ;; Set to nil to use CIDER features instead of LSP UI
+     lsp-enable-indentation nil
+     lsp-enable-snippet nil  ;; to test again
+
+     ;; symbol highlighting - `lsp-toggle-symbol-highlight` toggles highlighting
+     ;; subtle highlighting for doom-gruvbox-light theme defined in dotspacemacs/user-config
+     lsp-enable-symbol-highlighting t
+
+     ;; Show lint error indicator in the mode line
+     lsp-modeline-diagnostics-enable nil
+
+     ;; popup documentation boxes
+     lsp-ui-doc-alignment 'window      ;; frame window
+
+     ;; reference count for functions (assume their maybe other lenses in future)
+     lsp-lens-enable t
+
+     ;; Efficient use of space in treemacs-lsp display
+     treemacs-space-between-root-nodes nil
+     lsp-treemacs-sync-mode 1
+     lsp-treemacs-error-list-current-project-only t  ; limit errors to current project
+
+     ;; Optimization for large files
+     lsp-file-watch-threshold 10000
+     ;; Turn off as much deubg/logging to improve performance
+     lsp-log-io nil
+     ))
+
+  ;; LSP - Java
+  (with-eval-after-load 'lsp-java
+    (setopt lsp-java-jdt-download-url "https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.49.0/jdt-language-server-1.49.0-202507311558.tar.gz")
+    (setopt lsp-java-vmargs
+            `("-XX:+UseParallelGC"
+              "-XX:GCTimeRatio=4"
+              "-XX:AdaptiveSizePolicyWeight=90"
+              "-Dsun.zip.disableMemoryMapping=true"
+              "-Xmx4G")
+
+            lsp-java-progress-reports-enabled nil
+            lsp-java-completion-max-results 50
+            lsp-java-progress-reports nil
+            lsp-java-autobuild-enabled nil)
+    (setopt c-basic-offset 4
+            tab-width 4
+            indent-tabs-mode nil))
+
+  ;; LSP - Python (pyright)
+  (setopt lsp-pyright-multi-root nil)
+  (with-eval-after-load 'lsp-pyright)
+
   ;; Org Mode
   (with-eval-after-load 'org
-    (add-to-list 'org-modules 'org-protocol)
-    ;; (add-to-list 'org-modules 'org-tempo)
+    ;; (add-to-list 'org-modules 'org-protocol)
+    (add-hook 'completion-at-point-functions 'ob-gptel-capf nil t)
 
     ;; Crypt
     (require 'org-crypt)
@@ -1220,8 +1317,9 @@ before packages are loaded."
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((clojure . t)
-       (emacs-lisp . t)
        (dot . t)
+       (emacs-lisp . t)
+       (gptel . t)
        (js . t)
        (python . t)
        (shell . t)
@@ -1276,14 +1374,17 @@ before packages are loaded."
   ;; See options at: https://github.com/karthink/gptel?tab=readme-ov-file#ollama
   ;; TODO: Evaluate switching this to LM Studio to make use of MLX
   (with-eval-after-load 'gptel
-    ;; (gptel-make-kagi "Kagi" :key (auth-source-pick-first-password :host "api.kagi.com" :user "joetague")) Needs API Credits
+    (gptel-make-kagi "Kagi" :key (auth-source-pick-first-password :host "api.kagi.com"))
     (setopt
-     gptel-model 'llama4:scout
-     gptel-backend (gptel-make-ollama "Ollama"
-                     :host "localhost:11434"
+     gptel-model 'qwen/qwen3-14b
+     gptel-backend (gptel-make-openai "LMStudio"
+                     :host "localhost:1234"
+                     :protocol "http"
+                     :endpoint "/v1/chat/completions"
                      :stream t
+                     :key "not-needed"
                      :models (s-split "\n"
-                                      (shell-command-to-string "curl -s --connect-timeout 0.5 'http://localhost:11434/api/tags' | jq -r '.models[].name' | head -c -1"))))
+                                      (shell-command-to-string "curl -s --connect-timeout 0.5 'http://localhost:1234/v1/models' | jq -r '.data[].id' | head -c -1"))))
 
     ;; Use the system prompt builder function
     (let ((build-directives-fun "~/proj/llm-prompts/gptel-build-directives.el"))
@@ -1297,24 +1398,3 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(org-agenda-files '("/Users/joetague/org/learning.org"))
-   '(package-selected-packages
-     '(lsp-mode helm-swoop yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vim-powerline vi-tilde-fringe valign uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org terminal-here term-cursor symon symbol-overlay string-inflection string-edit-at-point sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc smeargle shfmt shell-pop restart-emacs request rainbow-delimiters quickrun pytest pylookup pyenv-mode pydoc py-isort prettier-js poetry pippel pipenv pip-requirements pdf-view-restore pcre2el password-generator paradox ox-gfm overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-journal org-download org-contrib org-cliplink open-junk-file nose nameless multi-vterm multi-term multi-line markdown-toc macrostep lsp-python-ms lsp-pyright lsp-origami lorem-ipsum live-py-mode json-reformat json-navigator json-mode inspector insert-shebang info+ indent-guide importmagic hybrid-mode hungry-delete htmlize holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-git-grep helm-descbinds helm-dash helm-company helm-comint helm-cider helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link gh-md flyspell-correct-helm flycheck-pos-tip flycheck-package flycheck-elsa flycheck-clj-kondo flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emr emojify emoji-cheat-sheet-plus elisp-slime-nav elisp-def elfeed-org elfeed-goodies editorconfig dumb-jump drag-stuff dotenv-mode dockerfile-mode docker dired-quick-sort diminish diff-hl devdocs define-word dash-at-point dap-mode cython-mode csv-mode copy-as-format company-statistics company-shell company-quickhelp company-emoji company-anaconda column-enforce-mode code-cells clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote blacken auto-highlight-symbol auto-dictionary auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line))
-   '(safe-local-variable-values '((python-shell-interpreter . "ipython"))))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
-  )
