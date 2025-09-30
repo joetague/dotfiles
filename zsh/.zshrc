@@ -26,17 +26,7 @@ export PATH="$HOMEBREW_PREFIX/opt/sqlite/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.docker/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-#export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
-#export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
-#export LDFLAGS="-L/opt/homebrew/opt/zlib/lib $LDFLAGS"
-
-#export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
-#export CPPFLAGS="-I/opt/homebrew/opt/jpeg/include $CPPFLAGS"
-#export CPPFLAGS="-I/opt/homebrew/opt/zlib/include $CPPFLAGS"
-
-#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
-#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
-#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PATH="$PATH:/Users/joetague/.lmstudio/bin"
 
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
@@ -73,6 +63,12 @@ vterm_cmd() {
     done
     vterm_printf "51;E$vterm_elisp"
 }
+
+# Start SSH agent if not running
+# if [ -z "$SSH_AUTH_SOCK" ]; then
+#     eval "$(ssh-agent -s)" > /dev/null
+#     ssh-add ~/.ssh/id_github_sign_and_auth 2>/dev/null
+# fi
 
 eval "$(mise activate zsh)"
 eval "$(fzf --zsh)"
@@ -123,14 +119,11 @@ alias rsync="rsync --partial --progress --human-readable --compress"
 alias sha256="shasum -a 256"
 
 # Smarter completion initialization
+fpath=(/Users/joetague/.docker/completions $fpath)
+fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 autoload -Uz compinit
 if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
     compinit
 else
     compinit -C
 fi
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/joetague/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
