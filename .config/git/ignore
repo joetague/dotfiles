@@ -159,4 +159,6 @@ flycheck_*.el
 # directory configuration
 .dir-locals.el
 
+# LLM Tooling Claude / Aider etc
 **/.claude/settings.local.json
+**/.aider*
