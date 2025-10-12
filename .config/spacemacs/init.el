@@ -35,6 +35,7 @@ This function should only modify configuration layer settings."
    '(
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/aider
      (aider)
+
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/asciidoc/README.org
      ;; asciidoc
 
@@ -1380,7 +1381,9 @@ before packages are loaded."
   ;; (setq projectile-indexing-method 'native)
   ;; OPTIONAL configuration
 
-  ;; LLM GPTel setup
+  ;; LLMs
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;GPTel setup
   ;; See options at: https://github.com/karthink/gptel?tab=readme-ov-file#ollama
   ;; TODO: Evaluate switching this to LM Studio to make use of MLX
   (with-eval-after-load 'gptel
