@@ -52,6 +52,11 @@ This function should only modify configuration layer settings."
                       auto-completion-use-company-box nil
                       auto-completion-enable-sort-by-usage t)
 
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/claude-code
+     (claude-code :variables
+                  claude-code-ide-window-side 'right
+                  claude-code-ide-window-width 100)
+
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/clojure/README.org
      (clojure :variables
               clojure-backend 'cider
