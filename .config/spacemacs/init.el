@@ -1159,6 +1159,11 @@ before packages are loaded."
      lsp-log-io nil
      ))
 
+  ;; LSP mode - setup file wathcing limits to improve speed
+  (with-eval-after-load 'lsp-mode
+    ;; Addition ignores to suppliment common ones at: https://github.com/emacs-lsp/lsp-mode/blob/master/lsp-mode.el#L344
+    (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\build\\'"))
+
   ;; LSP - Java
   (with-eval-after-load 'lsp-java
     (setopt lsp-java-jdt-download-url "https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.49.0/jdt-language-server-1.49.0-202507311558.tar.gz")
