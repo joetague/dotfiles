@@ -1406,6 +1406,11 @@ before packages are loaded."
         (setq gptel-directives (jpt/gptel-build-directives "~/proj/llm-prompts/system-prompts/")
               gptel-system-message (alist-get 'default gptel-directives)))))
 
+  (with-eval-after-load 'aidermacs
+    (setopt aidermacs-backend 'vterm)
+    ;; don't match emacs theme colors
+    (setopt aidermacs-vterm-use-theme-colors nil))
+
   )
 
 
