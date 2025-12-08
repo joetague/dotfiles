@@ -8,12 +8,19 @@ export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:"
 export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
 export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
 
+#GnuPG
+GPG_TTY=$TTY
+export GPG_TTY
+
 # Hoping some CLI apps respect these between Darwin (MacOS) and Linux
 # https://specifications.freedesktop.org/basedir-spec/latest/
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
+
+export AWS_PROFILE="default"
+export AWS_CREDENTIAL_PROFILES_FILE="$HOME/.aws/saml2aws_credentials"
 
 export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}"
 export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
@@ -23,12 +30,30 @@ export PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/jpeg/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/sqlite/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/postgresql@13/bin:$PATH"
+#export PATH="$HOMEBREW_PREFIX/opt/libpq/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/openssl@3/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.docker/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$PATH:/Users/joetague/.lmstudio/bin"
 
-export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
+export SSL_CERT_FILE="/opt/homebrew/etc/openssl@3/cert.pem"
+export REQUESTS_CA_BUNDLE="/opt/homebrew/etc/openssl@3/cert.pem"
+
+#export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
+#export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
+#export LDFLAGS="-L/opt/homebrew/opt/zlib/lib $LDFLAGS"
+
+#export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
+#export CPPFLAGS="-I/opt/homebrew/opt/jpeg/include $CPPFLAGS"
+#export CPPFLAGS="-I/opt/homebrew/opt/zlib/include $CPPFLAGS"
+
+#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
+#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
+#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # Move aspell config and personal dictionary
 export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_DATA_HOME/aspell/en.pws; repl $XDG_DATA_HOME/aspell/en.prepl"
@@ -36,12 +61,6 @@ export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_
 # Emacs related
 export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
 export EDITOR="emacsclient -c --socket-name ${EMACS_SOCKET_NAME}"
-# export EDITOR="nano"
-# If we’re in an SSH session but NOT inside tmux, attach or create a session
-if [[ -n "$SSH_CLIENT" && -z "$TMUX" ]]; then
-    tmux attach-session -t ssh_tmux 2>/dev/null || tmux new-session -s ssh_tmux
-fi
-
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 fi
@@ -122,6 +141,7 @@ alias mv="mv -iv"
 alias rm="rm -iv"
 alias rsync="rsync --partial --progress --human-readable --compress"
 alias sha256="shasum -a 256"
+alias k9s="k9s --readonly"
 
 # Smarter completion initialization
 fpath=(/Users/joetague/.docker/completions $fpath)
