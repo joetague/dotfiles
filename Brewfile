@@ -14,6 +14,8 @@ brew "aspell"
 brew "bat"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# CMake needed for some compilations in emacs
+brew "cmake"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Modern replacement for 'ls'
@@ -64,7 +66,7 @@ brew "zsh"
 brew "zoxide"
 
 # Emacs - will install a lot of dependencies to compile - may need libvterm
-brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-imagemagick", "with-mailutils", "with-xwidgets"]
+brew "d12frosted/emacs-plus/emacs-plus@31"
 
 # Font for emacs
 cask "font-source-code-pro"
@@ -72,3 +74,4 @@ cask "font-source-code-pro"
 cask "claude-code"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
+# cask "font-source-code-pro"
