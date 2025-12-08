@@ -22,8 +22,6 @@ brew "eza"
 brew "fd"
 # Fuzzy finder
 brew "fzf"
-# Fast Node Manager - like nvm but better?
-brew "fnm"
 # GNU awk utility
 brew "gawk"
 # Distributed revision control system
@@ -34,16 +32,12 @@ brew "gnu-sed"
 brew "gnu-tar"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
-# Manage your Java environment
-brew "jenv"
 # Remote terminal application
 brew "mosh"
 # Free (GNU) replacement for the Pico text editor
 brew "nano"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
-# Python version management
-brew "pyenv"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Static analysis and lint tool, for (ba)sh scripts
