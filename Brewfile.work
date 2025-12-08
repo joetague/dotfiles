@@ -1,17 +1,40 @@
 # Additional sources
+# Check before running your SSO SSG is generated
 # -----------------------------------------------------------------------------
-tap "bufbuild/buf"
+tap skyscanner/mshell git@github.com:Skyscanner/homebrew-mshell.git
+tap databricks/tap/databricks
 
-# Architecture Decision Record tools
-brew "adrtools"
-# buf
-brew "buf"
+# Skyscanner specific
+# -----------------------------------------------------------------------------
+# Pack, ship and run any application as a lightweight container
+cask "docker"
+# Video communication and virtual meeting platform
+cask "zoom"
+
+# Skyscanner Artifactory login command.
+brew artifactory-cli-login
+# Skyscanner bundle
+brew "skyscanner-bundle"
+
+# CLI tool for working with Architecture Decision Records
+brew "adr-tools"
+# Software to interact with Atlassian Cloud from the terminal
+brew atlassian/acli/acli
+# Validate CloudFormation templates against the CloudFormation spec
+brew cfn-lint
+# GitHub command-line tool
+brew gh
 # Kubernetes package manager
 brew "helm"
 # TUI vs learning so much kubectl
 brew "k9s"
-
 # Draw.io/diagrams.net diagram software
 cask "drawio"
 # Video communication and virtual meeting platform
 cask "zoom"
+# Kubernetes command-line interface
+brew kubernetes-cli
+# Polyglot runtime manager (asdf rust clone)
+brew mise
+# Command-line interface for New Relic
+brew newrelic-cli
