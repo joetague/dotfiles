@@ -54,6 +54,8 @@ brew "starship"
 brew "stow"
 # Simpler man pages that will give only the examples
 brew "tldr"
+# Terminal multiplexer
+brew "tmux"
 # Syntax tree-sitter
 brew "tree-sitter"
 # Display directories as trees (with optional color/HTML output)
