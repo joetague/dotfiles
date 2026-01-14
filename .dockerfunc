@@ -39,5 +39,5 @@ notebooks(){
            -p 8888:8888 \
            -p 4040-4050:4040-4050 \
            --name notebooks \
-           quay.io/jupyter/all-spark-notebook:2025-05-05 "$@"
+           quay.io/jupyter/all-spark-notebook:2026-01-12 "$@"
 }
