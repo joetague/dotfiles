@@ -74,3 +74,7 @@ brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-imagemagick", "with-mai
 
 # Font for emacs
 cask "font-source-code-pro"
+# Terminal-based AI coding assistant
+cask "claude-code"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
