@@ -132,3 +132,4 @@ if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; t
 else
     compinit -C
 fi
+eval "$(op completion zsh)"; compdef _op op

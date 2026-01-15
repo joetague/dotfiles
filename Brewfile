@@ -6,6 +6,8 @@ cask_args appdir: "~/Applications", require_sha: true
 # -----------------------------------------------------------------------------
 tap "d12frosted/emacs-plus"
 
+# 1Password op
+brew "1password-cli"
 # Spell checker with better logic than ispell
 brew "aspell"
 # Clone of cat(1) with syntax highlighting and Git integration
