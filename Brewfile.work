@@ -11,8 +11,6 @@ brew "helm"
 # TUI vs learning so much kubectl
 brew "k9s"
 
-# Offline API documentation browser and code snippet manager
-cask "dash@6"
 # Draw.io/diagrams.net diagram software
 cask "drawio"
 # Video communication and virtual meeting platform
