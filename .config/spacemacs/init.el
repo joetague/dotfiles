@@ -33,8 +33,11 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ;; Custom utility functions
+     personal
+
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/aider
-     (aider)
+     ;; (aider)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/asciidoc/README.org
      ;; asciidoc
@@ -53,18 +56,17 @@ This function should only modify configuration layer settings."
                       auto-completion-use-company-box nil
                       auto-completion-enable-sort-by-usage t)
 
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/claude-code
-     (claude-code :variables
-                  claude-code-ide-window-side 'right
-                  claude-code-ide-window-width 100)
+     ;; (claude-code :variables
+     ;;              claude-code-ide-window-side 'right
+     ;;              claude-code-ide-window-width 100)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/clojure/README.org
-     (clojure :variables
-              clojure-backend 'cider
-              clojure-enable-linters '(clj-kondo joker)
-              clojure-enable-clj-refactor t
-              clojure-enable-kaocha-runner t
-              clojure-toplevel-inside-comment-form t)
+     ;; (clojure :variables
+     ;;          clojure-backend 'cider
+     ;;          clojure-enable-linters '(clj-kondo joker)
+     ;;          clojure-enable-clj-refactor t
+     ;;          clojure-enable-kaocha-runner t
+     ;;          clojure-toplevel-inside-comment-form t)
 
      ;; Alternative to Helm
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bcompletion/compleseus
@@ -81,14 +83,6 @@ This function should only modify configuration layer settings."
      ;; Used for data science files
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/csv/README.org
      csv
-
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/dap/README.org
-     dap
-
-     ;; Don't autoload docsets use dir.locals.el to load appropriate ones per project
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/dash/README.org
-     ;; (dash :variables
-     ;;       dash-autoload-common-docsets nil)
 
      ;; Introduces a clash now with builtin TRAMP support
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/docker/README.org
@@ -113,26 +107,6 @@ This function should only modify configuration layer settings."
      (git :variables
           git-magit-status-fullscreen t)
 
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/go/README.org
-     ;; brew install gopls golangci-lint
-     ;; (go :variables
-     ;;     go-backend 'lsp
-     ;;     go-format-before-save t
-     ;;     go-tab-width 2
-     ;;     go-use-golangci-lint t
-     ;;     go-use-testify-for-testing t)
-
-     ;; graphviz - open-source graph declaration system
-     ;; Used to generated graphs of Clojure project dependencies
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/graphviz/README.org
-     ;; graphviz
-
-     ;; Prefer compleseus?
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+completion/helm/README.org
-     ;; (helm :variables
-     ;;       helm-buffer-max-length 60
-     ;;       helm-enable-auto-resize t)
-
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/html/README.org
      html
 
@@ -146,22 +120,16 @@ This function should only modify configuration layer settings."
                  javascript-backend 'lsp
                  javascript-lsp-linter nil
                  js2-mode-show-strict-warnings nil
-                 js2-mode-show-parse-errors nil)
+                 js2-mode-show-parse-errors nil
+                 node-add-modules-path t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/json/README.org
      (json :variables
            json-backend 'lsp
            json-fmt-on-save nil)
 
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/kotlin/README.org
-     ;; (kotlin :variables
-     ;;         kotlin-backend 'lsp
-     ;;         kotlin-lsp-jar-path "/usr/local/bin/kotlin-language-server")
-
-     ;; https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Btools/kubernetes/README.org
-     kubernetes
-
      ;; Large Language Model
+     ;; This is mainly for gptel - split into own layer?
      ;; https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bweb-services/llm-client/README.org
      (llm-client :variables
                  llm-client-enable-ellama nil
@@ -188,7 +156,7 @@ This function should only modify configuration layer settings."
           lsp-sonarlint nil)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/markdown/README.org
-     ;; markdown
+     markdown
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+misc/multiple-cursors/README.org
      (multiple-cursors :variables
@@ -210,14 +178,8 @@ This function should only modify configuration layer settings."
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+readers/pdf/README.org
      pdf
 
-     ;; Currently got plantuml in a container, needs non-alias executable - not sure bassh script will cut it
-     ;; alternative is to install via homebrew and reference plantuml-jar-path
-     ;; (plantuml :variables
-     ;;           plantuml-jar-path "/usr/local/Cellar/plantuml/1.2022.7/libexec/plantuml.jar"
-     ;;           org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2022.7/libexec/plantuml.jar")
-
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/protobuf/README.org
-     protobuf
+     ;; protobuf
 
      ;; Just use IntelliJ with plugins?
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/python/README.org
@@ -229,21 +191,11 @@ This function should only modify configuration layer settings."
              python-test-runner 'pytest)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/restclient/README.org
-     ;; restclient
+     restclient
 
      ;; Just use VSCode?
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+frameworks/react/README.org
      ;; react
-
-     ;; https://github.com/syl20bnr/spacemacs/blob/develop/layers/+lang/rust/README.org
-     ;; (rust :variables
-     ;;       lsp-rust-analyzer-cargo-auto-reload t
-     ;;       rustic-format-on-save t)
-
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/scala/README.org
-     ;; (scala :variables
-     ;;        scala-backend 'scala-metals
-     ;;        scala-auto-start-backend t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/shell/README.org
      (shell :variables
@@ -256,14 +208,6 @@ This function should only modify configuration layer settings."
      (shell-scripts :variables
                     shell-scripts-backend 'lsp)
 
-     ;; Just use Slack client? Although nice to be able to capture
-     ;; from slack buffers with direct link back for notes/journal
-     ;; MAIN PACKAGE DEPRECATED: https://github.com/yuya373/emacs-slack
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+chat/slack/README.org
-     ;; (slack :variables
-     ;;        slack-spacemacs-layout-name "@Slack"
-     ;;        slack-spacemacs-layout-binding "s")
-
      ;; spacemacs-layouts layer added to set variables
      ;; SPC TAB restricted to current layout buffers
      ;; Kill buffers when killing layer - SPC l x
@@ -271,17 +215,6 @@ This function should only modify configuration layer settings."
      (spacemacs-layouts :variables
                         spacemacs-layouts-restrict-spc-tab t
                         persp-autokill-buffer-on-remove t)
-
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers/spell-checking/README.org
-     ;; spell-checking
-
-     ;; Just use the Spotify client - this controls via applescript with some web sdk lookups but it's really distracting
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+music/spotify/README.org
-     ;; (spotify :variables
-     ;;          counsel-spotify-client-id "c9d5094ef2894115836951340b68dfe7"
-     ;;          counsel-spotify-client-secret (auth-source-pick-first-password
-     ;;                                         :host "api.spotify.com"
-     ;;                                         :user "joetague"))
 
      ;; Not used this in anger yet
      ;; Alternative might be: https://github.com/kostafey/ejc-sql
@@ -297,14 +230,6 @@ This function should only modify configuration layer settings."
      ;; syntax-checking-indication-symbol '(nil . nil)
      (syntax-checking :variables
                       flycheck-indication-mode nil)
-
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/terraform/README.org
-     ;; https://github.com/hashicorp/terraform-ls
-     ;; Needs: brew install hashicorp/tap/terraform-ls
-     ;; (terraform :variables
-     ;;            terraform-auto-format-on-save t
-     ;;            terraform-backend 'lsp)
-
 
      ;; https://github.com/syl20bnr/spacemacs/blob/develop/layers/+completion/templates/README.org
      templates
@@ -327,8 +252,9 @@ This function should only modify configuration layer settings."
      ;;              tree-sitter-fold-indicators-enable t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/typescript
-     ;; (typescript :variables
-     ;;             tide-tsserver-executable "/opt/homebrew/bin/tsserver")
+     (typescript :variables
+                 typescript-backend 'lsp
+                 typescript-lsp-linter nil)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+source-control/version-control/README.org
      (version-control :variables
@@ -350,33 +276,47 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
+                                      (acp :location (recipe :fetcher github :repo "xenodium/acp.el"))
+                                      (agent-shell :location (recipe :fetcher github :repo "xenodium/agent-shell"))
                                       ;; casual-suite
-                                      (clay :location (recipe
-                                                       :fetcher github
-                                                       :repo "scicloj/clay.el"))
-                                      clj-deps-new
-                                      clojure-ts-mode
+                                      ;; (clay :location (recipe
+                                      ;;                  :fetcher github
+                                      ;;                  :repo "scicloj/clay.el"))
+                                      ;; clj-deps-new
+                                      ;; clojure-ts-mode
+                                      ;; (claude-code :location (recipe
+                                      ;;                         :fetcher github
+                                      ;;                         :repo "stevemolitor/claude-code.el"))
                                       consult-gh
                                       consult-gh-forge
                                       consult-gh-with-pr-review
                                       ;; consult-omni
                                       ;; elfeed-tube
                                       ;; elfeed-tube-mpv
-                                      envrc
+                                      ;; envrc use ;; mise instead
                                       ;; (gptel-project :location (recipe
                                       ;;                  :fetcher github
                                       ;;                  :repo "cvdub/gptel-project"))
+                                      (gh-notify :location (recipe
+                                                            :fetcher github
+                                                            :repo "anticomputer/gh-notify"))
                                       (gptel-quick :location (recipe
                                                               :fetcher github
                                                               :repo "karthink/gptel-quick"))
+                                      inheritenv
                                       ;; org-timeblock
-                                      (jet :location (recipe
-                                                      :fetcher github
-                                                      :repo "ericdallo/jet.el"))
-                                      (neil :location (recipe
+                                      ;; (mcp :location (recipe
+                                      ;;                 :fetcher github
+                                      ;;                 :repo "lizqwerscott/mcp.el"))
+                                      (mise :location (recipe
                                                        :fetcher github
-                                                       :repo "babashka/neil"))
-
+                                                       :repo "eki3z/mise.el"))
+                                      ;; (monet :location (recipe
+                                      ;;                   :fetcher github
+                                      ;;                   :repo "stevemolitor/monet"))
+                                      ;; (neil :location (recipe
+                                      ;;                  :fetcher github
+                                      ;;                  :repo "babashka/neil"))
                                       (ob-gptel :location (recipe
                                                            :fetcher github
                                                            :repo "jwiegley/ob-gptel"))
@@ -387,11 +327,10 @@ This function should only modify configuration layer settings."
                                       org-super-agenda
                                       ;; org-sort-tasks ;; sort an unsorted TODO list using mergesort
                                       ;; org-mru-clock
-                                      quarto-mode
-                                      symbol-overlay
-                                      ;;yankpad
-                                      ;;yatemplate
-                                      ;;ya-org-capture
+                                      ;; quarto-mode
+                                      shell-maker
+                                      ;; symbol-overlay
+                                      ;; websocket
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -425,14 +364,14 @@ This function should only modify configuration layer settings."
    ;; This is an advanced option and should not be changed unless you suspect
    ;; performance issues due to garbage collection operations.
    ;; (default '(100000000 0.1))
-   dotspacemacs-gc-cons '(100000000 0.1)
+   dotspacemacs-gc-cons '(200000000 0.1)  ; 200MB for Emacs 31
 
    ;; Set `read-process-output-max' when startup finishes.
    ;; This defines how much data is read from a foreign process.
    ;; Setting this >= 1 MB should increase performance for lsp servers
    ;; in emacs 27.
    ;; (default (* 1024 1024))
-   dotspacemacs-read-process-output-max (* 1024 1024)
+   dotspacemacs-read-process-output-max (* 3 1024 1024)  ; 3MB for LSP
 
    ;; If non-nil then Spacelpa repository is the primary source to install
    ;; a locked version of packages. If nil then Spacemacs will install the
@@ -655,6 +594,14 @@ This function should only modify configuration layer settings."
    ;; displayed in the current window. (default nil)
    dotspacemacs-switch-to-buffer-prefers-purpose nil
 
+   ;; Make consecutive tab key presses after commands such as
+   ;; `spacemacs/alternate-buffer' (SPC TAB) cycle through previous
+   ;; buffers/windows/etc. Please see the option's docstring for more information.
+   ;; Set the option to t in order to enable cycling for all current and
+   ;; future cycling commands. Alternatively, choose a subset of the currently
+   ;; supported commands: '(alternate-buffer alternate-window). (default nil)
+   dotspacemacs-enable-cycling nil
+
    ;; Whether side windows (such as those created by treemacs or neotree)
    ;; are kept or minimized by `spacemacs/toggle-maximize-window' (SPC w m).
    ;; (default t)
@@ -669,7 +616,7 @@ This function should only modify configuration layer settings."
    ;; If t, enable the `package-quickstart' feature to avoid full package
    ;; loading, otherwise no `package-quickstart' attemption (default nil).
    ;; Refer the FAQ.org "package-quickstart" section for details.
-   dotspacemacs-enable-package-quickstart nil
+   dotspacemacs-enable-package-quickstart t
 
    ;; If non-nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
@@ -736,18 +683,18 @@ This function should only modify configuration layer settings."
    ;; but only visual lines are counted. For example, folded lines will not be
    ;; counted and wrapped lines are counted as multiple lines.
    ;; This variable can also be set to a property list for finer control:
-   ;; '(:relative nil
-   ;;   :visual nil
-   ;;   :disabled-for-modes dired-mode
-   ;;                       doc-view-mode
-   ;;                       markdown-mode
-   ;;                       org-mode
-   ;;                       pdf-view-mode
-   ;;                       text-mode
-   ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers '(
+                               :relative nil
+                               :visual t
+                               :disabled-for-modes dired-mode
+                               doc-view-mode
+                               markdown-mode
+                               org-mode
+                               pdf-view-mode
+                               text-mode
+                               :size-limit-kb 1000)
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
@@ -793,11 +740,10 @@ This function should only modify configuration layer settings."
    dotspacemacs-search-tools '("rg" "ag" "ack" "grep")
 
    ;; The backend used for undo/redo functionality. Possible values are
-   ;; `undo-fu', `undo-redo' and `undo-tree' see also `evil-undo-system'.
+   ;; `undo-redo', `undo-fu' and `undo-tree' see also `evil-undo-system'.
    ;; Note that saved undo history does not get transferred when changing
-   ;; your undo system. The default is currently `undo-fu' as `undo-tree'
-   ;; is not maintained anymore and `undo-redo' is very basic."
-   dotspacemacs-undo-system 'undo-fu
+   ;; your undo system from or to undo-tree. (default `undo-redo')
+   dotspacemacs-undo-system 'undo-redo
 
    ;; Format specification for setting the frame title.
    ;; %a - the `abbreviated-file-name', or `buffer-name'
@@ -838,7 +784,7 @@ This function should only modify configuration layer settings."
    ;; which major modes have whitespace cleanup enabled or disabled
    ;; by default.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'changed  ; Only changed lines
 
    ;; If non-nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfere with mode specific
@@ -871,7 +817,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-home-shorten-agenda-source nil
 
    ;; If non-nil then byte-compile some of Spacemacs files.
-   dotspacemacs-byte-compile nil))
+   dotspacemacs-byte-compile t))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
@@ -888,16 +834,31 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  ;; stable packages
-  (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-  (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
-  (add-to-list 'package-pinned-packages '(clj-refactor . "melpa-stable") t)
-  (add-to-list 'package-pinned-packages '(transient . "melpa-stable") t)
+  ;; Stable packages configuration
+  (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+
+  ;; Keep magit ecosystem stable
   (add-to-list 'package-pinned-packages '(magit . "melpa-stable") t)
-  (add-to-list 'package-pinned-packages '(magit-popup . "melpa-stable") t)
   (add-to-list 'package-pinned-packages '(magit-section . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(transient . "melpa-stable") t)
   (add-to-list 'package-pinned-packages '(forge . "melpa-stable") t)
+
+  ;; Keep GPTel stable (extensive custom config)
   (add-to-list 'package-pinned-packages '(gptel . "melpa-stable") t)
+
+  ;; Native compilation settings (Emacs 28+)
+  ;; Disable async compilation - compile immediately instead
+  (when (native-comp-available-p)
+    (setq native-comp-deferred-compilation nil)  ; No async, compile synchronously
+    (setq native-comp-speed 2)                   ; Optimization level (0-3, default 2)
+    (setq native-comp-async-jobs-number 4)       ; Parallel compilation jobs
+    (setq native-comp-async-report-warnings-errors nil))  ; Suppress async warnings
+
+  (advice-add
+   'company-statistics--load :around
+   (lambda (orig-fun)
+     (let ((warning-inhibit-types '((files missing-lexbind-cookie))))
+       (funcall orig-fun))))
   )
 
 (defun dotspacemacs/user-load ()
@@ -907,126 +868,43 @@ This function is called only while dumping Spacemacs configuration. You can
 dump."
   )
 
-(defun lsp-booster--advice-json-parse (old-fn &rest args)
-  "Try to parse bytecode instead of json."
-  (or
-   (when (equal (following-char) ?#)
-     (let ((bytecode (read (current-buffer))))
-       (when (byte-code-function-p bytecode)
-         (funcall bytecode))))
-   (apply old-fn args)))
-(advice-add (if (progn (require 'json)
-                       (fboundp 'json-parse-buffer))
-                'json-parse-buffer
-              'json-read)
-            :around
-            #'lsp-booster--advice-json-parse)
-
-(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
-  "Prepend emacs-lsp-booster command to lsp CMD."
-  (let ((orig-result (funcall old-fn cmd test?)))
-    (if (and (not test?)                             ;; for check lsp-server-present?
-             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
-             lsp-use-plists
-             (not (functionp 'json-rpc-connection))  ;; native json-rpc
-             (executable-find "emacs-lsp-booster"))
-        (progn
-          (when-let ((command-from-exec-path (executable-find (car orig-result))))  ;; resolve command from exec-path (in case not found in $PATH)
-            (setcar orig-result command-from-exec-path))
-          (message "Using emacs-lsp-booster for %s!" orig-result)
-          (cons "emacs-lsp-booster" orig-result))
-      orig-result)))
-
-(defun jpt/delete-to-bol (delete-newline)
-  "Delete current line and preceding newline char if DELETE-NEWLINE is set."
-  (interactive "p")
-  (delete-region (pos-bol) (pos-eol))
-  (when delete-newline
-    (delete-char -1)))
-
-(defun jpt/move-line-up ()
-  "Move current line up."
-  (interactive)
-  (transpose-lines 1)
-  (forward-line -2))
-
-(defun jpt/move-line-down ()
-  "Move current line down."
-  (interactive)
-  (forward-line 1)
-  (transpose-lines 1)
-  (forward-line -1))
-
-(defun jpt/duplicate-line ()
-  "Duplicate current line and append under the current one."
-  (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (open-line 1)
-  (forward-line 1)
-  (yank))
-
-(defun jpt/decode-jwt ()
-  "Decode JWT that is on the current line."
-  (interactive)
-  (let* ((data (split-string (thing-at-point 'filename) "\\."))
-         (header (car data))
-         (claims (cadr data)))
-    (with-temp-buffer
-      (insert (format "%s\n\n%s"
-                      (base64-decode-string header t)
-                      (base64-decode-string claims t)))
-      (json-pretty-print-buffer)
-      (with-output-to-temp-buffer "*JWT*"
-        (special-mode)
-        (princ (buffer-string))))) t)
-
-(defun jpt/generate-uuid ()
-  "Insert a generated UUID at point."
-  (interactive)
-  (insert (downcase (string-trim (shell-command-to-string "uuidgen")))))
-
-(defun jpt/projectile-kill-other-buffers ()
-  "Kill all buffers in current project except for current buffer."
-  (interactive)
-  (let* ((current-buffer (current-buffer))
-         (buffers (projectile-project-buffers)))
-    (dolist (buffer buffers)
-      (unless (eq buffer current-buffer)
-        (kill-buffer buffer)))
-    (message "Kill all buffers in project %s except %s"
-             (projectile-project-name)
-             (buffer-name current-buffer))))
-
-(defun jpt/toggle-true-false ()
-  "Toggle the word at point between `true' and `false'."
-  (interactive)
-  (let ((bounds (bounds-of-thing-at-point 'word))
-        (case-fold-search nil)) ;; Make search case-sensitive
-    (when bounds
-      (let* ((start (car bounds))
-             (end (cdr bounds))
-             (word (buffer-substring-no-properties start end)))
-        (cond
-         ((string-equal word "true") (delete-region start end) (insert "false"))
-         ((string-equal word "false") (delete-region start end) (insert "true")))))))
-
-(defun jpt/unix-timestamp-to-iso8601 ()
-  "Convert Unix timestamp at point to an ISO8601 formatted date and display in minibuffer."
-  (interactive)
-  (let* ((timestamp (thing-at-point 'number t))
-         (time (when timestamp (seconds-to-time timestamp))))
-    (if time
-        (message "ISO 8601 Date: %s" (format-time-string "%Y-%m-%dT%H:%M:%SZ" time t))
-      (message "No valid Unix timestamp found at point."))))
-
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+
+  ;; LSP Booster configuration
+  (defun lsp-booster--advice-json-parse (old-fn &rest args)
+    "Try to parse bytecode instead of json."
+    (or
+     (when (equal (following-char) ?#)
+       (let ((bytecode (read (current-buffer))))
+         (when (byte-code-function-p bytecode)
+           (funcall bytecode))))
+     (apply old-fn args)))
+  (advice-add (if (progn (require 'json)
+                         (fboundp 'json-parse-buffer))
+                  'json-parse-buffer
+                'json-read)
+              :around
+              #'lsp-booster--advice-json-parse)
+
+  (defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+    "Prepend emacs-lsp-booster command to lsp CMD."
+    (let ((orig-result (funcall old-fn cmd test?)))
+      (if (and (not test?)                             ;; for check lsp-server-present?
+               (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+               lsp-use-plists
+               (not (functionp 'json-rpc-connection))  ;; native json-rpc
+               (executable-find "emacs-lsp-booster"))
+          (progn
+            (when-let ((command-from-exec-path (executable-find (car orig-result))))  ;; resolve command from exec-path (in case not found in $PATH)
+              (setcar orig-result command-from-exec-path))
+            (message "Using emacs-lsp-booster for %s!" orig-result)
+            (cons "emacs-lsp-booster" orig-result))
+        orig-result)))
 
   (setopt user-full-name "Joe Tague"
           user-mail-address "joetague@gmail.com")
@@ -1046,7 +924,9 @@ before packages are loaded."
   (setopt default-frame-alist '((undecorated-round . t)))
   ;; Disable undo-tree as it slows everything down
   ;; (global-undo-tree-mode -1)
-  (envrc-global-mode)
+  ;; use mise instead of envrc
+  (when (require 'mise nil t)
+    (add-hook 'after-init-hook #'global-mise-mode))
   ;; (setq evil-undo-system 'undo-redo)
   ;; (evil-set-undo-system 'undo-redo)
 
@@ -1057,46 +937,46 @@ before packages are loaded."
 
 
   ;; Clojure and tools
-  (require 'clj-deps-new)
-  (require 'jet)
-  (require 'clay)
-  (setopt neil-inject-dep-to-project-p t)
-  (setopt neil-prompt-for-version-p t)
+  ;; (require 'clj-deps-new)
+  ;; (require 'jet)
+  ;; (require 'clay)
+  ;; (setopt neil-inject-dep-to-project-p t)
+  ;; (setopt neil-prompt-for-version-p t)
 
   ;; CIDER
-  (setopt cider-overlays-use-font-lock t)
-  (setopt cider-repl-buffer-size-limit 100)
-  (setopt cider-repl-display-help-banner nil)
+  ;; (setopt cider-overlays-use-font-lock t)
+  ;; (setopt cider-repl-buffer-size-limit 100)
+  ;; (setopt cider-repl-display-help-banner nil)
   ;; enable safe structural editing for all supported modes
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+  ;; (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 
   ;; def portal to the dev namespace to allow dereferencing via @dev/portal
-  (defun portal.api/open ()
-    (interactive)
-    (cider-nrepl-sync-request:eval
-     "(do (ns dev)
-         (def portal ((requiring-resolve 'portal.api/open)))
-         (add-tap (requiring-resolve 'portal.api/submit)))"))
+  ;; (defun portal.api/open ()
+  ;;   (interactive)
+  ;;   (cider-nrepl-sync-request:eval
+  ;;    "(do (ns dev)
+  ;;        (def portal ((requiring-resolve 'portal.api/open)))
+  ;;        (add-tap (requiring-resolve 'portal.api/submit)))"))
 
-  (defun portal.api/clear ()
-    (interactive)
-    (cider-nrepl-sync-request:eval "(portal.api/clear)"))
+  ;; (defun portal.api/clear ()
+  ;;   (interactive)
+  ;;   (cider-nrepl-sync-request:eval "(portal.api/clear)"))
 
-  (defun portal.api/close ()
-    (interactive)
-    (cider-nrepl-sync-request:eval "(portal.api/close)"))
+  ;; (defun portal.api/close ()
+  ;;   (interactive)
+  ;;   (cider-nrepl-sync-request:eval "(portal.api/close)"))
 
-  (spacemacs/declare-prefix-for-mode 'clojure-mode "dp" "Portal")
-  (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "dpp" 'portal.api/open)
-  (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "dpc" 'portal.api/clear)
-  (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "dpD" 'portal.api/close)
+  ;; (spacemacs/declare-prefix-for-mode 'clojure-mode "dp" "Portal")
+  ;; (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "dpp" 'portal.api/open)
+  ;; (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "dpc" 'portal.api/clear)
+  ;; (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "dpD" 'portal.api/close)
 
-  (spacemacs/declare-prefix-for-mode 'clojure-mode "ac" "Clay")
-  (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "ach" 'clay-make-ns-html)
-  (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "acq" 'clay-make-ns-quarto-html)
-  (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "acr" 'clay-make-ns-quarto-revealjs)
-  (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "acs" 'clay-make-last-sexp)
-  (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "acf" 'clay-make-defun-at-point)
+  ;; (spacemacs/declare-prefix-for-mode 'clojure-mode "ac" "Clay")
+  ;; (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "ach" 'clay-make-ns-html)
+  ;; (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "acq" 'clay-make-ns-quarto-html)
+  ;; (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "acr" 'clay-make-ns-quarto-revealjs)
+  ;; (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "acs" 'clay-make-last-sexp)
+  ;; (spacemacs/set-leader-keys-for-major-mode 'clojure-mode "acf" 'clay-make-defun-at-point)
 
   ;; (defun copy-edn-as-json ()
   ;;   (interactive)
@@ -1117,14 +997,19 @@ before packages are loaded."
 
 
   ;; Magit - forge configuration
-  (setopt magit-diff-refine-hunk 'all)
-  (setopt forge-topic-list-limit '(100 . -5))
-  (setopt forge-owned-accounts
-          '(("joetague")))
-  (setopt magit-repository-directories
-          '(("~/.emacs.d"  . 0)
-            ("~/proj/" . 4)))
-
+  (with-eval-after-load 'magit
+    (setopt magit-diff-refine-hunk 'all)
+    (setopt forge-topic-list-limit '(100 . -5))
+    (setopt forge-owned-accounts
+            '(("joetague")))
+    (setopt magit-repository-directories
+            '(("~/.emacs.d"  . 0)
+              ("~/proj/" . 4)))
+    (add-to-list 'magit-no-confirm 'stage-all-changes)
+    (magit-add-section-hook 'magit-status-sections-hook
+                            'magit-insert-worktrees
+                            'magit-insert-status-headers t)
+    )
 
   ;; LSP - General and UI setup
   (with-eval-after-load 'lsp
@@ -1156,7 +1041,7 @@ before packages are loaded."
 
      ;; Optimization for large files
      lsp-file-watch-threshold 10000
-     ;; Turn off as much deubg/logging to improve performance
+     ;; Turn off as much debug/logging to improve performance
      lsp-log-io nil
      ))
 
@@ -1167,7 +1052,7 @@ before packages are loaded."
 
   ;; LSP - Java
   (with-eval-after-load 'lsp-java
-    (setopt lsp-java-jdt-download-url "https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.49.0/jdt-language-server-1.49.0-202507311558.tar.gz")
+    (setopt lsp-java-jdt-download-url "https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.53.0/jdt-language-server-1.53.0-202511192211.tar.gz")
     (setopt lsp-java-vmargs
             `("-XX:+UseParallelGC"
               "-XX:GCTimeRatio=4"
@@ -1179,9 +1064,9 @@ before packages are loaded."
             lsp-java-completion-max-results 50
             lsp-java-progress-reports nil
             lsp-java-autobuild-enabled nil)
-    (setopt c-basic-offset 4
-            tab-width 4
-            indent-tabs-mode nil))
+    (setq c-basic-offset 4
+          tab-width 4
+          indent-tabs-mode nil))
 
   ;; LSP - Python (pyright)
   (setopt lsp-pyright-multi-root nil)
@@ -1193,6 +1078,17 @@ before packages are loaded."
     (add-hook 'completion-at-point-functions 'ob-gptel-capf nil t)
 
     ;; Crypt
+    ;; Claude Code - suggestions
+    ;; (setq epg-gpg-program "gpg2")  ; Use gpg2 if available
+    ;; (setenv "GPG_AGENT_INFO" nil)  ; Use gpg-agent
+    ;; (setq org-journal-encrypt-journal nil)  ; Disable file-level encryption
+    ;; (require 'org-crypt)
+    ;; (org-crypt-use-before-save-magic)
+    ;; (setq org-tags-exclude-from-inheritance '("crypt"))
+    ;; (setq org-crypt-key "your-gpg-key-id")
+    ;; (setq org-journal-enable-cache t)
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
     (require 'org-crypt)
     (org-crypt-use-before-save-magic)
     (setopt org-tags-exclude-from-inheritance (quote ("crypt")))
@@ -1297,7 +1193,7 @@ before packages are loaded."
                                        :tag ("Trivial" "Unimportant")
                                        :todo ("SOMEDAY")
                                        :order 90)))))))))
-    (setopt org-persp-startup-with-agenda "z")
+    (setq org-persp-startup-with-agenda "z")
 
     ;; Journal
     (setopt org-journal-dir "~/org/journal/")
@@ -1327,7 +1223,8 @@ before packages are loaded."
     ;; (setq org-confirm-babel-evaluate '(not (y-or-n-p "evaluate block? ")))
     (org-babel-do-load-languages
      'org-babel-load-languages
-     '((clojure . t)
+     '(
+       ;; (clojure . t)
        (dot . t)
        (emacs-lisp . t)
        (gptel . t)
@@ -1339,22 +1236,22 @@ before packages are loaded."
     ) ;; end with-eval-after-load
 
   ;; tree-sitter settings
-  (setopt treesit-language-source-alist
-          '((bash "https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3")
-            (css "https://github.com/tree-sitter/tree-sitter-css" "v0.23.2")
-            (clojure "https://github.com/sogaiu/tree-sitter-clojure" "v0.0.13")
-            (elisp "https://github.com/Wilfred/tree-sitter-elisp" "1.5.0")
-            (go "https://github.com/tree-sitter/tree-sitter-go" "v0.23.4")
-            (html "https://github.com/tree-sitter/tree-sitter-html" "v0.23.2")
-            (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "v0.23.1")
-            (json "https://github.com/tree-sitter/tree-sitter-json" "v0.24.8")
-            (make "https://github.com/alemuller/tree-sitter-make")
-            (markdown "https://github.com/ikatyang/tree-sitter-markdown" "v0.7.1")
-            (python "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6")
-            (toml "https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1")
-            (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
-            (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
-            (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0")))
+  (setq treesit-language-source-alist
+        '((bash "https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3")
+          (css "https://github.com/tree-sitter/tree-sitter-css" "v0.23.2")
+          ;; (clojure "https://github.com/sogaiu/tree-sitter-clojure" "v0.0.13")
+          (elisp "https://github.com/Wilfred/tree-sitter-elisp" "1.5.0")
+          ;; (go "https://github.com/tree-sitter/tree-sitter-go" "v0.23.4")
+          (html "https://github.com/tree-sitter/tree-sitter-html" "v0.23.2")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "v0.23.1")
+          (json "https://github.com/tree-sitter/tree-sitter-json" "v0.24.8")
+          (make "https://github.com/alemuller/tree-sitter-make")
+          (markdown "https://github.com/ikatyang/tree-sitter-markdown" "v0.7.1")
+          (python "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6")
+          (toml "https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1")
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
+          (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0")))
 
   ;;
   ;; (spacemacs|define-custom-layout "@K9s"
@@ -1383,11 +1280,39 @@ before packages are loaded."
 
   ;; LLMs
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;;GPTel setup
+  ;; GPTel setup
   ;; See options at: https://github.com/karthink/gptel?tab=readme-ov-file#ollama
   ;; TODO: Evaluate switching this to LM Studio to make use of MLX
   (with-eval-after-load 'gptel
+    (require 'gptel-integrations)
+    (when (featurep 'mcp)
+      (setopt mcp-hub-servers
+              `(
+                ("docker-mcp" . (:command "docker" :args ("mcp" "gateway" "run")))
+                ))
+      (require 'mcp-hub))
+
     (gptel-make-kagi "Kagi" :key (auth-source-pick-first-password :host "api.kagi.com"))
+
+    ;; Helper function to fetch LMStudio models (call manually when needed)
+    (defun jpt/refresh-lmstudio-models ()
+      "Fetch available models from LMStudio and update gptel backend."
+      (interactive)
+      (message "Fetching models from LMStudio...")
+      (let ((models-output (shell-command-to-string
+                            "curl -s --connect-timeout 2 'http://localhost:1234/v1/models' | jq -r '.data[].id' 2>/dev/null")))
+        (if (string-empty-p (string-trim models-output))
+            (message "Could not fetch models from LMStudio. Is it running?")
+          (let ((models (s-split "\n" (string-trim models-output))))
+            (setq gptel-backend (gptel-make-openai "LMStudio"
+                                  :host "localhost:1234"
+                                  :protocol "http"
+                                  :endpoint "/v1/chat/completions"
+                                  :stream t
+                                  :key "not-needed"
+                                  :models models))
+            (message "Updated LMStudio models: %s" (string-join models ", "))))))
+
     (setopt
      gptel-model 'qwen/qwen3-14b
      gptel-backend (gptel-make-openai "LMStudio"
@@ -1396,8 +1321,7 @@ before packages are loaded."
                      :endpoint "/v1/chat/completions"
                      :stream t
                      :key "not-needed"
-                     :models (s-split "\n"
-                                      (shell-command-to-string "curl -s --connect-timeout 0.5 'http://localhost:1234/v1/models' | jq -r '.data[].id' | head -c -1"))))
+                     :models '("qwen/qwen3-14b")))  ;; Default model, refresh with jpt/refresh-lmstudio-models
 
     ;; Use the system prompt builder function
     (let ((build-directives-fun "~/proj/llm-prompts/gptel-build-directives.el"))
@@ -1405,12 +1329,19 @@ before packages are loaded."
         (load build-directives-fun)
         (setq gptel-directives (jpt/gptel-build-directives "~/proj/llm-prompts/system-prompts/")
               gptel-system-message (alist-get 'default gptel-directives)))))
+  ;; claude-code-ide.el
+  (advice-add 'vterm :around #'mise-propagate-env)
 
-  (with-eval-after-load 'aidermacs
-    (setopt aidermacs-backend 'vterm)
-    ;; don't match emacs theme colors
-    (setopt aidermacs-vterm-use-theme-colors nil))
+  ;; Claude Code with Monet setup
+  ;; (setopt claude-code-terminal-backend 'vterm)
+  ;; (setopt claude-code-notification-function #'jpt/claude-notify)
+  ;; (add-hook 'claude-code-process-environment-functions #'monet-start-server-function)
+  ;; (monet-mode 1)
 
+  ;; xenodium based tooling
+  ;; Consider https://github.com/xenodium/agent-shell?tab=readme-ov-file#running-agents-in-devcontainers--docker-containers-experimental
+  (require 'acp)
+  (require 'agent-shell)
   )
 
 
