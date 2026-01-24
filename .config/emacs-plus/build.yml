@@ -1,0 +1,6 @@
+# Use a community icon (see community/registry.json for available options)
+icon: liquid-glass
+
+# Apply community patches
+patches:
+  - aggressive-read-buffering
