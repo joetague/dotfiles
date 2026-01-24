@@ -1,0 +1,45 @@
+#+TITLE: Personal layer
+#+TAGS: layer|misc
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features]]
+- [[#key-bindings][Key bindings]]
+  - [[#text-manipulation][Text manipulation]]
+  - [[#utilities][Utilities]]
+  - [[#projectile][Projectile]]
+
+* Description
+This layer provides personal utility functions and keybindings.
+
+** Features
+- Text manipulation commands (delete to BOL, move lines, duplicate, toggle true/false)
+- Utility functions (decode JWT, generate UUID, convert Unix timestamp)
+- Native compilation helper (compile all packages)
+- Projectile helpers (kill other project buffers)
+- macOS notification support
+
+* Key bindings
+All personal keybindings are under the =SPC o= prefix (user-reserved).
+
+** Text manipulation
+| Key binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC o t l~ | Delete from cursor to BOL        |
+| ~SPC o t u~ | Move current line up             |
+| ~SPC o t d~ | Move current line down           |
+| ~SPC o t D~ | Duplicate current line           |
+| ~SPC o t t~ | Toggle true/false at point       |
+
+** Utilities
+| Key binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC o u j~ | Decode JWT at point              |
+| ~SPC o u g~ | Generate and insert UUID         |
+| ~SPC o u t~ | Convert Unix timestamp to ISO8601|
+| ~SPC o u c~ | Native compile all packages      |
+
+** Projectile
+| Key binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC o p k~ | Kill other project buffers       |
