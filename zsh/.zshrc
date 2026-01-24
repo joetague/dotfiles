@@ -60,6 +60,13 @@ export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_
 # Emacs related
 export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
 export EDITOR="emacsclient -c --socket-name ${EMACS_SOCKET_NAME}"
+# export EDITOR="nano"
+# If we’re in an SSH session but NOT inside tmux, attach or create a session
+if [[ -n "$SSH_TTY" && -z "$TMUX" && -o interactive ]] && command -v tmux >/dev/null; then
+    tmux_session="ssh_${USER}_$(hostname -s)"
+    tmux attach-session -t "$tmux_session" 2>/dev/null || tmux new-session -s "$tmux_session"
+fi
+
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 fi
