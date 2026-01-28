@@ -23,7 +23,7 @@
 ;;; Code:
 
 (defconst personal-devtools-packages
-  '()
+  '(mise)
   "The list of Lisp packages required by the personal-devtools layer.")
 
 ;;; packages.el ends here

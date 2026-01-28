@@ -49,4 +49,9 @@
             gptel-system-message (alist-get 'default gptel-directives)))))
 
 
+;; Claude Code with Monet setup
+;; (setopt claude-code-terminal-backend 'vterm)
+;; (setopt claude-code-notification-function #'jpt/claude-notify)
+;; (add-hook 'claude-code-process-environment-functions #'monet-start-server-function)
+;; (monet-mode 1)
 ;;; config.el ends here

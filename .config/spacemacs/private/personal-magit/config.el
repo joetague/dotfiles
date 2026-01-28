@@ -27,6 +27,8 @@
 ;;; Code:
 
 (with-eval-after-load 'magit
+  (setq magit-git-executable "/opt/homebrew/bin/git")
+  (setq magit-process-connection-type nil)
   (setopt magit-diff-refine-hunk 'all)
   (setopt magit-repository-directories
           '(("~/.emacs.d"  . 0)
