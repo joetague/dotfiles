@@ -1,6 +1,6 @@
-;;; packages.el --- personal layer packages file for Spacemacs. -*- lexical-binding: t -*-
+;;; config.el --- work-org layer config file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
 ;; Author: Joe Tague <joetague@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,21 +20,24 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
+
+;; Work Org mode configuration.
+
 ;;; Code:
 
-(defconst personal-packages
-  '()
-  "The list of Lisp packages required by the personal layer.")
+(defvar work-org-team-members
+  '("Team Member 1"
+    "Team Member 2")
+  "List of team members used to generate feedback capture templates.")
 
-;; casual-suite
-;; consult-gh
-;; consult-gh-forge
-;; consult-gh-with-pr-review
-;; consult-omni
-;; elfeed-tube
-;; elfeed-tube-mpv
-;; (gh-notify :location (recipe
-;;                       :fetcher github
-;;                       :repo "anticomputer/gh-notify"))
-;; symbol-overlay
-;;; packages.el ends here
+(defvar work-org-feedback-file
+  "~/org/work/feedback.org"
+  "Org file where work feedback entries are stored.")
+
+(with-eval-after-load 'org
+  (work-org--install-feedback-templates)
+  (setq org-clock-clocktable-default-properties '(:scope (work-org-feedback-file (concat work-org-feedback-file "_archive")) :maxlevel 2 :narrow 200! :block today))
+  )
+
+;;; config.el ends here

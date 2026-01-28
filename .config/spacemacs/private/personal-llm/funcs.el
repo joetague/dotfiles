@@ -47,4 +47,9 @@
                                 :models models))
           (message "Updated LMStudio models: %s" (string-join models ", ")))))))
 
+(defun jpt/claude-notify (title message)
+  "Display a macOS notification with sound."
+  (call-process "osascript" nil nil nil
+                "-e" (format "display notification \"%s\" with title \"%s\" sound name \"Glass\""
+                             message title)))
 ;;; funcs.el ends here

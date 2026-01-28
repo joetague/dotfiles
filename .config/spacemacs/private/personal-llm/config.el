@@ -49,6 +49,36 @@
             gptel-system-message (alist-get 'default gptel-directives)))))
 
 
+;; LLM
+;; Agents
+;; (require 'shell-maker)
+;; (require 'acp)
+;; (require 'agent-shell)
+
+;; claude-code.el with Monet
+;; (setopt claude-code-terminal-backend 'vterm)
+;; (setopt claude-code-notification-function #'jpt/claude-notify)
+;; (add-hook 'claude-code-process-environment-functions #'monet-start-server-function)
+;; (monet-mode 1)
+;; ;; set up keybindings
+;; (spacemacs/declare-prefix "$d" "Claude")
+;; (spacemacs/set-leader-keys
+;;   "$dm" 'claude-code-transient           ;
+;;   "$dc" 'claude-code                     ;
+;;   "$dS" 'claude-code-sandbox             ;
+;;   "$dd" 'claude-code-start-in-directory  ;
+;;   "$dC" 'claude-code-continue            ;
+;;   "$dR" 'claude-code-resume              ;
+;;   "$di" 'claude-code-new-instance        ;
+;;   "$dk" 'claude-code-kill                ;
+;;   "$dK" 'claude-code-kill-all)           ;
+
+;; claude-code-ide.el
+;; Set up the built-in Emacs tools
+;; Define a context-aware function that operates in the session's project
+;; Functions here
+;; Define and register the tool (automatically added to claude-code-ide-mcp-server-tools)
+;; (claude-code-ide-emacs-tools-setup)
 ;; Claude Code with Monet setup
 ;; (setopt claude-code-terminal-backend 'vterm)
 ;; (setopt claude-code-notification-function #'jpt/claude-notify)

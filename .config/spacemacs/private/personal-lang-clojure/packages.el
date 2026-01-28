@@ -50,5 +50,14 @@
   ;; (require 'jet)
   ;; (require 'clay)
 
+  ;; (clay :location (recipe
+  ;;                  :fetcher github
+  ;;                  :repo "scicloj/clay.el"))
+  ;; clj-deps-new
+  ;; clojure-ts-mode
+  ;; (neil :location (recipe
+  ;;                  :fetcher github
+  ;;                  :repo "babashka/neil"))
+  ;; quarto-mode
 
   )

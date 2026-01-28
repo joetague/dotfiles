@@ -49,6 +49,24 @@
       ))
 
 
+  ;; (acp :location (recipe :fetcher github :repo "xenodium/acp.el"))
+  ;; (agent-shell :location (recipe :fetcher github :repo "xenodium/agent-shell"))
+  ;; (claude-code :location (recipe
+  ;;                         :fetcher github
+  ;;                         :repo "stevemolitor/claude-code.el"))
+  ;;(gptel-quick :location (recipe
+  ;;                        :fetcher github
+  ;;                        :repo "karthink/gptel-quick"))
+  ;; (mcp :location (recipe
+  ;;                 :fetcher github
+  ;;                 :repo "lizqwerscott/mcp.el"))
+  ;; (monet :location (recipe
+  ;;                   :fetcher github
+  ;;                   :repo "stevemolitor/monet"))
+  ;; (gptel-project :location (recipe
+  ;;                  :fetcher github
+  ;;                  :repo "cvdub/gptel-project"))
+  ;; shell-maker
 
   )
 

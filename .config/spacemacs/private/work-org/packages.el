@@ -1,6 +1,6 @@
-;;; packages.el --- personal layer packages file for Spacemacs. -*- lexical-binding: t -*-
+;;; packages.el --- work-org layer packages file for Spacemacs. -*- lexical-binding: t -*-
 ;;
-;; Copyright (c) 2012-2024 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2025 Sylvain Benner & Contributors
 ;;
 ;; Author: Joe Tague <joetague@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -20,21 +20,12 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
+
+;; No additional packages for work-org.
+
 ;;; Code:
 
-(defconst personal-packages
-  '()
-  "The list of Lisp packages required by the personal layer.")
+(defconst work-org-packages '())
 
-;; casual-suite
-;; consult-gh
-;; consult-gh-forge
-;; consult-gh-with-pr-review
-;; consult-omni
-;; elfeed-tube
-;; elfeed-tube-mpv
-;; (gh-notify :location (recipe
-;;                       :fetcher github
-;;                       :repo "anticomputer/gh-notify"))
-;; symbol-overlay
 ;;; packages.el ends here

@@ -35,6 +35,10 @@
 
 (with-eval-after-load 'lsp-mode
   (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+  ;; See https://github.com/emacs-lsp/lsp-mode/blob/master/lsp-mode.el#L344 for default ignores
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\build\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\bin\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\coverage\\'")
   (setopt
    ;; Formatting and indentation - use Cider instead
    lsp-enable-on-type-formatting nil
@@ -64,11 +68,6 @@
    ;; Turn off as much debug/logging to improve performance
    lsp-log-io nil
    lsp-use-plists t))
-
-(with-eval-after-load 'lsp-mode
-  ;; Addition ignores to supplement common ones at:
-  ;; https://github.com/emacs-lsp/lsp-mode/blob/master/lsp-mode.el#L344
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\build\\'"))
 
 (with-eval-after-load 'lsp-treemacs
   (lsp-treemacs-sync-mode 1))
