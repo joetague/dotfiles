@@ -8,30 +8,35 @@ export DOCKER_REPO_PREFIX=joetague
 # Helper Functions
 #
 dcleanup(){
-    local containers
-	  mapfile -t containers < <(docker ps -aq 2>/dev/null)
-	  docker rm "${containers[@]}" 2>/dev/null
-	  local volumes
-	  mapfile -t volumes < <(docker ps --filter status=exited -q 2>/dev/null)
-	  docker rm -v "${volumes[@]}" 2>/dev/null
-	  local images
-	  mapfile -t images < <(docker images --filter dangling=true -q 2>/dev/null)
-	  docker rmi "${images[@]}" 2>/dev/null
+    docker container prune -f >/dev/null 2>&1
+    local volumes
+    mapfile -t volumes < <(docker volume ls -qf dangling=true 2>/dev/null)
+    if [[ ${#volumes[@]} -gt 0 ]]; then
+        docker volume rm "${volumes[@]}" 2>/dev/null
+    fi
+    local images
+    mapfile -t images < <(docker images --filter dangling=true -q 2>/dev/null)
+    if [[ ${#images[@]} -gt 0 ]]; then
+        docker rmi "${images[@]}" 2>/dev/null
+    fi
 }
 del_stopped(){
-	  local name=$1
-	  local state
-	  state=$(docker inspect --format "{{.State.Running}}" "$name" 2>/dev/null)
+    local name=$1
+    local state
+    state=$(docker inspect --format "{{.State.Running}}" "$name" 2>/dev/null)
+    if [[ -z "$state" ]]; then
+        return 0
+    fi
 
-	  if [[ "$state" == "false" ]]; then
-		    docker rm "$name"
-	  fi
+    if [[ "$state" == "false" ]]; then
+        docker rm "$name"
+    fi
 }
 #
 # Container Aliases
 #
 notebooks(){
-    del_stopped notebook
+    del_stopped notebooks
 
     docker run --rm \
            -v "${HOME}/proj/notebooks:/home/jovyan/work" \
