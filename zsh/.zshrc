@@ -12,13 +12,6 @@ export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
 GPG_TTY=$TTY
 export GPG_TTY
 
-# Hoping some CLI apps respect these between Darwin (MacOS) and Linux
-# https://specifications.freedesktop.org/basedir-spec/latest/
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-
 path=(
   "$HOMEBREW_PREFIX/bin"
   "$HOMEBREW_PREFIX/sbin"
