@@ -6,6 +6,56 @@ Sources:
  - https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
  - https://apple.stackexchange.com/questions/388622/zsh-zprofile-zshrc-zlogin-what-goes-where
 
+## Stow
+
+Stow `.config/` to `~/.config`:
+
+```
+stow -t ~/.config .config
+```
+
+Stow `zsh/` to `~`:
+
+```
+stow -t ~ zsh
+```
+
+Stow Spacemacs layers to `~/.emacs.d` (the helper script also stows `.spacemacs` to `~`):
+
+```
+stow -t ~/.emacs.d spacemacs
+```
+
+Stow SSH and GnuPG configs to `~` (safe config only):
+
+```
+stow -t ~ ssh
+stow -t ~ gnupg
+```
+
+Lock down permissions:
+
+```
+chmod 700 ~/.ssh ~/.gnupg
+chmod 600 ~/.ssh/config ~/.gnupg/gpg.conf ~/.gnupg/gpg-agent.conf ~/.gnupg/scdaemon.conf
+```
+
+Or use the helper script (stows `.spacemacs` automatically; permissions still need to be set):
+
+```
+bash scripts/stow.sh
+```
+
+Verify stow links:
+
+```
+bash scripts/stow-check.sh
+```
+
+## XDG
+
+XDG base directories are set in `zsh/.zprofile`. Avoid committing cache/lock files under `.config/`.
+
 A login shell is simply a shell, whether local or remote, that allows a user to authenticate to the system. These shells are typically interactive shells.
 After ~/.zshenv is sourced, the next file that is loaded is /etc/zprofile, which is provided by macOS. This script executes
 
@@ -46,5 +96,3 @@ For an excellent, in-depth explanation of what these files do, see [What should/
 This is the order in which these files get read. Keep in mind that it reads first from the system-wide file (i.e. /etc/zshenv) then from the file in your home directory (~/.zshenv) as it goes through the following order.
 
 .zshenv → .zprofile → .zshrc → .zlogin → .zlogout
-
-
