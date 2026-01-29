@@ -1,0 +1,7 @@
+.DS_Store
+
+# XDG caches / machine-specific
+.config/clojure/.cpcache/
+.config/helm/repositories.lock
+.config/helm/repositories.yaml
+.config/spacemacs/.spacemacs.env
