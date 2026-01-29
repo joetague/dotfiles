@@ -4,5 +4,5 @@ icon: liquid-glass
 # Apply community patches
 patches:
   - aggressive-read-buffering
-  - fix-macos-tahoe-scrolling
+
 
