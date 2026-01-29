@@ -35,6 +35,7 @@
 
 [core]
 	editor = emacsclient --no-wait --create-frame
+	excludesfile = ~/.config/git/ignore
 
 [mergetool]
 	# Don't prompt before opening the merge tool.
