@@ -28,6 +28,26 @@
     org-super-agenda)
   "The list of Lisp packages required by the personal-org layer.")
 
+(defun personal-org/init-org-pdftools ()
+  "Initialize org-pdftools."
+  (use-package org-pdftools
+    :defer t
+    :after org))
+
+(defun personal-org/init-org-ql ()
+  "Initialize org-ql."
+  (use-package org-ql
+    :defer t
+    :after org))
+
+(defun personal-org/init-org-super-agenda ()
+  "Initialize org-super-agenda."
+  (use-package org-super-agenda
+    :defer t
+    :after org
+    :config
+    (org-super-agenda-mode)))
+
 ;;(ob-gptel :location (recipe
 ;;          :fetcher github
 ;;          :repo "jwiegley/ob-gptel"))
