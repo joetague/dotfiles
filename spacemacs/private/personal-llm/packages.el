@@ -27,47 +27,44 @@
     mcp)
   "The list of Lisp packages required by the personal-llm layer.")
 
-(defun jpt/init-personal-llm ()
-  "Initialize agent-shell package."
-
+(defun personal-llm/init-agent-shell ()
+  "Initialize agent-shell."
   ;; xenodium based tooling
   ;; Consider https://github.com/xenodium/agent-shell?tab=readme-ov-file#running-agents-in-devcontainers--docker-containers-experimental
-  (use-package acp
+  (use-package agent-shell
+    :commands
+    (agent-shell-anthropic-start-claude-code
+     agent-shell-openai-start-codex)
     :config
-    (use-package agent-shell
-      :commands
-      (agent-shell-anthropic-start-claude-code
-       agent-shell-openai-start-codex)
-      :config
+    (setq agent-shell-anthropic-authentication
+          (agent-shell-anthropic-make-authentication
+           :api-key (lambda () (nth 0 (process-lines "pass" "show" "anthropic-key")))))
+    (setq agent-shell-openai-authentication
+          (agent-shell-openai-make-authentication
+           :api-key (lambda () (nth 0 (process-lines "pass" "show" "openai-key")))))))
 
-      (setq agent-shell-anthropic-authentication
-            (agent-shell-anthropic-make-authentication
-             :api-key (lambda () (nth 0 (process-lines "pass" "show" "anthropic-key")))))
-      (setq agent-shell-openai-authentication
-            (agent-shell-openai-make-authentication
-             :api-key (lambda () (nth 0 (process-lines "pass" "show" "openai-key")))))
-      ))
+(defun personal-llm/init-mcp ()
+  "Initialize mcp."
+  (use-package mcp
+    :defer t))
 
-
-  ;; (acp :location (recipe :fetcher github :repo "xenodium/acp.el"))
-  ;; (agent-shell :location (recipe :fetcher github :repo "xenodium/agent-shell"))
-  ;; (claude-code :location (recipe
-  ;;                         :fetcher github
-  ;;                         :repo "stevemolitor/claude-code.el"))
-  ;;(gptel-quick :location (recipe
-  ;;                        :fetcher github
-  ;;                        :repo "karthink/gptel-quick"))
-  ;; (mcp :location (recipe
-  ;;                 :fetcher github
-  ;;                 :repo "lizqwerscott/mcp.el"))
-  ;; (monet :location (recipe
-  ;;                   :fetcher github
-  ;;                   :repo "stevemolitor/monet"))
-  ;; (gptel-project :location (recipe
-  ;;                  :fetcher github
-  ;;                  :repo "cvdub/gptel-project"))
-  ;; shell-maker
-
-  )
+;; (acp :location (recipe :fetcher github :repo "xenodium/acp.el"))
+;; (agent-shell :location (recipe :fetcher github :repo "xenodium/agent-shell"))
+;; (claude-code :location (recipe
+;;                         :fetcher github
+;;                         :repo "stevemolitor/claude-code.el"))
+;;(gptel-quick :location (recipe
+;;                        :fetcher github
+;;                        :repo "karthink/gptel-quick"))
+;; (mcp :location (recipe
+;;                 :fetcher github
+;;                 :repo "lizqwerscott/mcp.el"))
+;; (monet :location (recipe
+;;                   :fetcher github
+;;                   :repo "stevemolitor/monet"))
+;; (gptel-project :location (recipe
+;;                  :fetcher github
+;;                  :repo "cvdub/gptel-project"))
+;; shell-maker
 
 ;;; packages.el ends here
