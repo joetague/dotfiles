@@ -56,10 +56,4 @@
 ;; (setq projectile-indexing-method 'native)
 
 
-;; use mise instead of envrc
-(when (require 'mise nil t)
-  (add-hook 'after-init-hook #'global-mise-mode)
-  ;; Ensure mise environment is used for vterm.
-  (advice-add 'vterm :around #'mise-propagate-env))
-
 ;;; config.el ends here
