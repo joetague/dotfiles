@@ -26,4 +26,14 @@
   '(mise)
   "The list of Lisp packages required by the personal-devtools layer.")
 
+(defun personal-devtools/init-mise ()
+  "Initialize mise."
+  (use-package mise
+    :defer t
+    :init
+    (add-hook 'after-init-hook #'global-mise-mode)
+    :config
+    ;; Ensure mise environment is used for vterm.
+    (advice-add 'vterm :around #'mise-propagate-env)))
+
 ;;; packages.el ends here
