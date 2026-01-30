@@ -1,0 +1,6 @@
+export ANTHROPIC_BASE_URL=http://localhost:1234
+export ANTHROPIC_AUTH_TOKEN=lmstudio
+
+l_claude() {
+claude --model qwen/qwen3-vl-30b
+}
