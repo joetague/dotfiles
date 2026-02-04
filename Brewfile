@@ -48,6 +48,8 @@ brew "shellcheck"
 brew "shfmt"
 # Minimal, fast(rust-based) customizable shell prompt
 brew "starship"
+# Manage Git commits as a stack of patches
+brew "stgit"
 # GNU Stow
 brew "stow"
 # Simpler man pages that will give only the examples
