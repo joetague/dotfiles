@@ -821,9 +821,6 @@ before packages are loaded."
   ;; This may disappear in v31+?
   (setopt spacemacs-keep-legacy-current-buffer-delete-bindings nil)
 
-  ;; Always load newest byte code
-  (setopt load-prefer-newer t)
-
   ;; Remove window decoration
   (add-to-list 'default-frame-alist '(undecorated-round . t))
 

@@ -53,7 +53,6 @@ export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_
 # Emacs related
 export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
 export EDITOR="emacsclient -c --socket-name ${EMACS_SOCKET_NAME}"
-# export EDITOR="nano"
 # If we’re in an SSH session but NOT inside tmux, attach or create a session
 if [[ -n "$SSH_TTY" && -z "$TMUX" && -o interactive ]] && command -v tmux >/dev/null; then
     tmux_session="ssh_${USER}_$(hostname -s)"
@@ -88,15 +87,11 @@ vterm_cmd() {
 }
 
 # Start SSH agent if not running
-# if [ -z "$SSH_AUTH_SOCK" ]; then
-#     eval "$(ssh-agent -s)" > /dev/null
-#     ssh-add ~/.ssh/id_github_sign_and_auth 2>/dev/null
-# fi
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)" > /dev/null
+    ssh-add ~/.ssh/id_github_sign_and_auth 2>/dev/null
+fi
 
-eval "$(mise activate zsh)"
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
-eval "$(starship init zsh)"
 
 ## History file configuration
 [ -z "$HISTFILE" ] && HISTFILE="$XDG_STATE_HOME/zsh/history"
@@ -119,9 +114,6 @@ setopt share_history          # share command history data
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
-alias -- -="cd -"
 alias bubc="brew upgrade && brew cleanup"
 alias bubo="brew update && brew outdated"
 alias bubu="bubo && bubc"
@@ -141,6 +133,7 @@ alias rm="rm -iv"
 alias rsync="rsync --partial --progress --human-readable --compress"
 alias sha256="shasum -a 256"
 alias k9s="k9s --readonly"
+alias lclaude="claude --settings ~/.claude/lmstudio.settings.json"
 
 # Smarter completion initialization
 fpath=(/Users/joetague/.docker/completions $fpath)
@@ -151,4 +144,9 @@ if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; t
 else
     compinit -C
 fi
+
+eval "$(mise activate zsh)"
+eval "$(fzf --zsh)"
+eval "$(starship init zsh)"
 eval "$(op completion zsh)"; compdef _op op
+[ -z "$DISABLE_ZOXIDE" ] && eval "$(zoxide init --cmd cd zsh)"
