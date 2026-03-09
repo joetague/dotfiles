@@ -34,7 +34,10 @@
    org-journal-start-on-weekday 1
    org-journal-carryover-items nil
    org-journal-enable-cache t
-   org-journal-encrypt-journal t))
+   org-journal-encrypt-journal t)
+  (add-hook 'org-journal-mode-hook
+            (lambda ()
+              (remove-hook 'before-save-hook #'org-encrypt-entries t))))
 
 (with-eval-after-load 'org-noter
   (setopt
