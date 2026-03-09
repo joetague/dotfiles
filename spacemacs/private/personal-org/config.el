@@ -32,6 +32,8 @@
    org-journal-file-format "%Y%m%d"
    org-journal-file-type 'weekly
    org-journal-start-on-weekday 1
+   org-journal-carryover-items nil
+   org-journal-enable-cache t
    org-journal-encrypt-journal t))
 
 (with-eval-after-load 'org-noter
