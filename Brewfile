@@ -34,6 +34,8 @@ brew "gnu-sed"
 brew "gnu-tar"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
 # Remote terminal application
 brew "mosh"
 # Free (GNU) replacement for the Pico text editor
@@ -42,6 +44,8 @@ brew "nano"
 brew "pinentry-mac"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Rust toolchain installer
+brew "rustup"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Autoformat shell script source code

@@ -22,6 +22,7 @@ path=(
   "$HOMEBREW_PREFIX/opt/grep/libexec/gnubin"
   "$HOMEBREW_PREFIX/opt/jpeg/bin"
   "$HOMEBREW_PREFIX/opt/sqlite/bin"
+  "$HOMEBREW_PREFIX/opt/rustup/bin"
   "$HOME/.local/bin"
   "$HOME/.docker/bin"
   "$HOME/.cargo/bin"
