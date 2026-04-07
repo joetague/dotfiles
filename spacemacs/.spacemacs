@@ -824,11 +824,18 @@ before packages are loaded."
   ;; Remove window decoration
   (add-to-list 'default-frame-alist '(undecorated-round . t))
 
+  ;; https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/
   ;; Emacs text rendering optimisations
-  ;; https://200ok.ch/posts/2020-09-29_comprehensive_guide_on_handling_long_lines_in_emacs.html
   ;; Only render text left to right
-  (setopt bidi-paragraph-direction 'left-to-right)
+  (setq-default bidi-paragraph-direction 'left-to-right
+                bidi-paragraph-direction 'left-to-right)
+  (setq bidi-inhibit-bpa t)
+  ;; Emacs syntax-highlights text even while you’re actively typing can cause micro-stutters
+  (setq redisplay-skip-fontification-on-input t)
+  (setq-default cursor-in-non-selected-windows nil)
+  (setq highlight-nonselected-windows nil)
 
+  (setq ffap-machine-p-known 'reject)
   ;; Per-machine local overrides (not tracked)
   (let ((local (expand-file-name "~/.spacemacs.local")))
     (when (file-readable-p local)
