@@ -93,7 +93,6 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
     ssh-add ~/.ssh/id_github_sign_and_auth 2>/dev/null
 fi
 
-
 ## History file configuration
 [ -z "$HISTFILE" ] && HISTFILE="$XDG_STATE_HOME/zsh/history"
 [ "$HISTSIZE" -lt 50000 ] && HISTSIZE=50000
