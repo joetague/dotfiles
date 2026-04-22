@@ -26,28 +26,38 @@
 
 ;;; Code:
 
+(defvar jpt/lmstudio-host "localhost:1234"
+  "Host for the LMStudio API.")
+
+(defun jpt/make-lmstudio-backend (models)
+  "Create a gptel LMStudio backend with MODELS."
+  (gptel-make-openai "LMStudio"
+    :host jpt/lmstudio-host
+    :protocol "http"
+    :endpoint "/v1/chat/completions"
+    :stream t
+    :key "not-needed"
+    :models models))
+
 (with-eval-after-load 'gptel
   (defun jpt/refresh-lmstudio-models ()
     "Fetch available models from LMStudio and update gptel backend."
     (interactive)
     (message "Fetching models from LMStudio...")
     (let ((models-output (shell-command-to-string
-                          "curl -s --connect-timeout 2 'http://localhost:1234/v1/models' | jq -r '.data[].id' 2>/dev/null")))
+                          (format "curl -s --connect-timeout 2 'http://%s/v1/models' | jq -r '.data[].id' 2>/dev/null"
+                                  jpt/lmstudio-host))))
       (if (string-empty-p (string-trim models-output))
           (message "Could not fetch models from LMStudio. Is it running?")
         (let ((models (split-string (string-trim models-output) "\n" t)))
-          (setq gptel-backend (gptel-make-openai "LMStudio"
-                                :host "localhost:1234"
-                                :protocol "http"
-                                :endpoint "/v1/chat/completions"
-                                :stream t
-                                :key "not-needed"
-                                :models models))
+          (setq gptel-backend (jpt/make-lmstudio-backend models))
           (message "Updated LMStudio models: %s" (string-join models ", ")))))))
 
 (defun jpt/claude-notify (title message)
-  "Display a macOS notification with sound."
-  (call-process "osascript" nil nil nil
-                "-e" (format "display notification \"%s\" with title \"%s\" sound name \"Glass\""
-                             message title)))
+  "Display a macOS notification with TITLE and MESSAGE with sound."
+  (let ((escaped-title (replace-regexp-in-string "\"" "\\\\\"" title))
+        (escaped-message (replace-regexp-in-string "\"" "\\\\\"" message)))
+    (call-process "osascript" nil nil nil
+                  "-e" (format "display notification \"%s\" with title \"%s\" sound name \"Glass\""
+                               escaped-message escaped-title))))
 ;;; funcs.el ends here
