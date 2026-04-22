@@ -47,7 +47,6 @@
    lsp-enable-snippet nil  ;; to test again
 
    ;; symbol highlighting - `lsp-toggle-symbol-highlight` toggles highlighting
-   ;; subtle highlighting for doom-gruvbox-light theme defined in dotspacemacs/user-config
    lsp-enable-symbol-highlighting t
 
    ;; Show lint error indicator in the mode line
