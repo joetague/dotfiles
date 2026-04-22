@@ -66,8 +66,7 @@
                       (base64-decode-string claims t)))
       (json-pretty-print-buffer)
       (with-output-to-temp-buffer "*JWT*"
-        (special-mode)
-        (princ (buffer-string))))) t)
+        (princ (buffer-string))))))
 
 (defun jpt/generate-uuid ()
   "Insert a generated UUID at point."
