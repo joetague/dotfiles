@@ -23,7 +23,8 @@
 ;;; Code:
 
 (defconst personal-devtools-packages
-  '(mise)
+  '(mise
+    treesit-auto)
   "The list of Lisp packages required by the personal-devtools layer.")
 
 (defun personal-devtools/init-mise ()
@@ -35,5 +36,13 @@
     :config
     ;; Ensure mise environment is used for vterm.
     (advice-add 'vterm :around #'mise-propagate-env)))
+
+(defun personal-devtools/init-treesit-auto ()
+  "Initialize treesit-auto."
+  (use-package treesit-auto
+    :demand t
+    :config
+    (treesit-auto-add-to-auto-mode-alist 'all)
+    (global-treesit-auto-mode)))
 
 ;;; packages.el ends here
