@@ -26,8 +26,6 @@
 
 ;;; Code:
 
-(require 'subr-x)
-
 (defun jpt/delete-to-bol (delete-newline)
   "Delete current line and preceding newline char if DELETE-NEWLINE is set."
   (interactive "P")

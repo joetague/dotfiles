@@ -26,8 +26,6 @@
 
 ;;; Code:
 
-(require 'subr-x)
-
 (with-eval-after-load 'gptel
   (defun jpt/refresh-lmstudio-models ()
     "Fetch available models from LMStudio and update gptel backend."
