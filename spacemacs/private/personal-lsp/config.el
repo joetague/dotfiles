@@ -53,10 +53,7 @@
    ;; Show lint error indicator in the mode line
    lsp-modeline-diagnostics-enable nil
 
-   ;; popup documentation boxes
-   lsp-ui-doc-alignment 'window      ;; frame window
-
-   ;; reference count for functions (assume their maybe other lenses in future)
+   ;; reference count for functions
    lsp-lens-enable t
 
    ;; Efficient use of space in treemacs-lsp display

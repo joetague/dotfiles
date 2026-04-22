@@ -136,21 +136,8 @@ This function should only modify configuration layer settings."
      ;; Language server protocol with minimal visual impact
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/lsp/README.org
      (lsp :variables
-          ;; Do not install lsp-ui package
           lsp-use-lsp-ui nil
-          ;; Disable lsp-ui-doc overlay
-          lsp-ui-doc-enable nil
-          ;; Disable type signature included in the lsp-ui-doc overlay
-          lsp-ui-doc-include-signature nil
-          ;; Disable lsp-ui-sideline overlay
-          lsp-ui-sideline-enable nil
-          ;; Disable sideline includes symbol info
-          lsp-ui-sideline-show-symbol nil
-          ;; Ignore duplicates
-          lsp-ui-sideline-ignore-duplicate t
-          ;; Disable map keys to lsp-command-map
           lsp-use-upstream-bindings nil
-          ;; Disable lsp-sonarlint package
           lsp-sonarlint nil)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/markdown/README.org
