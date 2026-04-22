@@ -44,11 +44,6 @@
         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
         (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0")))
 
-;; Projectile settings
-;; See: https://github.com/syl20bnr/spacemacs/issues/4207 should improve speed
-;; of helm-projectile by using a shell that doesn't have a lot of profile information
-;; Previously tried
-;; (setq shell-file-name "/bin/sh")
 (with-eval-after-load 'projectile
   (setopt projectile-project-search-path '(("~/proj/" . 2))))
 ;; (setq projectile-create-missing-test-files t)
