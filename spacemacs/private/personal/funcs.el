@@ -108,10 +108,9 @@
       (message "No valid Unix timestamp found at point."))))
 
 (defun jpt/native-compile-packages ()
-  "Native compile all installed packages synchronously."
+  "Native compile all installed packages asynchronously."
   (interactive)
   (when (native-comp-available-p)
-    (message "Starting native compilation of all packages...")
     (native-compile-async (expand-file-name "elpa" user-emacs-directory) 'recursively t)
     (message "Native compilation queued. Check *Async-native-compile-log* buffer.")))
 

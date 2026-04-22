@@ -71,7 +71,6 @@
 (defun jpt/org-capture-frame ()
   "Run org-capture in its own frame."
   (interactive)
-  (require 'cl-lib)
   (select-frame-by-name "capture")
   (delete-other-windows)
   (cl-letf (((symbol-function 'switch-to-buffer-other-window) #'switch-to-buffer))

@@ -54,7 +54,6 @@
 
   (add-hook 'org-mode-hook #'personal-org--org-mode-setup)
 
-  ;; GPG key to use for encryption. Set to nil to use symmetric encryption.
   (setopt
    ;; Agenda
    org-agenda-files '("~/org/learning.org" "~/org/life.org")
