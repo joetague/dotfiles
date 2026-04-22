@@ -98,7 +98,7 @@
                               :order 90))))))))
 
    ;; Encryption
-   org-tags-exclude-from-inheritance (quote ("crypt"))
+   org-tags-exclude-from-inheritance '("crypt")
    org-crypt-key "F4E72EEA776B3FBC"
 
    ;; Capturing
@@ -109,8 +109,8 @@
 
    ;; TODO Keywords
    org-todo-keywords
-   (quote ((sequence "TODO(t)" "IN_PROGRESS(i)" "|" "DONE(d)")
-           (sequence "WAITING(w@/)" "HOLD(h@/)" "|" "CANCELLED(c@/)")))
+   '((sequence "TODO(t)" "IN_PROGRESS(i)" "|" "DONE(d)")
+     (sequence "WAITING(w@/)" "HOLD(h@/)" "|" "CANCELLED(c@/)"))
    ;; Avoid setting entries as DONE when there are still sub-entries that are not DONE.
    org-enforce-todo-dependencies t
 
@@ -120,8 +120,8 @@
    org-clock-persist t
    spaceline-org-clock-p t ;; Mode line display of task
    org-columns-default-format "%60ITEM(Task) %20TODO %10Effort(Effort){:} %10CLOCKSUM"
-   org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
-                                 ("STYLE_ALL" . "habit")))
+   org-global-properties '(("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
+                           ("STYLE_ALL" . "habit"))
    org-duration-format '((special . h:mm)))
 
   ;; https://emacs.stackexchange.com/questions/12900/passing-a-variable-to-template-function-in-org-capture-templates
