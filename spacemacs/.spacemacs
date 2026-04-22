@@ -33,13 +33,6 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/aider
-     ;; (aider)
-
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/asciidoc/README.org
-     ;; asciidoc
-
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+completion/auto-completion/README.org
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
@@ -53,18 +46,6 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-help-tooltip t
                       auto-completion-use-company-box nil
                       auto-completion-enable-sort-by-usage t)
-
-     ;; (claude-code :variables
-     ;;              claude-code-ide-window-side 'right
-     ;;              claude-code-ide-window-width 100)
-
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/clojure/README.org
-     ;; (clojure :variables
-     ;;          clojure-backend 'cider
-     ;;          clojure-enable-linters '(clj-kondo joker)
-     ;;          clojure-enable-clj-refactor t
-     ;;          clojure-enable-kaocha-runner t
-     ;;          clojure-toplevel-inside-comment-form t)
 
      ;; Alternative to Helm
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bcompletion/compleseus
@@ -228,13 +209,6 @@ This function should only modify configuration layer settings."
                treemacs-use-filewatch-mode t
                treemacs-use-follow-mode t
                treemacs-use-scope-type 'Perspectives)
-
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/tree-sitter/README.org
-     ;; (tree-sitter :variables
-     ;;              spacemacs-tree-sitter-hl-black-list '(js2-mode rjsx-mode)
-     ;;              tree-sitter-syntax-highlight-enable t
-     ;;              tree-sitter-fold-enable t
-     ;;              tree-sitter-fold-indicators-enable t)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/typescript
      (typescript :variables
