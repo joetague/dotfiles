@@ -791,11 +791,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
     (setq native-comp-speed 2)
     (setq native-comp-jit-compilation-report-warnings-errors nil))
 
-  (advice-add
-   'company-statistics--load :around
-   (lambda (orig-fun)
-     (let ((warning-inhibit-types '((files missing-lexbind-cookie))))
-       (funcall orig-fun))))
   )
 
 (defun dotspacemacs/user-config ()
