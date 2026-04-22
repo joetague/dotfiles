@@ -43,7 +43,7 @@
 
   ;; Use the system prompt builder function
   (let ((build-directives-fun "~/proj/llm-prompts/gptel-build-directives.el"))
-    (when (f-exists-p build-directives-fun)
+    (when (file-exists-p build-directives-fun)
       (load build-directives-fun)
       (setq gptel-directives (jpt/gptel-build-directives "~/proj/llm-prompts/system-prompts/")
             gptel-system-message (alist-get 'default gptel-directives)))))
