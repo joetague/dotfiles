@@ -33,13 +33,7 @@
 
   (setopt
    gptel-model 'qwen/qwen3-14b
-   gptel-backend (gptel-make-openai "LMStudio"
-                   :host "localhost:1234"
-                   :protocol "http"
-                   :endpoint "/v1/chat/completions"
-                   :stream t
-                   :key "not-needed"
-                   :models '("qwen/qwen3-14b")))  ;; Default model, refresh with jpt/refresh-lmstudio-models
+   gptel-backend (jpt/make-lmstudio-backend '("qwen/qwen3-14b")))
 
   ;; Use the system prompt builder function
   (let ((build-directives-fun "~/proj/llm-prompts/gptel-build-directives.el"))
