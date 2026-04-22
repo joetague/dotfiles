@@ -40,11 +40,9 @@
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\bin\\'")
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\coverage\\'")
   (setopt
-   ;; Formatting and indentation - use Cider instead
    lsp-enable-on-type-formatting nil
-   ;; Set to nil to use CIDER features instead of LSP UI
    lsp-enable-indentation nil
-   lsp-enable-snippet nil  ;; to test again
+   lsp-enable-snippet nil
 
    ;; symbol highlighting - `lsp-toggle-symbol-highlight` toggles highlighting
    lsp-enable-symbol-highlighting t
