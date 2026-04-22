@@ -126,7 +126,7 @@
 
   ;; https://emacs.stackexchange.com/questions/12900/passing-a-variable-to-template-function-in-org-capture-templates
   ;; Creating a template for meeting notes
-  (defvar my/org-meeting-template "** %<%Y-%m-%d %H:%M> %^{something} %(org-set-tags \"crypt\")
+  (defvar jpt/org-meeting-template "** %<%Y-%m-%d %H:%M> %^{something} %(org-set-tags \"crypt\")
     SCHEDULED: %<%Y-%m-%d %H:%M>
     *Attendees:*
     - [X] Joe Tague
