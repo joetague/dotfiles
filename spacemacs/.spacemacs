@@ -150,10 +150,13 @@ This function should only modify configuration layer settings."
      ;; Just use IntelliJ with plugins?
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/python/README.org
      (python :variables
-             python-auto-set-local-pyenv-version 'on-project-switch
-             python-auto-set-local-pyvenv-virtualenv 'on-project-switch
+             python-auto-set-local-pyenv-version nil
+             python-auto-set-local-pyvenv-virtualenv nil
              python-backend 'lsp
              python-lsp-server 'pyright
+             python-formatter 'ruff
+             python-format-on-save t
+             python-sort-imports-on-save t
              python-test-runner 'pytest)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/restclient/README.org

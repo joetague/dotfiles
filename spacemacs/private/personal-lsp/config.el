@@ -81,4 +81,8 @@
 (with-eval-after-load 'lsp-pyright
   (setopt lsp-pyright-multi-root nil))
 
+(with-eval-after-load 'lsp-ruff
+  (setopt lsp-ruff-advertize-organize-imports t
+          lsp-ruff-advertize-fix-all t))
+
 ;;; config.el ends here
