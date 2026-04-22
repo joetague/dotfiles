@@ -30,7 +30,7 @@
 
 (defun jpt/delete-to-bol (delete-newline)
   "Delete current line and preceding newline char if DELETE-NEWLINE is set."
-  (interactive "p")
+  (interactive "P")
   (delete-region (pos-bol) (pos-eol))
   (when delete-newline
     (delete-char -1)))
@@ -49,14 +49,12 @@
   (forward-line -1))
 
 (defun jpt/duplicate-line ()
-  "Duplicate current line and append under the current one."
+  "Duplicate current line below."
   (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (open-line 1)
-  (forward-line 1)
-  (yank))
+  (let ((line (buffer-substring (pos-bol) (pos-eol))))
+    (end-of-line)
+    (newline)
+    (insert line)))
 
 (defun jpt/decode-jwt ()
   "Decode JWT that is on the current line."
@@ -111,12 +109,6 @@
     (if time
         (message "ISO 8601 Date: %s" (format-time-string "%Y-%m-%dT%H:%M:%SZ" time t))
       (message "No valid Unix timestamp found at point."))))
-
-(defun jpt/claude-notify (title message)
-  "Display a macOS notification with TITLE and MESSAGE with sound."
-  (call-process "osascript" nil nil nil
-                "-e" (format "display notification \"%s\" with title \"%s\" sound name \"Glass\""
-                             message title)))
 
 (defun jpt/native-compile-packages ()
   "Native compile all installed packages synchronously."

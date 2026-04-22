@@ -41,10 +41,8 @@
 ;;; Code:
 
 (defconst personal-lang-clojure-packages
-  '(clj-deps-new
-    jet
-    clay)
-  "The list of Lisp packages required by the personal-lang-clojure layer."
+  '()
+  "The list of Lisp packages required by the personal-lang-clojure layer.")
 
   ;; (require 'clj-deps-new)
   ;; (require 'jet)
@@ -59,5 +57,3 @@
   ;;                  :fetcher github
   ;;                  :repo "babashka/neil"))
   ;; quarto-mode
-
-  )

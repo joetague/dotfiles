@@ -37,7 +37,7 @@
 
 (with-eval-after-load 'org
   (work-org--install-feedback-templates)
-  (setq org-clock-clocktable-default-properties '(:scope (work-org-feedback-file (concat work-org-feedback-file "_archive")) :maxlevel 2 :narrow 200! :block today))
+  (setq org-clock-clocktable-default-properties `(:scope (,work-org-feedback-file ,(concat work-org-feedback-file "_archive")) :maxlevel 2 :narrow 200! :block today))
   )
 
 ;;; config.el ends here
