@@ -26,23 +26,15 @@
 
 ;;; Code:
 
-;; tree-sitter settings
-(setq treesit-language-source-alist
-      '((bash "https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3")
-        (css "https://github.com/tree-sitter/tree-sitter-css" "v0.23.2")
-        ;; (clojure "https://github.com/sogaiu/tree-sitter-clojure" "v0.0.13")
-        (elisp "https://github.com/Wilfred/tree-sitter-elisp" "1.5.0")
-        ;; (go "https://github.com/tree-sitter/tree-sitter-go" "v0.23.4")
-        (html "https://github.com/tree-sitter/tree-sitter-html" "v0.23.2")
-        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "v0.23.1")
-        (json "https://github.com/tree-sitter/tree-sitter-json" "v0.24.8")
-        (make "https://github.com/alemuller/tree-sitter-make")
-        (markdown "https://github.com/ikatyang/tree-sitter-markdown" "v0.7.1")
-        (python "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6")
-        (toml "https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1")
-        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
-        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2")
-        (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0")))
+;; tree-sitter grammar sources not provided by Emacs built-in *-ts-modes
+;; Built-in modes define their own sources for: bash, css, dockerfile, html,
+;; java, javascript, jsdoc, json, markdown, markdown-inline, toml, tsx,
+;; typescript, yaml (and doxygen). Only add grammars Emacs doesn't provide.
+(with-eval-after-load 'treesit
+  (dolist (source '((elisp "https://github.com/Wilfred/tree-sitter-elisp" "1.5.0")
+                    (make "https://github.com/alemuller/tree-sitter-make")
+                    (python "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6")))
+    (add-to-list 'treesit-language-source-alist source)))
 
 (with-eval-after-load 'projectile
   (setopt projectile-project-search-path '(("~/proj/" . 2))))
