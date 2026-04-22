@@ -36,6 +36,38 @@
                     (python "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6")))
     (add-to-list 'treesit-language-source-alist source)))
 
+;; Spacemacs uses bind-map to create per-mode evil leader keymaps (the ","
+;; prefix).  These are keyed by exact mode symbol, so *-ts-modes get nothing.
+;; Fix: (1) re-parent ts-modes so hooks and derived-mode-p checks work, and
+;;      (2) use spacemacs/inherit-leader-keys-from-parent-mode to give each
+;;          ts-mode a leader keymap that inherits from the classic mode's.
+(defvar personal-devtools--ts-mode-parents
+  '((python-ts-mode     . python-mode)
+    (js-ts-mode         . js2-mode)
+    (typescript-ts-mode . typescript-mode)
+    (tsx-ts-mode        . typescript-tsx-mode)
+    (json-ts-mode       . json-mode)
+    (yaml-ts-mode       . yaml-mode)
+    (bash-ts-mode       . sh-mode)
+    (java-ts-mode       . java-mode)
+    (css-ts-mode        . css-mode)
+    (dockerfile-ts-mode . dockerfile-mode)
+    (markdown-ts-mode   . markdown-mode)
+    (html-ts-mode       . html-mode)
+    (toml-ts-mode       . conf-toml-mode))
+  "Alist mapping tree-sitter modes to their classic Spacemacs counterparts.")
+
+(defun personal-devtools--setup-ts-modes ()
+  "Re-parent all ts-modes and inherit Spacemacs leader keys."
+  (dolist (pair personal-devtools--ts-mode-parents)
+    (let ((ts-mode (car pair))
+          (classic-mode (cdr pair)))
+      (derived-mode-set-parent ts-mode classic-mode)
+      (spacemacs/inherit-leader-keys-from-parent-mode ts-mode classic-mode))))
+
+;; Run after all layers have configured their keybindings.
+(add-hook 'after-init-hook #'personal-devtools--setup-ts-modes)
+
 (with-eval-after-load 'projectile
   (setopt projectile-project-search-path '(("~/proj/" . 2))))
 ;; (setq projectile-create-missing-test-files t)
