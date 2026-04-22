@@ -768,7 +768,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-home-shorten-agenda-source nil
 
    ;; If non-nil then byte-compile some of Spacemacs files.
-   dotspacemacs-byte-compile t))
+   dotspacemacs-byte-compile nil))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
@@ -797,13 +797,12 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; Keep GPTel stable (extensive custom config)
   (add-to-list 'package-pinned-packages '(gptel . "melpa-stable") t)
 
-  ;; Native compilation settings (Emacs 28+)
-  ;; Disable async compilation - compile immediately instead
+  ;; Native compilation settings (Emacs 29+)
+  ;; Disable JIT compilation - only compile during package install
   (when (native-comp-available-p)
-    (setq native-comp-deferred-compilation nil)  ; No async, compile synchronously
-    (setq native-comp-speed 2)                   ; Optimization level (0-3, default 2)
-    (setq native-comp-async-jobs-number 4)       ; Parallel compilation jobs
-    (setq native-comp-async-report-warnings-errors nil))  ; Suppress async warnings
+    (setq native-comp-jit-compilation nil)
+    (setq native-comp-speed 2)
+    (setq native-comp-jit-compilation-report-warnings-errors nil))
 
   (advice-add
    'company-statistics--load :around
