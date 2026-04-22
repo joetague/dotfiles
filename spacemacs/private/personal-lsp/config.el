@@ -69,7 +69,7 @@
 (with-eval-after-load 'lsp-java
   (setopt lsp-java-jdt-download-url "https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.53.0/jdt-language-server-1.53.0-202511192211.tar.gz")
   (setopt lsp-java-vmargs
-          `("-XX:+UseParallelGC"
+          '("-XX:+UseParallelGC"
             "-XX:GCTimeRatio=4"
             "-XX:AdaptiveSizePolicyWeight=90"
             "-Dsun.zip.disableMemoryMapping=true"
