@@ -30,11 +30,8 @@
 (defun personal-devtools/init-mise ()
   "Initialize mise."
   (use-package mise
-    :defer t
-    :init
-    (add-hook 'after-init-hook #'global-mise-mode)
+    :hook (after-init . global-mise-mode)
     :config
-    ;; Ensure mise environment is used for vterm.
     (advice-add 'vterm :around #'mise-propagate-env)))
 
 (defun personal-devtools/init-treesit-auto ()
