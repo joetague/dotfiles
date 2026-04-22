@@ -53,6 +53,7 @@
           (personal-org--enable-ob-gptel-capf)))))
 
   (add-hook 'org-mode-hook #'personal-org--org-mode-setup)
+  (advice-add 'org-capture-finalize :after #'jpt/delete-capture-frame)
 
   (setopt
    ;; Agenda

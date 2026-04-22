@@ -85,6 +85,5 @@
   "Delete frame with its name frame-parameter set to \"capture\"."
   (if (equal "capture" (frame-parameter nil 'name))
       (delete-frame)))
-(advice-add 'org-capture-finalize :after #'jpt/delete-capture-frame)
 
 ;;; funcs.el ends here
