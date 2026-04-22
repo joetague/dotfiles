@@ -78,11 +78,7 @@
             "-Xmx4G")
           lsp-java-progress-reports-enabled nil
           lsp-java-completion-max-results 50
-          lsp-java-progress-reports nil
-          lsp-java-autobuild-enabled nil)
-  (setq c-basic-offset 4
-        tab-width 4
-        indent-tabs-mode nil))
+          lsp-java-autobuild-enabled nil))
 
 (with-eval-after-load 'lsp-pyright
   (setopt lsp-pyright-multi-root nil))
