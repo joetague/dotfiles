@@ -826,8 +826,7 @@ before packages are loaded."
   ;; https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/
   ;; Emacs text rendering optimisations
   ;; Only render text left to right
-  (setq-default bidi-paragraph-direction 'left-to-right
-                bidi-paragraph-direction 'left-to-right)
+  (setq-default bidi-paragraph-direction 'left-to-right)
   (setq bidi-inhibit-bpa t)
   ;; Emacs syntax-highlights text even while you’re actively typing can cause micro-stutters
   (setq redisplay-skip-fontification-on-input t)
