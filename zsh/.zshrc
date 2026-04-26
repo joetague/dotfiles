@@ -146,7 +146,7 @@ else
 fi
 
 eval "$(mise activate zsh)"
-[ -z "$DISABLE_SHELL_TOOLS" ] && eval "$(fzf --zsh)"
-[ -z "$DISABLE_SHELL_TOOLS" ] && eval "$(starship init zsh)"
-[ -z "$DISABLE_SHELL_TOOLS" ] && eval "$(op completion zsh)" && compdef _op op
-[ -z "$DISABLE_SHELL_TOOLS" ] && eval "$(zoxide init --cmd cd zsh)"
+[ -z "$DISABLE_SHELL_TOOLING" ] && eval "$(fzf --zsh)"
+[ -z "$DISABLE_SHELL_TOOLING" ] && eval "$(starship init zsh)"
+[ -z "$DISABLE_SHELL_TOOLING" ] && eval "$(op completion zsh)"; compdef _op op
+[ -z "$DISABLE_SHELL_TOOLING" ] && eval "$(zoxide init --cmd cd zsh)"
