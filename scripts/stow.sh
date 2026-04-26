@@ -16,6 +16,7 @@ stow_package "$HOME/.emacs.d" "spacemacs" --ignore '^\\.spacemacs$'
 stow_package "$HOME" "spacemacs" --ignore '^(private|snippets)$' --ignore '^(private|snippets)/'
 stow_package "$HOME" "ssh"
 stow_package "$HOME" "gnupg"
+stow_package "$HOME" "claude"
 
 # Lock down permissions for SSH/GnuPG configs.
 chmod 700 "$HOME/.ssh" "$HOME/.gnupg"
