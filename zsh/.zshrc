@@ -140,7 +140,7 @@ alias lclaude="claude --settings ~/.claude/lmstudio.settings.json"
 fpath=(/Users/joetague/.docker/completions $fpath)
 fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 autoload -Uz compinit
-if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+if [ "$(date +'%j')" != "$(/usr/bin/stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
     compinit
 else
     compinit -C
