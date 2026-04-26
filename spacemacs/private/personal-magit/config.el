@@ -29,14 +29,16 @@
 (with-eval-after-load 'magit
   (setq magit-git-executable "/opt/homebrew/bin/git")
   (setq magit-process-connection-type nil)
-  (setopt magit-diff-refine-hunk 'all)
+  (setopt magit-diff-refine-hunk 'selected)
   (setopt magit-repository-directories
           '(("~/.emacs.d"  . 0)
             ("~/proj/" . 4)))
   (add-to-list 'magit-no-confirm 'stage-all-changes)
   (magit-add-section-hook 'magit-status-sections-hook
                           'magit-insert-worktrees
-                          'magit-insert-status-headers t))
+                          'magit-insert-status-headers t)
+  (remove-hook 'magit-status-sections-hook 'magit-insert-tags-header)
+  (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent))
 
 (with-eval-after-load 'forge
   (setopt forge-topic-list-limit '(100 . -5))
