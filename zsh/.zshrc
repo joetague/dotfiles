@@ -9,7 +9,7 @@ export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
 export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
 
 #GnuPG
-GPG_TTY=$TTY
+GPG_TTY=$(tty)
 export GPG_TTY
 
 path=(
