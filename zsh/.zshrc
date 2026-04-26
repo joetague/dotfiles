@@ -60,9 +60,6 @@ if [[ -n "$SSH_TTY" && -z "$TMUX" && -o interactive ]] && command -v tmux >/dev/
     tmux attach-session -t "$tmux_session" 2>/dev/null || tmux new-session -s "$tmux_session"
 fi
 
-if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
-    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
-fi
 vterm_printf() {
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
         # Tell tmux to pass the escape sequences through
@@ -86,6 +83,10 @@ vterm_cmd() {
     done
     vterm_printf "51;E$vterm_elisp"
 }
+
+if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
+    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
+fi
 
 # Start SSH agent if not running
 if [ -z "$SSH_AUTH_SOCK" ]; then
