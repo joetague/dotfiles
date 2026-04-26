@@ -30,9 +30,9 @@ path=(
   $path
 )
 
-export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib -L/opt/homebrew/opt/curl/lib -L/opt/homebrew/opt/jpeg/lib -L/opt/homebrew/opt/zlib/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include -I/opt/homebrew/opt/curl/include -I/opt/homebrew/opt/jpeg/include -I/opt/homebrew/opt/zlib/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig:/opt/homebrew/opt/curl/lib/pkgconfig:/opt/homebrew/opt/jpeg/lib/pkgconfig:/opt/homebrew/opt/zlib/lib/pkgconfig"
+export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib -L/opt/homebrew/opt/curl/lib -L/opt/homebrew/opt/jpeg/lib -L/opt/homebrew/opt/zlib/lib -L/opt/homebrew/opt/readline/lib -L/opt/homebrew/opt/sqlite/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include -I/opt/homebrew/opt/curl/include -I/opt/homebrew/opt/jpeg/include -I/opt/homebrew/opt/zlib/include -I/opt/homebrew/opt/readline/include -I/opt/homebrew/opt/sqlite/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig:/opt/homebrew/opt/curl/lib/pkgconfig:/opt/homebrew/opt/jpeg/lib/pkgconfig:/opt/homebrew/opt/zlib/lib/pkgconfig:/opt/homebrew/opt/readline/lib/pkgconfig:/opt/homebrew/opt/sqlite/lib/pkgconfig"
 export SSL_CERT_FILE="/opt/homebrew/etc/openssl@3/cert.pem"
 
 # Move aspell config and personal dictionary
