@@ -30,23 +30,10 @@ path=(
   $path
 )
 
-export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
+export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib -L/opt/homebrew/opt/curl/lib -L/opt/homebrew/opt/jpeg/lib -L/opt/homebrew/opt/zlib/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include -I/opt/homebrew/opt/curl/include -I/opt/homebrew/opt/jpeg/include -I/opt/homebrew/opt/zlib/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig:/opt/homebrew/opt/curl/lib/pkgconfig:/opt/homebrew/opt/jpeg/lib/pkgconfig:/opt/homebrew/opt/zlib/lib/pkgconfig"
 export SSL_CERT_FILE="/opt/homebrew/etc/openssl@3/cert.pem"
-export REQUESTS_CA_BUNDLE="/opt/homebrew/etc/openssl@3/cert.pem"
-
-#export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
-#export LDFLAGS="-L/opt/homebrew/opt/jpeg/lib $LDFLAGS"
-#export LDFLAGS="-L/opt/homebrew/opt/zlib/lib $LDFLAGS"
-
-#export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
-#export CPPFLAGS="-I/opt/homebrew/opt/jpeg/include $CPPFLAGS"
-#export CPPFLAGS="-I/opt/homebrew/opt/zlib/include $CPPFLAGS"
-
-#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/curl/lib/pkgconfig"
-#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/jpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
-#export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # Move aspell config and personal dictionary
 export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_DATA_HOME/aspell/en.pws; repl $XDG_DATA_HOME/aspell/en.prepl"
