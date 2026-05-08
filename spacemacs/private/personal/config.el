@@ -16,3 +16,10 @@
 (with-eval-after-load 'shell-pop
   (unless (boundp 'shell-pop-last-shell-buffer-name)
     (defvar shell-pop-last-shell-buffer-name "")))
+
+(with-eval-after-load 'yasnippet
+  (defun jpt/yas-recompile-snippet-dir-on-save ()
+    "After saving a snippet, recompile its mode directory so JIT loading uses the .yas-compiled-snippets.el file."
+    (when (and buffer-file-name (derived-mode-p 'snippet-mode))
+      (yas-compile-directory (file-name-directory buffer-file-name))))
+  (add-hook 'after-save-hook #'jpt/yas-recompile-snippet-dir-on-save))
