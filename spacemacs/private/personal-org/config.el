@@ -47,6 +47,8 @@
 (with-eval-after-load 'org-persp
   (setopt org-persp-startup-with-agenda "z"))
 
+(add-hook 'org-agenda-mode-hook (lambda () (yas-minor-mode -1)))
+
 (with-eval-after-load 'org
   (require 'org-crypt)
 
