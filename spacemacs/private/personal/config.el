@@ -23,3 +23,5 @@
     (when (and buffer-file-name (derived-mode-p 'snippet-mode))
       (yas-compile-directory (file-name-directory buffer-file-name))))
   (add-hook 'after-save-hook #'jpt/yas-recompile-snippet-dir-on-save))
+
+(setq vc-follow-symlinks t)
