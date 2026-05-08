@@ -136,6 +136,7 @@ fabric.properties
 *.vsix
 
 # Emacs
+**/.yas-compiled-snippets.el
 # Org-mode
 .org-id-locations
 *_archive
