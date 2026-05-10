@@ -29,18 +29,21 @@
 (with-eval-after-load 'gptel
   (require 'gptel-integrations)
 
+  ;; Register Kagi as an available backend; selecting it remains a per-machine
+  ;; choice via `gptel-menu' or by setq'ing `gptel-backend' in user-config.
   (gptel-make-kagi "Kagi" :key (auth-source-pick-first-password :host "api.kagi.com"))
 
-  (setopt
-   gptel-model 'qwen/qwen3-14b
-   gptel-backend (jpt/make-lmstudio-backend '("qwen/qwen3-14b")))
+  ;; Active backend / model is per-machine and lives in dotspacemacs/user-config.
 
-  ;; Use the system prompt builder function
+  ;; System prompt directives loaded from ~/proj/llm-prompts/ when available.
   (let ((build-directives-fun "~/proj/llm-prompts/gptel-build-directives.el"))
     (when (file-exists-p build-directives-fun)
       (load build-directives-fun)
       (setq gptel-directives (jpt/gptel-build-directives "~/proj/llm-prompts/system-prompts/")
             gptel-system-message (alist-get 'default gptel-directives)))))
+
+(with-eval-after-load 'embark
+  (keymap-set embark-general-map "?" #'gptel-quick))
 
 
 ;; LLM
