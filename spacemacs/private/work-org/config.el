@@ -35,9 +35,12 @@
   "~/org/work/feedback.org"
   "Org file where work feedback entries are stored.")
 
+(with-eval-after-load 'org-capture
+  (work-org--install-feedback-templates))
+
 (with-eval-after-load 'org
-  (work-org--install-feedback-templates)
-  (setq org-clock-clocktable-default-properties `(:scope (,work-org-feedback-file ,(concat work-org-feedback-file "_archive")) :maxlevel 2 :narrow 200! :block today))
-  )
+  (setq org-clock-clocktable-default-properties
+        `(:scope (,work-org-feedback-file ,(concat work-org-feedback-file "_archive"))
+          :maxlevel 2 :narrow 200! :block today)))
 
 ;;; config.el ends here

@@ -29,7 +29,7 @@
 (with-eval-after-load 'magit
   (setq magit-git-executable "/opt/homebrew/bin/git")
   (setq magit-process-connection-type nil)
-  (setopt magit-diff-refine-hunk 'selected)
+  (setopt magit-diff-refine-hunk t)
   (setopt magit-repository-directories
           '(("~/.emacs.d"  . 0)
             ("~/proj/" . 4)))
