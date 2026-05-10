@@ -25,3 +25,7 @@
   (add-hook 'after-save-hook #'jpt/yas-recompile-snippet-dir-on-save))
 
 (setq vc-follow-symlinks t)
+
+;; Disable auto-save globally; mode-specific hooks (e.g. org-journal) opt out
+;; or re-enable as needed.
+(setopt auto-save-default nil)
