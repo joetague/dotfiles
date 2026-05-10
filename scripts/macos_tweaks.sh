@@ -41,3 +41,8 @@ defaults write -g NSStatusItemSpacing -int 6
 
 backup_default -g NSStatusItemSelectionPadding
 defaults write -g NSStatusItemSelectionPadding -int 4
+
+# Emacs tweaks
+defaults write org.gnu.Emacs NSAppSleepDisabled -bool YES  # When in background do not sleep
+defaults write org.gnu.Emacs ApplePressAndHoldEnabled -bool false  # Speed up the navigation keys
+defaults write org.gnu.Emacs NSQuitAlwaysKeepsWindows -bool false  # Don't remember window position on quit
