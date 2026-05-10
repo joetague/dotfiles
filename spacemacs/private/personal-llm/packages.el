@@ -23,8 +23,7 @@
 ;;; Code:
 
 (defconst personal-llm-packages
-  '(agent-shell
-    mcp)
+  '(agent-shell)
   "The list of Lisp packages required by the personal-llm layer.")
 
 (defun personal-llm/init-agent-shell ()
@@ -42,11 +41,6 @@
     (setq agent-shell-openai-authentication
           (agent-shell-openai-make-authentication
            :api-key (lambda () (nth 0 (process-lines "pass" "show" "openai-key")))))))
-
-(defun personal-llm/init-mcp ()
-  "Initialize mcp."
-  (use-package mcp
-    :defer t))
 
 ;; (acp :location (recipe :fetcher github :repo "xenodium/acp.el"))
 ;; (agent-shell :location (recipe :fetcher github :repo "xenodium/agent-shell"))

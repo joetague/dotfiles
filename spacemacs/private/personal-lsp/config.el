@@ -67,7 +67,8 @@
   (lsp-treemacs-sync-mode 1))
 
 (with-eval-after-load 'lsp-java
-  (setopt lsp-java-jdt-download-url "https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.53.0/jdt-language-server-1.53.0-202511192211.tar.gz")
+  (setopt lsp-java-server-install-dir
+          "~/.local/bin/langservers/jdt-language-server-1.56.0-202601291528")
   (setopt lsp-java-vmargs
           '("-XX:+UseParallelGC"
             "-XX:GCTimeRatio=4"
@@ -76,7 +77,12 @@
             "-Xmx4G")
           lsp-java-progress-reports-enabled nil
           lsp-java-completion-max-results 50
-          lsp-java-autobuild-enabled nil))
+          lsp-java-autobuild-enabled nil)
+  ;; Java indentation defaults — applied globally, scoped to lsp-java load
+  ;; since this is the only place we care about Java style on this machine.
+  (setopt c-basic-offset 4
+          tab-width 4
+          indent-tabs-mode nil))
 
 (with-eval-after-load 'lsp-pyright
   (setopt lsp-pyright-multi-root nil))
