@@ -67,8 +67,10 @@
   (lsp-treemacs-sync-mode 1))
 
 (with-eval-after-load 'lsp-java
-  (setopt lsp-java-server-install-dir
-          "~/.local/bin/langservers/jdt-language-server-1.56.0-202601291528")
+  (setopt lsp-java-jdt-download-url "https://download.eclipse.org/jdtls/milestones/1.58.0/jdt-language-server-1.58.0-202604151538.tar.gz")
+  ;; Run jdtls process on the mise shim for java - e.g. whatever mise -g java@temurin-25 ran
+  (setq lsp-java-java-path
+        (expand-file-name "~/.local/share/mise/shims/java"))
   (setopt lsp-java-vmargs
           '("-XX:+UseParallelGC"
             "-XX:GCTimeRatio=4"
