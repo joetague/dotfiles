@@ -80,6 +80,16 @@
           lsp-java-progress-reports-enabled nil
           lsp-java-completion-max-results 50
           lsp-java-autobuild-enabled nil)
+  (setq lsp-java-configuration-runtimes
+        '[(:name "JavaSE-11"
+                 :path "~/.local/share/mise/installs/java/11.0")
+          (:name "JavaSE-17"
+                 :path "~/.local/share/mise/installs/java/17.0")
+          (:name "JavaSE-21"
+                 :path "~/.local/share/mise/installs/java/21.0")
+          (:name "JavaSE-21"
+                 :path "~/.local/share/mise/installs/java/25.0"
+                 :default t)])
   ;; Java indentation defaults — applied globally, scoped to lsp-java load
   ;; since this is the only place we care about Java style on this machine.
   (setopt c-basic-offset 4
