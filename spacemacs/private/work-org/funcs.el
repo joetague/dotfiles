@@ -26,28 +26,34 @@
 
 ;;; Code:
 
-(require 'cl-lib)
 (require 'seq)
 
-(defun work-org--feedback-template (member index)
-  "Build a feedback capture template for MEMBER at INDEX."
-  (list
-   (format "f%d" (1+ index))
-   (format "Feedback: %s" member)
-   'entry
-   (list 'file+headline work-org-feedback-file "Feedback")
-   (format "* %%<%%Y-%%m-%%d> %%^{Summary} :feedback:\n:PROPERTIES:\n:PERSON: %s\n:END:\n%%?\n"
-           member)
-   :empty-lines 1
-   :work-org t))
+(defun work-org--feedback-template (member)
+  "Build a feedback capture template for MEMBER (a plist)."
+  (let ((key (plist-get member :key))
+        (name (plist-get member :name))
+        (group (plist-get member :group)))
+    (list
+     (concat "f" key)
+     name
+     'entry
+     (list 'file+olp work-org-feedback-file "Feedback" group name)
+     work-org-feedback-template
+     :work-org t)))
+
+(defun work-org--feedback-others-template ()
+  "Catch-all `Others' feedback template."
+  (list "f~" "Others" 'entry
+        (list 'file+olp work-org-feedback-file "Feedback" "Others")
+        work-org-feedback-template
+        :work-org t))
 
 (defun work-org--feedback-templates ()
   "Return org-capture templates for work feedback."
   (append
    (list (list "f" "Feedback"))
-   (cl-loop for member in work-org-team-members
-            for index from 0
-            collect (work-org--feedback-template member index))))
+   (mapcar #'work-org--feedback-template work-org-team-members)
+   (list (work-org--feedback-others-template))))
 
 (defun work-org--work-org-template-p (template)
   "Return non-nil when TEMPLATE belongs to the work-org layer."
@@ -61,8 +67,9 @@
          (seq-remove
           (lambda (template)
             (or (work-org--work-org-template-p template)
-                (and (stringp (car-safe template))
-                     (stringp (cadr-safe template))
+                (and (consp template)
+                     (stringp (car-safe template))
+                     (stringp (car-safe (cdr-safe template)))
                      (string= (car template) "f")
                      (string= (cadr template) "Feedback")
                      (null (nth 2 template)))))

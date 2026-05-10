@@ -27,13 +27,34 @@
 ;;; Code:
 
 (defvar work-org-team-members
-  '("Team Member 1"
-    "Team Member 2")
-  "List of team members used to generate feedback capture templates.")
+  '((:key ">" :name "Joe"     :group "Squad")
+    (:key "A" :name "Akash"   :group "Squad")
+    (:key "J" :name "James"   :group "Squad")
+    (:key "L" :name "Lynne"   :group "Squad")
+    (:key "N" :name "Nana"    :group "Squad")
+    (:key "I" :name "Nitish"  :group "Squad")
+    (:key "S" :name "Shridar" :group "Squad")
+    (:key "D" :name "David"   :group "Tribe")
+    (:key "G" :name "Gareth"  :group "Tribe")
+    (:key "O" :name "George"  :group "Tribe")
+    (:key "Z" :name "Zoltan"  :group "Tribe"))
+  "List of team members used to generate feedback capture templates.
+Each entry is a plist with :key (single-character string appended to
+the `f' capture prefix), :name (display label and OLP leaf), and
+:group (`\"Squad\"' or `\"Tribe\"', used as the OLP grouping under
+`Feedback' in `work-org-feedback-file').")
 
 (defvar work-org-feedback-file
-  "~/org/work/feedback.org"
+  "~/org/work.org"
   "Org file where work feedback entries are stored.")
+
+(defvar work-org-feedback-template
+  "** %<%Y-%m-%d %H:%M> %^{something} %(org-set-tags \"crypt\")
+    EVENT: %<%Y-%m-%d %H:%M>
+    *Great:*
+    *Workon:*
+    "
+  "Capture template body for `work-org' feedback entries.")
 
 (with-eval-after-load 'org-capture
   (work-org--install-feedback-templates))
