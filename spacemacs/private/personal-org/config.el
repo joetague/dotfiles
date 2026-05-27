@@ -35,6 +35,12 @@
    org-journal-carryover-items nil
    org-journal-enable-cache t
    org-journal-encrypt-journal t)
+  ;; org-journal registers these hooks at load time, causing it to decrypt all
+  ;; encrypted weekly journal files whenever org-read-date opens the calendar
+  ;; (e.g. during org-deadline / org-schedule). Use `j m' in calendar-mode to
+  ;; mark entries on demand instead.
+  (remove-hook 'calendar-today-visible-hook 'org-journal-mark-entries)
+  (remove-hook 'calendar-today-invisible-hook 'org-journal-mark-entries)
   (add-hook 'org-journal-mode-hook
             (lambda ()
               (remove-hook 'before-save-hook #'org-encrypt-entries t))))
