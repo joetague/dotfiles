@@ -29,3 +29,17 @@
 ;; Disable auto-save globally; mode-specific hooks (e.g. org-journal) opt out
 ;; or re-enable as needed.
 (setopt auto-save-default nil)
+
+;; eww
+;; Rendering settings
+(setq shr-max-image-proportion 0.7)
+(setq shr-inhibit-images nil)
+(setq shr-use-fonts t)
+(setq shr-max-width nil)
+(setq shr-width 0)
+(setq shr-discard-aria-hidden t)
+(setq shr-cookie-policy nil)
+;;(with-eval-after-load 'shr
+;;  (set-face-attribute 'shr nil :family "Terminus (TTF)"))
+
+;; (add-hook 'eww-after-render-hook #'eww-readable)
