@@ -1,0 +1,26 @@
+#+TITLE: personal-shell layer
+
+Private shell integrations that build on Spacemacs' upstream =shell= layer.
+
+* Ghostel
+
+This layer adds =ghostel= as a Spacemacs shell backend while reusing the
+existing =shell-pop=, project shell, and terminal-purpose integration.
+
+The default popup binding is:
+
+| Key           | Command                      |
+|---------------+------------------------------|
+| ~SPC a t s g~ | ~spacemacs/shell-pop-ghostel~ |
+
+Set =shell-default-shell= to =ghostel= in =~/.spacemacs= to make the standard
+shell bindings use Ghostel.
+
+The first Ghostel launch may prompt to download or compile its native module.
+By default this layer leaves global compile and Eshell visual-command
+replacement disabled; enable them explicitly with:
+
+#+begin_src emacs-lisp
+(setq personal-shell-enable-ghostel-compile-global-mode t)
+(setq personal-shell-enable-ghostel-eshell-visual-command-mode t)
+#+end_src
