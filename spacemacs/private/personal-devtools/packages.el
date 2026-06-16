@@ -32,7 +32,8 @@
   (use-package mise
     :hook (after-init . global-mise-mode)
     :config
-    (advice-add 'vterm :around #'mise-propagate-env)))
+    (advice-add 'vterm :around #'mise-propagate-env)
+    (advice-add 'ghostel :around #'mise-propagate-env)))
 
 (defun personal-devtools/init-treesit-auto ()
   "Initialize treesit-auto."

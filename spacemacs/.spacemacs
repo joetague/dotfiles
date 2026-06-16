@@ -168,7 +168,7 @@ This function should only modify configuration layer settings."
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/shell/README.org
      (shell :variables
-            shell-default-shell 'vterm
+            shell-default-shell 'ghostel
             shell-default-height 30
             shell-default-position 'bottom
             spacemacs-vterm-history-file-location "~/.zsh_history")
