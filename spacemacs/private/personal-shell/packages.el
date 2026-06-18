@@ -23,17 +23,8 @@
 ;;; Code:
 
 (defconst personal-shell-packages
-  '((ghostel :location (recipe
-                        :fetcher github
-                        :repo "dakra/ghostel"
-                        :files (:defaults
-                                "etc"
-                                "extensions"
-                                "src"
-                                "vendor"
-                                "build.zig"
-                                "build.zig.zon"
-                                "symbols.map")))
+  '(ghostel
+    (evil-ghostel :toggle personal-shell-enable-evil-ghostel)
     hungry-delete
     window-purpose)
   "The list of Lisp packages required by the personal-shell layer.")
@@ -65,14 +56,18 @@
       "N" #'ghostel-previous
       "p" #'ghostel-previous
       "r" #'rename-buffer)
-    (when personal-shell-enable-evil-ghostel
-      (personal-shell//enable-evil-ghostel))
     (when personal-shell-enable-ghostel-compile-global-mode
       (require 'ghostel-compile)
       (ghostel-compile-global-mode 1))
     (when personal-shell-enable-ghostel-eshell-visual-command-mode
       (require 'ghostel-eshell)
       (add-hook 'eshell-load-hook #'ghostel-eshell-visual-command-mode))))
+
+(defun personal-shell/init-evil-ghostel ()
+  "Initialize evil-ghostel."
+  (use-package evil-ghostel
+    :defer t
+    :hook (ghostel-mode . evil-ghostel-mode)))
 
 (defun personal-shell/post-init-hungry-delete ()
   "Keep hungry-delete out of Ghostel terminal buffers."

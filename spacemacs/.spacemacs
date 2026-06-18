@@ -762,6 +762,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; Keep GPTel stable (extensive custom config)
   (add-to-list 'package-pinned-packages '(gptel . "melpa-stable") t)
 
+  ;; Keep Ghostel on stable releases (personal-shell layer)
+  (add-to-list 'package-pinned-packages '(ghostel . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(evil-ghostel . "melpa-stable") t)
+
   ;; Native compilation settings (Emacs 29+)
   ;; Disable JIT compilation - only compile during package install
   (when (native-comp-available-p)
