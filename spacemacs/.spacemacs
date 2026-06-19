@@ -250,9 +250,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '()
 
    ;; A list of packages that cannot be updated.
-   ;; ghostel: frozen on a pre-June-17 commit (see personal-shell layer) to
-   ;; avoid a native-PTY recursive-lock crash in 0.35.x. Unfreeze when fixed.
-   dotspacemacs-frozen-packages '(ghostel)
+   dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '()
@@ -763,6 +761,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   ;; Keep GPTel stable (extensive custom config)
   (add-to-list 'package-pinned-packages '(gptel . "melpa-stable") t)
+
+  ;; Keep Ghostel on stable releases (personal-shell layer)
+  (add-to-list 'package-pinned-packages '(ghostel . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(evil-ghostel . "melpa-stable") t)
 
   ;; Native compilation settings (Emacs 29+)
   ;; Disable JIT compilation - only compile during package install
