@@ -156,4 +156,8 @@
   ;; Babel languages load lazily on first src block execution.
   )
 
+(with-eval-after-load 'org-remark
+  (require 'org-remark-global-tracking)
+  (org-remark-global-tracking-mode +1)
+  )
 ;;; config.el ends here

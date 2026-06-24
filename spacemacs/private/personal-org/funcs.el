@@ -86,4 +86,13 @@
   (if (equal "capture" (frame-parameter nil 'name))
       (delete-frame)))
 
+(defun jpt/org-remark-transform-org-link-to-filename ()
+  (let ((link-parts (split-string (org-store-link nil) "\\]\\[")))
+    (string-replace
+     "#" ""
+     (concat
+      (nth 1 (split-string (nth 0 link-parts) "\\[\\["))
+      ": "
+      (nth 0 (split-string (nth 1 link-parts) "\\]\\]"))))))
+
 ;;; funcs.el ends here

@@ -25,6 +25,7 @@
 (defconst personal-org-packages
   '(org-pdftools
     org-ql
+    org-remark
     org-super-agenda)
   "The list of Lisp packages required by the personal-org layer.")
 
@@ -37,6 +38,12 @@
 (defun personal-org/init-org-ql ()
   "Initialize org-ql."
   (use-package org-ql
+    :defer t
+    :after org))
+
+(defun personal-org/init-org-remark ()
+  "Initialize org-remark."
+  (use-package org-remark
     :defer t
     :after org))
 
