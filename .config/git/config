@@ -23,6 +23,11 @@
 [fetch]
 	# Always prune when fetching (and pulling).
 	prune = true
+	# Refresh the commit-graph on fetch → faster log/merge-base/blame on
+	# large histories. Negligible cost on small repos.
+	writeCommitGraph = true
+	# Faster negotiation when fetching against repos with many refs.
+	negotiationAlgorithm = skipping
 
 [rebase]
 	# Run `git stash` if needed before a `git rebase`
@@ -62,11 +67,26 @@
 [init]
 	defaultBranch = main
 
+[checkout]
+	# Parallel working-tree updates on checkout/clone (0 = all cores).
+	# No effect on small repos; speeds large monorepo checkouts.
+	workers = 0
+
+[index]
+	# Path-compressed index → smaller, faster index reads on large worktrees.
+	version = 4
+	# git 2.40+: skip the trailing index checksum on write → faster index
+	# writes on large worktrees. Index is readable by git >= 2.40 only
+	# (all my machines), and by tools that shell out to git (e.g. Magit).
+	skipHash = true
+
 [diff]
 	# Histogram produces cleaner diffs than the default Myers algorithm.
 	algorithm = histogram
 	# Color moved lines differently from added/removed lines.
 	colorMoved = zebra
+	# Also detect moves whose only change is indentation.
+	colorMovedWS = allow-indentation-change
 
 [commit]
 	# Show the full diff in the commit message editor for review.
