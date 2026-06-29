@@ -24,6 +24,10 @@
       (yas-compile-directory (file-name-directory buffer-file-name))))
   (add-hook 'after-save-hook #'jpt/yas-recompile-snippet-dir-on-save))
 
+(with-eval-after-load 'company-statistics
+  (advice-add 'company-statistics--save
+              :after #'jpt/company-statistics-add-lexical-cookie))
+
 (setq vc-follow-symlinks t)
 
 ;; Disable auto-save globally; mode-specific hooks (e.g. org-journal) opt out

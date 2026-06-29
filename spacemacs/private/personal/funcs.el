@@ -114,4 +114,15 @@
     (native-compile-async (expand-file-name "elpa" user-emacs-directory) 'recursively t)
     (message "Native compilation queued. Check *Async-native-compile-log* buffer.")))
 
+(defun jpt/company-statistics-add-lexical-cookie (&rest _)
+  "Add a lexical-binding cookie to the company-statistics cache file."
+  (when (and (boundp 'company-statistics-file)
+             (file-readable-p company-statistics-file))
+    (with-temp-buffer
+      (insert-file-contents company-statistics-file)
+      (goto-char (point-min))
+      (unless (looking-at-p ".*lexical-binding:")
+        (insert ";;; company-statistics-cache.el -*- lexical-binding: t; -*-\n")
+        (write-region (point-min) (point-max) company-statistics-file nil 'silent)))))
+
 ;;; funcs.el ends here
