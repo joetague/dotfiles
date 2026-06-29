@@ -23,42 +23,112 @@
 ;;; Code:
 
 (defconst personal-llm-packages
-  '(agent-shell)
+  '(embark
+    gptel
+    gptel-agent
+    (gptel-quick :location (recipe
+                            :fetcher github
+                            :repo "karthink/gptel-quick"))
+    (ob-gptel :location (recipe
+                         :fetcher github
+                         :repo "jwiegley/ob-gptel"))
+    org
+    window-purpose)
   "The list of Lisp packages required by the personal-llm layer.")
 
-(defun personal-llm/init-agent-shell ()
-  "Initialize agent-shell."
-  ;; xenodium based tooling
-  ;; Consider https://github.com/xenodium/agent-shell?tab=readme-ov-file#running-agents-in-devcontainers--docker-containers-experimental
-  (use-package agent-shell
-    :commands
-    (agent-shell-anthropic-start-claude-code
-     agent-shell-openai-start-codex)
-    :config
-    (setq agent-shell-anthropic-authentication
-          (agent-shell-anthropic-make-authentication
-           :api-key (lambda () (nth 0 (process-lines "pass" "show" "anthropic-key")))))
-    (setq agent-shell-openai-authentication
-          (agent-shell-openai-make-authentication
-           :api-key (lambda () (nth 0 (process-lines "pass" "show" "openai-key")))))))
+(defun personal-llm/init-gptel ()
+  "Initialize the `gptel` package and set up keybindings."
+  (use-package gptel
+    :defer t
+    :init
+    ;; evilify gptel-context-buffer-mode-map
+    (evilified-state-evilify-map gptel-context-buffer-mode-map
+      :eval-after-load gptel-context
+      :mode gptel-context-buffer-mode
+      :bindings
+      "C-c C-c" #'gptel-context-confirm
+      "C-c C-k" #'gptel-context-quit
+      "RET"     #'gptel-context-visit
+      "n"       #'gptel-context-next
+      "p"       #'gptel-context-previous
+      "d"       #'gptel-context-flag-deletion)
+    ;; set up keybindings
+    (spacemacs/declare-prefix "$g" "gptel")
+    (spacemacs/set-leader-keys
+      "$gg" 'gptel                          ; Start a new gptel session
+      "$gs" 'personal-llm//gptel-send-wrapper  ; Send a message to gptel
+      "$gq" 'personal-llm//gptel-abort-wrapper ; Abort any active gptel process
+      "$gm" 'gptel-menu                     ; Open the gptel menu
+      "$gc" 'gptel-add                      ; Add context
+      "$gf" 'gptel-add-file                 ; Add a file
+      "$go" 'gptel-org-set-topic            ; Set topic in Org-mode
+      "$gp" 'gptel-org-set-properties       ; Set properties in Org-mode
+      "$gr" 'gptel-rewrite)))               ; Rewrite or refactor test region
 
-;; (acp :location (recipe :fetcher github :repo "xenodium/acp.el"))
-;; (agent-shell :location (recipe :fetcher github :repo "xenodium/agent-shell"))
-;; (claude-code :location (recipe
-;;                         :fetcher github
-;;                         :repo "stevemolitor/claude-code.el"))
-;;(gptel-quick :location (recipe
-;;                        :fetcher github
-;;                        :repo "karthink/gptel-quick"))
-;; (mcp :location (recipe
-;;                 :fetcher github
-;;                 :repo "lizqwerscott/mcp.el"))
-;; (monet :location (recipe
-;;                   :fetcher github
-;;                   :repo "stevemolitor/monet"))
-;; (gptel-project :location (recipe
-;;                  :fetcher github
-;;                  :repo "cvdub/gptel-project"))
-;; shell-maker
+(defun personal-llm/init-gptel-agent ()
+  "Initialize the `gptel-agent` package and set up keybindings."
+  (use-package gptel-agent
+    :defer t
+    :init
+    ;; evilify gptel-context-buffer-mode-map
+    (evilified-state-evilify-map gptel-context-buffer-mode-map
+      :eval-after-load gptel-context
+      :mode gptel-context-buffer-mode)
+    ;; set up keybindings
+    (spacemacs/set-leader-keys
+      "$ga" 'gptel-agent                          ; Start a new gptel-agent session
+      "$gu" 'gptel-agent-update)                  ; Updates the gptel-agent database
+    ;; Config for =gptel-agent=
+    :config (gptel-agent-update)))
+
+(defun personal-llm/init-gptel-quick ()
+  "Initialize gptel-quick."
+  (use-package gptel-quick
+    :defer t))
+
+(defun personal-llm/init-ob-gptel ()
+  "Initialize ob-gptel."
+  (use-package ob-gptel
+    :defer t
+    :after org
+    :config
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (derived-mode-p 'org-mode)
+          (personal-llm//enable-ob-gptel-capf))))))
+
+(defun personal-llm/post-init-embark ()
+  "Set up Embark keybindings for gptel."
+  (with-eval-after-load 'embark
+    (keymap-set embark-general-map "?" #'gptel-quick)))
+
+(defun personal-llm/post-init-org ()
+  "Set up Org-mode integration for gptel."
+  (with-eval-after-load 'org
+    (require 'ob-core)
+    (add-to-list 'org-babel-load-languages '(gptel . t))
+    (add-hook 'org-mode-hook #'personal-llm//org-mode-setup)
+    (advice-add 'org-babel-execute-src-block :before #'personal-llm//ensure-ob-gptel))
+  (spacemacs/declare-prefix-for-mode 'org-mode "m$g" "gptel")
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "$go" 'gptel-org-set-topic
+    "$gp" 'gptel-org-set-properties))
+
+(defun personal-llm/post-init-window-purpose ()
+  ;; TODO: Temporary fix to avoid the error when using window-purpose
+  ;; see https://github.com/karthink/gptel/issues/237 for details
+  ;; (purpose-set-extension-configuration
+  ;;  :personal-llm-layer
+  ;;  (purpose-conf :mode-purposes '((gptel-mode . chat))))
+  (defun personal-llm/disable-purpose-mode-around-for-gptel (orig-func &rest args)
+    "Advice function to disable purpose-mode before calling ORIG-FUNC with ARGS."
+    (let ((purpose-mode-was-enabled (bound-and-true-p purpose-mode)))
+      (when purpose-mode-was-enabled
+        (purpose-mode -1))
+      (unwind-protect
+          (apply orig-func args)
+        (when purpose-mode-was-enabled
+          (purpose-mode 1)))))
+  (advice-add 'gptel :around #'personal-llm/disable-purpose-mode-around-for-gptel))
 
 ;;; packages.el ends here

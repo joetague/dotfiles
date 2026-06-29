@@ -110,9 +110,9 @@ This function should only modify configuration layer settings."
      ;; Large Language Model
      ;; This is mainly for gptel - split into own layer?
      ;; https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bweb-services/llm-client/README.org
-     (llm-client :variables
-                 llm-client-enable-ellama nil
-                 llm-client-enable-gptel t)
+     ;; (llm-client :variables
+     ;;             llm-client-enable-ellama nil
+     ;;             llm-client-enable-gptel t)
 
      ;; Language server protocol with minimal visual impact
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/lsp/README.org
