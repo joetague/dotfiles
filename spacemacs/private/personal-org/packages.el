@@ -55,9 +55,6 @@
     :config
     (org-super-agenda-mode)))
 
-;;(ob-gptel :location (recipe
-;;          :fetcher github
-;;          :repo "jwiegley/ob-gptel"))
 ;; org-incoming ;; ingest PDF files into your org or org-roam files.
 ;; org-noter
 ;; org-sort-tasks ;; sort an unsorted TODO list using mergesort

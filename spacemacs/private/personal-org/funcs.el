@@ -30,15 +30,8 @@
   "Track whether org-babel languages have been loaded.")
 
 ;;;###autoload
-(defun personal-org--enable-ob-gptel-capf ()
-  "Enable ob-gptel completion in the current Org buffer."
-  (add-hook 'completion-at-point-functions 'ob-gptel-capf nil t))
-
-;;;###autoload
 (defun personal-org--org-mode-setup ()
   "Configure per-buffer Org features."
-  (when (featurep 'ob-gptel)
-    (personal-org--enable-ob-gptel-capf))
   (add-hook 'org-after-tags-change-hook #'jpt/org-crypt-enable-maybe nil t)
   (jpt/org-crypt-enable-maybe))
 
@@ -53,7 +46,6 @@
        ;; (clojure . t)
        (dot . t)
        (emacs-lisp . t)
-       (gptel . t)
        (js . t)
        (python . t)
        (shell . t)

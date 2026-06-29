@@ -62,11 +62,6 @@
   (require 'org-crypt)
 
   (advice-add 'org-babel-execute-src-block :before #'personal-org--ensure-babel-languages)
-  (with-eval-after-load 'ob-gptel
-    (dolist (buffer (buffer-list))
-      (with-current-buffer buffer
-        (when (derived-mode-p 'org-mode)
-          (personal-org--enable-ob-gptel-capf)))))
 
   (add-hook 'org-mode-hook #'personal-org--org-mode-setup)
   (advice-add 'org-capture-finalize :after #'jpt/delete-capture-frame)
