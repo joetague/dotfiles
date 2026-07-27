@@ -33,7 +33,7 @@
 ;; Disable auto-save globally; mode-specific hooks (e.g. org-journal) opt out
 ;; or re-enable as needed.
 (setopt auto-save-default nil)
-
+(setq insert-directory-program "gls" dired-use-ls-dired t)
 ;; eww
 ;; Rendering settings
 (setq shr-max-image-proportion 0.7)
