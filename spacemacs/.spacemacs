@@ -235,7 +235,6 @@ This function should only modify configuration layer settings."
      personal-magit
      personal-org
      personal-llm
-
      )
 
 

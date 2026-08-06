@@ -32,6 +32,16 @@
     (ob-gptel :location (recipe
                          :fetcher github
                          :repo "jwiegley/ob-gptel"))
+
+
+    ;; (agent-shell :location (recipe
+    ;;                         :fetcher github
+    ;;                         :repo "xenodium/agent-shell"))
+
+    ;; (agent-shell-hq :location (recipe
+    ;;                            :fetcher github
+    ;;                            :repo "SreenivasVRao/agent-shell-hq"))
+
     org
     window-purpose)
   "The list of Lisp packages required by the personal-llm layer.")
