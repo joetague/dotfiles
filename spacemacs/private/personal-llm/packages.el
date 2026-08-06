@@ -22,8 +22,18 @@
 
 ;;; Code:
 
+(declare-function agent-shell-anthropic-start-claude-code "agent-shell-anthropic")
+(declare-function agent-shell-openai-start-codex "agent-shell-openai")
+
 (defconst personal-llm-packages
-  '(embark
+  '((agent-shell :location (recipe
+                            :fetcher github
+                            :repo "xenodium/agent-shell"))
+    (agent-shell-hq :location (recipe
+                               :fetcher github
+                               :repo "SreenivasVRao/agent-shell-hq"
+                               :files ("*.el")))
+    embark
     gptel
     gptel-agent
     (gptel-quick :location (recipe
@@ -32,19 +42,39 @@
     (ob-gptel :location (recipe
                          :fetcher github
                          :repo "jwiegley/ob-gptel"))
-
-
-    ;; (agent-shell :location (recipe
-    ;;                         :fetcher github
-    ;;                         :repo "xenodium/agent-shell"))
-
-    ;; (agent-shell-hq :location (recipe
-    ;;                            :fetcher github
-    ;;                            :repo "SreenivasVRao/agent-shell-hq"))
-
     org
     window-purpose)
   "The list of Lisp packages required by the personal-llm layer.")
+
+(defun personal-llm/init-agent-shell ()
+  "Initialize agent-shell."
+  (use-package agent-shell
+    :defer t
+    :commands (agent-shell
+               agent-shell-new-shell
+               agent-shell-toggle)
+    :init
+    (autoload 'agent-shell-anthropic-start-claude-code "agent-shell-anthropic" nil t)
+    (autoload 'agent-shell-openai-start-codex "agent-shell-openai" nil t)
+    (spacemacs/declare-prefix "$a" "agent-shell")
+    (spacemacs/set-leader-keys
+      "$aa" #'agent-shell
+      "$ac" #'agent-shell-anthropic-start-claude-code
+      "$ao" #'agent-shell-openai-start-codex)))
+
+(defun personal-llm/init-agent-shell-hq ()
+  "Initialize agent-shell-hq."
+  (use-package agent-shell-hq
+    :defer t
+    :after agent-shell
+    :commands (agent-shell-hq-toggle
+               agent-shell-hq-peek
+               agent-shell-hq-label)
+    :init
+    (spacemacs/set-leader-keys
+      "$ah" #'agent-shell-hq-toggle
+      "$ap" #'agent-shell-hq-peek
+      "$al" #'agent-shell-hq-label)))
 
 (defun personal-llm/init-gptel ()
   "Initialize the `gptel` package and set up keybindings."
