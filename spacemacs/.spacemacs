@@ -230,7 +230,7 @@ This function should only modify configuration layer settings."
      ;; Custom personal layer
      personal
      personal-devtools
-     personal-shell
+     ;; personal-shell
      personal-lsp
      personal-magit
      personal-org

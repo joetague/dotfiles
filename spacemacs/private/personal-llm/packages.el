@@ -60,7 +60,8 @@
     (spacemacs/set-leader-keys
       "$aa" #'agent-shell
       "$ac" #'agent-shell-anthropic-start-claude-code
-      "$ao" #'agent-shell-openai-start-codex)))
+      "$ao" #'agent-shell-openai-start-codex)
+    ))
 
 (defun personal-llm/init-agent-shell-hq ()
   "Initialize agent-shell-hq."

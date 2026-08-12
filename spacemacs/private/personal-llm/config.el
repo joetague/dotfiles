@@ -29,4 +29,28 @@
 (defvar personal-llm--gptel-send-called nil
   "Flag to track if gptel-send has been called at least once.")
 
+(with-eval-after-load 'agent-shell
+  ;; Header: 'graphical (icons + styled), 'text (plain), or nil (none)
+  (setopt agent-shell-header-style 'text)
+
+  ;; Indicators
+  (setopt agent-shell-show-busy-indicator t)
+  (setopt agent-shell-busy-indicator-frames '("·" "∘" "○" "∘"))
+  (setopt agent-shell-show-context-usage-indicator t)
+  (setopt agent-shell-show-usage-at-turn-end t)
+
+  ;; Welcome message & blocks
+  (setopt agent-shell-show-welcome-message nil)
+  (setopt agent-shell-highlight-blocks t)
+
+  ;; Icons (requires a Nerd Font for graphical display)
+  (setopt agent-shell-show-config-icons t)
+  (setopt agent-shell-thought-process-icon "💭")
+  (setopt agent-shell-permission-icon "🔒")
+
+  ;; Collapse noise by default, keep user messages visible
+  (setopt agent-shell-thought-process-expand-by-default nil)
+  (setopt agent-shell-tool-use-expand-by-default nil)
+  (setopt agent-shell-activity-group-expand-by-default nil)
+  (setopt agent-shell-user-message-expand-by-default t))
 ;;; config.el ends here
