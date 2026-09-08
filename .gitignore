@@ -5,3 +5,9 @@
 .config/helm/repositories.lock
 .config/helm/repositories.yaml
 .config/spacemacs/.spacemacs.env
+
+# opencode installs its plugin SDK next to its config
+.config/opencode/node_modules/
+.config/opencode/package.json
+.config/opencode/package-lock.json
+.config/opencode/bun.lock

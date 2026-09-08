@@ -40,6 +40,8 @@ brew "mise"
 brew "mosh"
 # Free (GNU) replacement for the Pico text editor
 brew "nano"
+# Terminal-based AI coding agent
+brew "opencode"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
 # Search tool like grep and The Silver Searcher
