@@ -28,41 +28,99 @@
 ;; shadow the upstream setup instead of extending it.  No `:toggle'
 ;; either -- the last declared toggle wins, which would override
 ;; `shell-enable-ghostel-support'.
+;; (defconst personal-shell-packages
+;;   '(ghostel
+;;     hungry-delete)
+;;   "The list of Lisp packages required by the personal-shell layer.")
+
 (defconst personal-shell-packages
-  '(ghostel
-    hungry-delete)
-  "The list of Lisp packages required by the personal-shell layer.")
+  '(
+    evil-collection
+    magit
+    org
+    projectile
+    terminal-here
+    window-purpose
+    shell-pop
+    ghostel
+    evil-ghostel
+    ))
 
-(defun personal-shell/post-init-ghostel ()
-  "Add what the `shell' layer leaves out of its Ghostel setup."
-  ;; `spacemacs/projectile-shell' (`SPC p $') dispatches on
-  ;; `projectile-run-<shell-default-shell>' and silently falls back to
-  ;; `projectile-run-shell' when that symbol is unbound.
-  (defalias 'projectile-run-ghostel #'ghostel-project)
-  ;; `ghostel-other' is the one command with no autoload cookie.
-  (autoload 'ghostel-other "ghostel" nil t)
-  ;; Upstream binds no major mode keys for `ghostel-mode'.
-  (spacemacs/set-leader-keys-for-major-mode 'ghostel-mode
-    "c" #'ghostel
-    "l" #'ghostel-list-buffers
-    "n" #'ghostel-next
-    "N" #'ghostel-previous
-    "p" #'ghostel-previous
-    "r" #'rename-buffer)
-  ;; Deferred to keep these opt-in integrations from pulling in Ghostel
-  ;; at startup, matching the `:config' placement they had previously.
-  (with-eval-after-load 'ghostel
-    (when personal-shell-enable-ghostel-compile-global-mode
-      (require 'ghostel-compile)
-      (ghostel-compile-global-mode 1))
-    (when personal-shell-enable-ghostel-eshell-visual-command-mode
-      (require 'ghostel-eshell)
-      (add-hook 'eshell-load-hook #'ghostel-eshell-visual-command-mode))))
+(defun personal-shell/pre-init-evil-collection ()
+  (add-to-list 'spacemacs-evil-collection-allowed-list 'evil-ghostel))
 
-(defun personal-shell/post-init-hungry-delete ()
-  "Keep hungry-delete out of Ghostel terminal buffers.
-The `spacemacs-editing' layer excludes only `term-mode' and `vterm-mode'."
-  (with-eval-after-load 'hungry-delete
-    (add-to-list 'hungry-delete-except-modes 'ghostel-mode)))
+(defun personal-shell/pre-init-magit ()
+  (spacemacs|use-package-add-hook magit
+    :post-init
+    (defalias 's 'magit-status)))
+
+(defun personal-shell/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(ghostel . t))))
+
+(defun personal-shell/post-init-projectile ()
+  (spacemacs/set-leader-keys
+    "p'" #'spacemacs/projectile-shell-pop
+    "p$" #'spacemacs/projectile-shell))
+
+(defun personal-shell/init-terminal-here ()
+  (use-package terminal-here
+    :defer t
+    :commands (terminal-here-launch terminal-here-project-launch)
+    :init
+    (spacemacs/register-repl 'terminal-here 'terminal-here)
+    (spacemacs/set-leader-keys
+      "\"" 'terminal-here-launch
+      "p \"" 'terminal-here-project-launch)))
+
+(defun personal-shell/init-shell-pop ()
+  (use-package shell-pop
+    :defer t
+    :init
+    (setq shell-pop-window-position shell-default-position
+          shell-pop-window-size     shell-default-height
+          shell-pop-term-shell      shell-default-term-shell
+          shell-pop-full-span       shell-default-full-span)
+
+    (let* ((initial-shell-mode-name (format "%S-mode" shell-default-shell))
+           (initial-shell-mode (intern initial-shell-mode-name)))
+      (evil-set-initial-state initial-shell-mode 'insert))
+
+    (when (fboundp 'spacemacs/make-variable-layout-local)
+      (spacemacs/make-variable-layout-local 'shell-pop-last-shell-buffer-index 1))
+
+    (spacemacs/set-leader-keys
+      "'"   'spacemacs/default-pop-shell)
+    (spacemacs/declare-prefix "'" "open shell")))
+
+(defun personal-shell/init-ghostel ()
+  (use-package ghostel
+    :defer t
+    :commands (ghostel ghostel-other-window)
+    :init
+    (make-shell-pop-command "ghostel" ghostel)
+    (spacemacs/set-leader-keys "atsg" 'spacemacs/shell-pop-ghostel)
+    (spacemacs/register-repl 'ghostel 'ghostel)
+    :config
+    (setq ghostel-shell shell-default-term-shell)
+    (add-hook 'ghostel-mode-hook 'spacemacs/disable-hl-line-mode)
+    (with-eval-after-load 'centered-cursor-mode
+      (add-hook 'ghostel-mode-hook 'spacemacs//inhibit-global-centered-cursor-mode))
+    (spacemacs/set-leader-keys-for-major-mode 'ghostel-mode
+      "c" 'multighostel
+      "n" 'ghostel-next
+      "N" 'ghostel-previous
+      "p" 'ghostel-previous)))
+
+(defun personal-shell/init-evil-ghostel ()
+  (use-package evil-ghostel
+    :defer t
+    :after (ghostel evil)
+    :hook (ghostel-mode . evil-ghostel-mode)))
+
+(defun personal-shell/post-init-window-purpose ()
+  (purpose-set-extension-configuration
+   :shell-layer
+   (purpose-conf :mode-purposes '((ghostel-mode . terminal)))))
 
 ;;; packages.el ends here
