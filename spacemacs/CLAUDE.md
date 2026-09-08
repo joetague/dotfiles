@@ -8,11 +8,15 @@ Personal Spacemacs configuration for Joe Tague. Contains the `.spacemacs` dotfil
 
 ## Deployment
 
-Uses **GNU Stow** via `scripts/stow.sh`:
-- `.spacemacs` is symlinked to `~/.spacemacs`
-- `private/*` contents are symlinked into `~/.emacs.d/private/` (the layer directories, snippets, templates, local packages)
+Uses **GNU Stow** via `scripts/stow.sh`, which stows one package per tool (`.config`, `zsh`, `spacemacs`, `ssh`, `gnupg`, `claude`).
 
-The stow command ignores `.spacemacs` when targeting `~/.emacs.d` and ignores `private/` when targeting `$HOME`, so each file ends up in the right place.
+Nothing is symlinked into `~/.emacs.d`. Only `spacemacs/.spacemacs` is deployed, to `~/.spacemacs`; the dotfile then points Spacemacs back at this repo:
+- `dotspacemacs-configuration-layer-path` → `~/proj/dotfiles/spacemacs/private/` (layer discovery)
+- `auto-completion-private-snippets-directory` → `~/proj/dotfiles/spacemacs/private/snippets/`
+
+The rest of the `spacemacs` package (`private/`, `plans/`, `.claude/`, `CLAUDE.md`) is repo metadata and is excluded via `--ignore`.
+
+Note that stow folds whole directories under `~/.config` into single symlinks, so tools that write runtime state next to their config write it into this repo. Those files are gitignored rather than stowed around (helm's `repositories.lock`, clojure's `.cpcache`, opencode's `node_modules`).
 
 To deploy: `~/proj/dotfiles/scripts/stow.sh`
 To verify: `~/proj/dotfiles/scripts/stow-check.sh`

@@ -12,8 +12,13 @@ stow_package() {
 
 stow_package "$HOME/.config" ".config"
 stow_package "$HOME" "zsh"
-stow_package "$HOME/.emacs.d" "spacemacs" --ignore '^\\.spacemacs$'
-stow_package "$HOME" "spacemacs" --ignore '^(private|snippets)$' --ignore '^(private|snippets)/'
+# Only .spacemacs is deployed. Private layers and snippets are left in this repo
+# and resolved in place by `dotspacemacs-configuration-layer-path' and
+# `auto-completion-private-snippets-directory' in the dotfile, so nothing is
+# symlinked into ~/.emacs.d. Everything else in the package is repo metadata.
+stow_package "$HOME" "spacemacs" \
+  --ignore '^(private|plans|\.claude)$' \
+  --ignore '^CLAUDE\.md$'
 stow_package "$HOME" "ssh"
 stow_package "$HOME" "gnupg"
 stow_package "$HOME" "claude"

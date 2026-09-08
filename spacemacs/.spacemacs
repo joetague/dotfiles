@@ -28,7 +28,9 @@ This function should only modify configuration layer settings."
 
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. "~/.mycontribs/")
-   dotspacemacs-configuration-layer-path '()
+   ;; Private layers live in the dotfiles repo and are resolved from here rather
+   ;; than symlinked into ~/.emacs.d/private.
+   dotspacemacs-configuration-layer-path '("~/proj/dotfiles/spacemacs/private/")
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
@@ -41,7 +43,7 @@ This function should only modify configuration layer settings."
                       auto-completion-complete-with-key-sequence-delay 0.1
                       auto-completion-minimum-prefix-length 1
                       auto-completion-idle-delay 0.2
-                      auto-completion-private-snippets-directory nil
+                      auto-completion-private-snippets-directory "~/proj/dotfiles/spacemacs/private/snippets/"
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
                       auto-completion-use-company-box nil
