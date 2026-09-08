@@ -101,6 +101,12 @@ else
 fi
 
 eval "$(mise activate zsh)"
+
+#
+# Agent client settings
+export OPENCODE_DISABLE_LSP_DOWNLOAD=true
+
+# Disable some shell tools so agents dont get confused by output
 [ -z "$DISABLE_SHELL_TOOLING" ] && eval "$(fzf --zsh)"
 [ -z "$DISABLE_SHELL_TOOLING" ] && eval "$(starship init zsh)"
 [ -z "$DISABLE_SHELL_TOOLING" ] && { eval "$(op completion zsh)"; compdef _op op; }
