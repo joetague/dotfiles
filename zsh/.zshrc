@@ -65,30 +65,33 @@ setopt share_history          # share command history data
 # Aliases
 # (sorted alphabetically)
 #
-# Easier navigation: .., ..., ...., ....., ~ and -
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias bubc="brew upgrade && brew cleanup"
-alias bubo="brew update && brew outdated"
-alias bubu="bubo && bubc"
-alias cat="bat"
-alias cp="cp -irv"
-alias df="df -H"
-alias du="du -sh"
-alias less="less --ignore-case --raw-control-chars"
-alias l="eza -l"
-alias ls="eza --classify --group --git"
-alias ll='eza -alh'
-alias tree='eza --tree'
-alias make="nice make"
-alias mkdir="mkdir -vp"
-alias mv="mv -iv"
-alias rm="rm -iv"
-alias rsync="rsync --partial --progress --human-readable --compress"
-alias sha256="shasum -a 256"
-alias k9s="k9s --readonly"
-alias lclaude="claude --settings ~/.claude/lmstudio.settings.json"
+# Skipped when an agent sets DISABLE_SHELL_TOOLING, so commands behave as stock
+if [[ -z "$DISABLE_SHELL_TOOLING" ]]; then
+  # Easier navigation: .., ..., ...., ....., ~ and -
+  alias ..="cd .."
+  alias ...="cd ../.."
+  alias ....="cd ../../.."
+  alias bubc="brew upgrade && brew cleanup"
+  alias bubo="brew update && brew outdated"
+  alias bubu="bubo && bubc"
+  alias cat="bat"
+  alias cp="cp -irv"
+  alias df="df -H"
+  alias du="du -sh"
+  alias less="less --ignore-case --raw-control-chars"
+  alias l="eza -l"
+  alias ls="eza --classify --group --git"
+  alias ll='eza -alh'
+  alias tree='eza --tree'
+  alias make="nice make"
+  alias mkdir="mkdir -vp"
+  alias mv="mv -iv"
+  alias rm="rm -iv"
+  alias rsync="rsync --partial --progress --human-readable --compress"
+  alias sha256="shasum -a 256"
+  alias k9s="k9s --readonly"
+  alias lclaude="claude --settings ~/.claude/lmstudio.settings.json"
+fi
 
 # Smarter completion initialization
 fpath=(/Users/joetague/.docker/completions $fpath)
