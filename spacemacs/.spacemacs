@@ -169,11 +169,10 @@ This function should only modify configuration layer settings."
      ;; react
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools/shell/README.org
-     ;; (shell :variables
-     ;;        shell-default-shell 'ghostel
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom
-     ;;        spacemacs-vterm-history-file-location "~/.zsh_history")
+     (shell :variables
+            shell-default-shell 'ghostel
+            shell-default-height 30
+            shell-default-position 'bottom)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/shell-scripts/README.org
      (shell-scripts :variables
@@ -232,7 +231,7 @@ This function should only modify configuration layer settings."
      ;; Custom personal layer
      personal
      personal-devtools
-     personal-shell
+     ;; personal-shell
      personal-lsp
      personal-magit
      personal-org
