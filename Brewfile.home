@@ -4,6 +4,7 @@ tap "babashka/brew"
 tap "borkdude/brew"
 tap "clojure/tools"
 tap "candid82/brew"          #joker
+tap "anomalyco/tap"          #opencode
 
 # The Clojure Programming Language
 brew "clojure/tools/clojure"
@@ -17,3 +18,18 @@ brew "borkdude/brew/jet"
 cask "anki"
 # Scientific and technical publishing system built on Pandoc
 cask "quarto"
+# Utility to hide menu bar items
+cask "hiddenbar"
+# Imaging utility to install operating systems to a microSD card
+cask "raspberry-pi-imager"
+# Google Chromium, sans integration with Google
+cask "ungoogled-chromium"
+
+# AI coding agents
+# -----------------------------------------------------------------------------
+# Terminal-based AI coding agent
+brew "anomalyco/tap/opencode-v2"
+# Terminal-based AI coding assistant
+cask "claude-code"
+# OpenAI's coding agent that runs in your terminal
+cask "codex"

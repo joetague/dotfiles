@@ -7,7 +7,7 @@ cask_args appdir: "~/Applications", require_sha: true
 tap "d12frosted/emacs-plus"
 
 # 1Password op
-brew "1password-cli"
+cask "1password-cli"
 # Spell checker with better logic than ispell
 brew "aspell"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -26,6 +26,8 @@ brew "fd"
 brew "fzf"
 # GNU awk utility
 brew "gawk"
+# GitHub command-line tool
+brew "gh"
 # Distributed revision control system
 brew "git"
 # GNU implementation of the famous stream editor
@@ -34,14 +36,14 @@ brew "gnu-sed"
 brew "gnu-tar"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
+# Lightweight and flexible command-line JSON processor (Claude statusline)
+brew "jq"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
 # Remote terminal application
 brew "mosh"
 # Free (GNU) replacement for the Pico text editor
 brew "nano"
-# Terminal-based AI coding agent
-brew "opencode"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
 # Search tool like grep and The Silver Searcher
@@ -58,10 +60,6 @@ brew "starship"
 brew "stgit"
 # GNU Stow
 brew "stow"
-# Simpler man pages that will give only the examples
-brew "tldr"
-# Terminal multiplexer
-brew "tmux"
 # Syntax tree-sitter
 brew "tree-sitter"
 # Display directories as trees (with optional color/HTML output)
@@ -73,15 +71,20 @@ brew "zsh"
 #  Smarter cd command, inspired by z and autojump
 brew "zoxide"
 
-# Emacs - will install a lot of dependencies to compile - may need libvterm
+# Emacs - will install a lot of dependencies to compile
 brew "d12frosted/emacs-plus/emacs-plus@31"
+# pdf-tools builds its epdfinfo server against these (M-x pdf-tools-install).
+# Re-run it after a poppler major upgrade or a pdf-tools package update.
+brew "autoconf"
+brew "automake"
+brew "pkgconf"
+brew "poppler"
 
-# Font for emacs
+# Font for emacs and ghostty
 cask "font-source-code-pro"
+# Icon font for nerd-icons in emacs (replaces M-x nerd-icons-install-fonts)
+cask "font-symbols-only-nerd-font"
 # GPU-accelerated terminal emulator
 cask "ghostty"
-# Terminal-based AI coding assistant
-cask "claude-code"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
-# cask "font-source-code-pro"
