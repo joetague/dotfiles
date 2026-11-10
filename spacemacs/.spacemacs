@@ -172,7 +172,9 @@ This function should only modify configuration layer settings."
      (shell :variables
             shell-default-shell 'ghostel
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            ;; Ghostel replaces vterm; skip vterm and its cmake/libtool module build
+            shell-enable-vterm-support nil)
 
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang/shell-scripts/README.org
      (shell-scripts :variables
@@ -762,7 +764,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; Keep GPTel stable (extensive custom config)
   (add-to-list 'package-pinned-packages '(gptel . "melpa-stable") t)
 
-  ;; Keep Ghostel on stable releases (personal-shell layer)
+  ;; Keep Ghostel on stable releases (installed by the upstream shell layer)
   (add-to-list 'package-pinned-packages '(ghostel . "melpa-stable") t)
   (add-to-list 'package-pinned-packages '(evil-ghostel . "melpa-stable") t)
 
