@@ -16,7 +16,10 @@ The repo copy is the source of truth: `~/.zshrc`, `~/.spacemacs`, `~/.config/git
 | `zsh` | `~` | `.zshenv` (agent detection), `.zprofile` (environment, PATH), `.zshrc` (interactive). Per-machine additions go in untracked `~/.zprofile.local` / `~/.zshrc.local`. |
 | `spacemacs` | `~` | only `.spacemacs`; see `spacemacs/CLAUDE.md` |
 | `ssh`, `gnupg` | `~` | allowlisted safe config only |
-| `claude` | `~` | `~/.claude/statusline-command.sh`, shared by home and work. Machine differences live in untracked files: `~/.claude/settings.json` and `~/.claude/statusline.local` (path to the work budget script). |
+| `claude` | `~` | `~/.claude/statusline-command.sh`, shared by home and work, and `~/.claude/CLAUDE.md` (imports `agents/AGENTS.md`, plus Claude-only notes). Machine differences live in untracked files: `~/.claude/settings.json` and `~/.claude/statusline.local` (path to the work budget script). |
+| `codex` | `~` | `~/.codex/AGENTS.md`, a link to `agents/AGENTS.md`. Codex writes its own `config.toml`, so that stays unstowed. |
+
+`agents/AGENTS.md` holds the instructions shared by every coding agent in every project. Codex (`codex` package) and OpenCode (`.config/opencode/AGENTS.md`) reach it through links inside their packages; Claude imports it. Edit only `agents/AGENTS.md`.
 
 Not stowed: `Brewfile` (shared) plus `Brewfile.home` / `Brewfile.work` (per machine), `scripts/macos_tweaks.sh` (backs up each `defaults` key to `$XDG_DATA_HOME/macos-tweaks` before changing it), `scripts/org-capture.sh`, and `.dockerfunc` / `.myfuncs` (not sourced by the zsh config).
 

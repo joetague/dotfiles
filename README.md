@@ -26,7 +26,10 @@ scripts/stow-check.sh
 | `zsh` | `~` | |
 | `spacemacs` | `~` | Only `.spacemacs` is deployed. Private layers and snippets stay in this repo; `.spacemacs` points at them via `dotspacemacs-configuration-layer-path`, so nothing is linked into `~/.emacs.d`. |
 | `ssh`, `gnupg` | `~` | Safe config only; each has an allowlist `.gitignore`. |
-| `claude` | `~` | Claude Code status line script. |
+| `claude` | `~` | Claude Code status line script and user `CLAUDE.md` (imports `agents/AGENTS.md`). |
+| `codex` | `~` | `~/.codex/AGENTS.md`, linked to `agents/AGENTS.md`. |
+
+`agents/AGENTS.md` is the one set of instructions for all coding agents (Claude Code, Codex, OpenCode), on both laptops. It isn't stowed itself: the `codex` package and `.config/opencode/AGENTS.md` link to it, and Claude's `CLAUDE.md` imports it.
 
 To stow a single package by hand, use the same flags as `scripts/stow.sh`, e.g. `stow -d ~/proj/dotfiles -t ~ zsh`. The `spacemacs` package needs the `--ignore` flags from the script. Stow only manages links it created: replace a hand-made link or a plain file at a target before stowing over it.
 
