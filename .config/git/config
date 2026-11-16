@@ -117,3 +117,12 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
+
+# Machine-local overrides, untracked (this repo is public). Keep this last:
+# git takes the last value it reads, so the local file wins. A missing file is
+# skipped. On the work laptop it holds the work identity, e.g.
+#   [includeIf "hasconfig:remote.*.url:git@github.com:<work-org>/**"]
+#   	path = ~/.gitconfig.work
+# with user.email set in ~/.gitconfig.work.
+[include]
+	path = ~/.gitconfig.local

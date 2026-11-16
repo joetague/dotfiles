@@ -28,7 +28,22 @@ scripts/stow-check.sh
 | `ssh`, `gnupg` | `~` | Safe config only; each has an allowlist `.gitignore`. |
 | `claude` | `~` | Claude Code status line script. |
 
-To stow a single package by hand, use the same flags as `scripts/stow.sh`, e.g. `stow -d ~/proj/dotfiles -t ~ zsh`. The `spacemacs` package needs the `--ignore` flags from the script.
+To stow a single package by hand, use the same flags as `scripts/stow.sh`, e.g. `stow -d ~/proj/dotfiles -t ~ zsh`. The `spacemacs` package needs the `--ignore` flags from the script. Stow only manages links it created: replace a hand-made link or a plain file at a target before stowing over it.
+
+## Home and work laptops
+
+Both laptops use the same files. `scripts/stow.sh` ends by printing the `brew bundle` commands: the shared `Brewfile`, plus `Brewfile.home` or `Brewfile.work` for that machine.
+
+Anything machine-specific or work-related lives in untracked local files, since this repo is public. Each one is loaded only if it exists:
+
+| File | Loaded by | Use for |
+|---|---|---|
+| `~/.zprofile.local` | end of `.zprofile` | environment (proxies, internal hosts, tokens); coding agents see it too |
+| `~/.zshrc.local` | end of `.zshrc`, interactive shells only | aliases and functions |
+| `~/.gitconfig.local` | `[include]` at the end of `.config/git/config` | git overrides, e.g. an `includeIf` that sets the work email for work-org repos |
+| `~/.ssh/config.d/*` | `Include` in `ssh/.ssh/config` | per-machine SSH hosts |
+| `~/.claude/settings.json` | Claude Code | per-machine Claude Code settings |
+| `~/.claude/statusline.local` | `claude/.claude/statusline-command.sh` | path to an extra status line script (work budget) |
 
 ## XDG
 

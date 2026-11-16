@@ -33,3 +33,21 @@ for file in "$HOME/.ssh/config" \
     chmod 600 "$file"
   fi
 done
+
+# Packages are installed separately so stowing stays quick and safe to re-run.
+# There's no stored home/work profile: run the shared Brewfile plus the one for
+# this machine.
+cat <<EOF
+
+Stowed. Install or update packages with:
+  brew bundle --file=$repo_root/Brewfile
+  brew bundle --file=$repo_root/Brewfile.home   # home laptop
+  brew bundle --file=$repo_root/Brewfile.work   # work laptop
+
+Untracked per-machine files (create as needed):
+  ~/.zprofile.local       environment, also seen by coding agents
+  ~/.zshrc.local          interactive aliases and functions
+  ~/.gitconfig.local      git overrides, e.g. the work identity
+  ~/.ssh/config.d/        per-machine SSH hosts
+  ~/.claude/statusline.local   path to an extra status line script (work budget)
+EOF
