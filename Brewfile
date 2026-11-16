@@ -14,8 +14,6 @@ brew "aspell"
 brew "bat"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
-# CMake needed for some compilations in emacs
-brew "cmake"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Modern replacement for 'ls'
