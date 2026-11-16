@@ -1,86 +1,45 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## What This Is
-
-Personal Spacemacs configuration for Joe Tague. Contains the `.spacemacs` dotfile and private layers that extend the upstream Spacemacs framework at `~/.emacs.d` (the `develop` branch of https://github.com/syl20bnr/spacemacs).
+Personal Spacemacs configuration: the `.spacemacs` dotfile plus private layers extending upstream Spacemacs at `~/.emacs.d` (the `develop` branch of https://github.com/syl20bnr/spacemacs). Repo-wide deployment and stow rules are in `../CLAUDE.md`.
 
 ## Deployment
 
-Uses **GNU Stow** via `scripts/stow.sh`, which stows one package per tool (`.config`, `zsh`, `spacemacs`, `ssh`, `gnupg`, `claude`).
-
-Nothing is symlinked into `~/.emacs.d`. Only `spacemacs/.spacemacs` is deployed, to `~/.spacemacs`; the dotfile then points Spacemacs back at this repo:
-- `dotspacemacs-configuration-layer-path` → `~/proj/dotfiles/spacemacs/private/` (layer discovery)
+Only `.spacemacs` is stowed (to `~/.spacemacs`); nothing is symlinked into `~/.emacs.d`. The dotfile points Spacemacs back at this repo:
+- `dotspacemacs-configuration-layer-path` → `~/proj/dotfiles/spacemacs/private/`
 - `auto-completion-private-snippets-directory` → `~/proj/dotfiles/spacemacs/private/snippets/`
 
-The rest of the `spacemacs` package (`private/`, `plans/`, `.claude/`, `CLAUDE.md`) is repo metadata and is excluded via `--ignore`.
+`private/`, `plans/`, `.claude/`, and `CLAUDE.md` are excluded from stow via `--ignore` in `scripts/stow.sh`.
 
-Note that stow folds whole directories under `~/.config` into single symlinks, so tools that write runtime state next to their config write it into this repo. Those files are gitignored rather than stowed around (helm's `repositories.lock`, clojure's `.cpcache`, opencode's `node_modules`).
+## Layers
 
-To deploy: `~/proj/dotfiles/scripts/stow.sh`
-To verify: `~/proj/dotfiles/scripts/stow-check.sh`
+Layers follow Spacemacs conventions (`~/.emacs.d/doc/CONVENTIONS.org`). Each layer's `packages.el` lists the packages it owns. Read it rather than relying on a summary here. Personal functions use the `jpt/` prefix; layer-internal functions use `<layer-name>--`.
 
-## Layer Structure
+Active (see `dotspacemacs-configuration-layers` in `.spacemacs`):
 
-All private layers follow standard Spacemacs layer conventions (see `~/.emacs.d/doc/CONVENTIONS.org`). Each has `packages.el` (required), and optionally `config.el`, `funcs.el`, `keybindings.el`.
+- **personal**: `jpt/*` utilities (JWT decode, UUIDs, line manipulation, true/false toggle, unix timestamps, native-comp helper). Keybindings under `SPC o` (`SPC o t` text, `SPC o u` utilities, `SPC o p` projectile).
+- **personal-devtools**: `mise`, `treesit-auto`, tree-sitter language sources, Projectile search path (`~/proj/`, depth 2).
+- **personal-lsp**: no owned packages. `emacs-lsp-booster` advice; on-type formatting and indentation off (language tools like CIDER own that); Java: pinned JDT download URL, 4GB heap, autobuild off; Pyright multi-root off.
+- **personal-magit**: no owned packages. Git at `/opt/homebrew/bin/git`; repo dirs `~/.emacs.d` and `~/proj/` (depth 4); Forge owned account `joetague`.
+- **personal-org**: org files in `~/org/`, agenda files `learning.org` and `life.org`, custom agenda view `z` (org-super-agenda), weekly encrypted journal starting Monday, `:crypt:` entries GPG-encrypted. Babel languages load lazily on first src-block execution.
+- **personal-llm**: agent-shell and agent-shell-hq (`SPC $ a`), gptel and gptel-agent (`SPC $ g`), gptel-quick on Embark `?`, ob-gptel for org-babel. Backend is LM Studio: `personal-llm/refresh-lmstudio-models` fetches the model list from `personal-llm-lmstudio-base-url` (default `http://localhost:1234`). gptel pauses `window-purpose` while it runs (gptel issue #237).
 
-Personal functions use the `jpt/` prefix. Layer-internal functions use `<layer-name>--` prefix (e.g., `personal-org--ensure-babel-languages`).
+Inactive (defined, not in the layer list):
 
-### Active Layers
+- **dape**: Debug Adapter Protocol.
+- **personal-lang-clojure**: Clojure tooling stubs (clj-deps-new, jet, clay).
+- **personal-shell**: extras on the upstream `shell` layer, which owns `ghostel`/`evil-ghostel` since upstream `a10be2cb1`, so this layer must not define `init-` functions or `:toggle`s for them. Adds a magit `s` alias, a ghostel org-babel language, `SPC p '`/`SPC p $` project shells, and `terminal-here` (`SPC "`).
+- **work-org**: work org-capture templates.
 
-- **personal** - Utility functions (`jpt/*`): JWT decoding, UUID generation, line manipulation, true/false toggling, unix timestamp conversion, native compilation helper. Keybindings under `SPC o` (user-reserved prefix) organized as `SPC o t` (text), `SPC o u` (utilities), `SPC o p` (projectile).
+## .spacemacs
 
-- **personal-devtools** - Packages: `mise`. Configures tree-sitter language sources and Projectile search path (`~/proj/` depth 2).
+Most settings live in `dotspacemacs/user-config`, configured lazily with `with-eval-after-load`. `~/.spacemacs.local`, if present, is loaded at the end of user-config for machine-local overrides.
 
-- **personal-shell** - Packages: `ghostel`, `evil-ghostel`, `hungry-delete`, `window-purpose`. Adds Ghostel as a shell backend on top of the upstream `shell` layer (popup: `SPC a t s g`). Ghostel global-compile and Eshell visual-command integration are off by default (toggle via `personal-shell-enable-*` vars). Set `shell-default-shell` to `ghostel` to make standard shell bindings use it.
-
-- **personal-lsp** - No owned packages; configures LSP via `with-eval-after-load`. Sets up `emacs-lsp-booster` advice for JSON parsing performance. Disables on-type formatting and indentation (defers to language-specific tools like CIDER). Java LSP: custom JDT URL, 4GB heap, autobuild disabled. Pyright: multi-root disabled.
-
-- **personal-magit** - No owned packages. Git binary: `/opt/homebrew/bin/git`. Repo dirs: `~/.emacs.d` and `~/proj/` (depth 4). Forge: owned account `joetague`, topic list limit 100.
-
-- **personal-org** - Packages: `org-pdftools`, `org-ql`, `org-super-agenda`. Org files in `~/org/`. Agenda files: `learning.org`, `life.org`. Custom agenda view `z` with super-agenda grouping. Journal: weekly, encrypted, starts Monday. Babel languages loaded lazily on first src block execution (dot, elisp, gptel, js, python, shell, sqlite). GPG encryption for `:crypt:` tagged entries.
-
-- **personal-llm** - Packages: `agent-shell` (init currently stubbed). gptel active backend/model is per-machine (set in `dotspacemacs/user-config` or `~/.spacemacs.local`); the layer only registers Kagi as a backend via auth-source. System prompt directives loaded from `~/proj/llm-prompts/` when present. API keys via `pass` (password-store).
-
-### Inactive Layers (defined but not in layer list)
-
-- **dape** - Debug Adapter Protocol
-- **personal-lang-clojure** - Clojure tooling (clj-deps-new, jet, clay)
-- **work-org** - Work-specific org capture templates
-
-## .spacemacs Dotfile
-
-The dotfile uses `dotspacemacs/user-config` for most settings and `with-eval-after-load` for lazy configuration. Supports machine-local overrides via `~/.spacemacs.local` (loaded at end of user-config if it exists).
-
-Key choices:
-- Completion: vertico (compleseus layer) with nerd-icons
-- Editing style: vim
-- Shell: vterm with zsh
-- Theme: fleetish-theme (additional package)
-- Window style: undecorated-round
+Key choices: vertico (compleseus) with nerd-icons; vim editing style; shell is ghostel with zsh via the upstream `shell` layer (`SPC a t s g`), with vterm support disabled; fleetish-theme; undecorated-round frames.
 
 ## Conventions When Editing
 
-- Configuration that tweaks an existing Spacemacs-managed package belongs in the relevant `personal-*` layer's `config.el` using `with-eval-after-load`, not in `.spacemacs`
-- New packages go in the appropriate layer's `packages.el` with a `<layer>/init-<package>` function using `use-package`
-- Layers with no owned packages (personal-lsp, personal-magit) still use `packages.el` with an empty list; all config goes in `config.el`
-- User keybindings go under `SPC o` prefix in `personal/keybindings.el`
-- Secrets use `auth-source` (`~/.authinfo.gpg`) or `pass` (password-store), never hardcoded
-
-# MCP Usage Policy
-
-By default, begin all sessions with MCP tools considered disabled and unavailable.
-
-Do not proactively use, suggest, or rely on MCP servers, MCP resources, or MCP tool calls.
-
-Only enable or use MCP capabilities after the user explicitly requests MCP usage or asks for an action that clearly requires a specific MCP server.
-
-When MCP is requested:
-
-1. Confirm which MCP server or capability is needed if it is not obvious.
-2. Enable and use only the minimum MCP functionality required for the task.
-3. Prefer non-MCP solutions when they adequately satisfy the request.
-4. Do not keep MCP enabled beyond the scope of the requested task unless the user asks to continue using it.
-
-Assume MCP is disabled at the start of every new session.
+- Tweaks to a Spacemacs-managed package go in the relevant `personal-*` layer's `config.el` inside `with-eval-after-load`, keeping `.spacemacs` lean.
+- New packages go in the right layer's `packages.el` with a `<layer>/init-<package>` function using `use-package`.
+- Layers that own no packages still keep `packages.el` with an empty list; their config lives in `config.el`.
+- User keybindings go under `SPC o` in `personal/keybindings.el`.
+- Secrets come from `auth-source` (`~/.authinfo.gpg`), never hardcoded.

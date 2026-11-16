@@ -8,49 +8,27 @@ Sources:
 
 ## Stow
 
-Stow `.config/` to `~/.config`:
+Each top-level directory is a stow package. Deploy them all, and lock down SSH/GnuPG permissions, with:
 
 ```
-stow -t ~/.config .config
+scripts/stow.sh
 ```
 
-Stow `zsh/` to `~`:
+Verify the links:
 
 ```
-stow -t ~ zsh
+scripts/stow-check.sh
 ```
 
-Stow Spacemacs layers to `~/.emacs.d` (the helper script also stows `.spacemacs` to `~`):
+| Package | Target | Notes |
+|---|---|---|
+| `.config` | `~/.config` | |
+| `zsh` | `~` | |
+| `spacemacs` | `~` | Only `.spacemacs` is deployed. Private layers and snippets stay in this repo; `.spacemacs` points at them via `dotspacemacs-configuration-layer-path`, so nothing is linked into `~/.emacs.d`. |
+| `ssh`, `gnupg` | `~` | Safe config only; each has an allowlist `.gitignore`. |
+| `claude` | `~` | Claude Code status line script. |
 
-```
-stow -t ~/.emacs.d spacemacs
-```
-
-Stow SSH and GnuPG configs to `~` (safe config only):
-
-```
-stow -t ~ ssh
-stow -t ~ gnupg
-```
-
-Lock down permissions:
-
-```
-chmod 700 ~/.ssh ~/.gnupg
-chmod 600 ~/.ssh/config ~/.gnupg/gpg.conf ~/.gnupg/gpg-agent.conf ~/.gnupg/scdaemon.conf
-```
-
-Or use the helper script (stows `.spacemacs` automatically; permissions still need to be set):
-
-```
-bash scripts/stow.sh
-```
-
-Verify stow links:
-
-```
-bash scripts/stow-check.sh
-```
+To stow a single package by hand, use the same flags as `scripts/stow.sh`, e.g. `stow -d ~/proj/dotfiles -t ~ zsh`. The `spacemacs` package needs the `--ignore` flags from the script.
 
 ## XDG
 
