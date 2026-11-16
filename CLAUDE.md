@@ -13,7 +13,7 @@ The repo copy is the source of truth: `~/.zshrc`, `~/.spacemacs`, `~/.config/git
 | Package | Target | Contents |
 |---|---|---|
 | `.config` | `~/.config` | git, starship, ghostty, opencode, clojure, helm, ideavim, emacs-plus, spacemacs env |
-| `zsh` | `~` | `.zshenv`, `.zprofile`, `.zshrc` |
+| `zsh` | `~` | `.zshenv` (agent detection), `.zprofile` (environment, PATH), `.zshrc` (interactive). Per-machine additions go in untracked `~/.zprofile.local` / `~/.zshrc.local`. |
 | `spacemacs` | `~` | only `.spacemacs`; see `spacemacs/CLAUDE.md` |
 | `ssh`, `gnupg` | `~` | allowlisted safe config only |
 | `claude` | `~` | `~/.claude/statusline-command.sh`, shared by home and work. Machine differences live in untracked files: `~/.claude/settings.json` and `~/.claude/statusline.local` (path to the work budget script). |

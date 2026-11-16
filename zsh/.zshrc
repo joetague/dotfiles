@@ -1,55 +1,14 @@
-# Set PATH, MANPATH, etc., for Homebrew.
-# Skip: eval "$(/opt/homebrew/bin/brew shellenv)" use output explicitly below for perf reasons
-export HOMEBREW_DOWNLOAD_CONCURRENCY=auto
-export HOMEBREW_PREFIX="/opt/homebrew"
-export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-export HOMEBREW_REPOSITORY="/opt/homebrew"
-export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:"
-export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
-export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
+# ~/.zshrc
+# Interactive shells. Environment (PATH, Homebrew, build flags, EDITOR) is in
+# ~/.zprofile; agent detection (DISABLE_SHELL_TOOLING) is in ~/.zshenv.
 
 #GnuPG
-GPG_TTY=$(tty)
-export GPG_TTY
-
-path=(
-  "$HOMEBREW_PREFIX/bin"
-  "$HOMEBREW_PREFIX/sbin"
-  "$HOMEBREW_PREFIX/opt/curl/bin"
-  "$HOMEBREW_PREFIX/opt/gawk/libexec/gnubin"
-  "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin"
-  "$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin"
-  "$HOMEBREW_PREFIX/opt/grep/libexec/gnubin"
-  "$HOMEBREW_PREFIX/opt/jpeg/bin"
-  "$HOMEBREW_PREFIX/opt/sqlite/bin"
-  "$HOMEBREW_PREFIX/opt/rustup/bin"
-  "$HOME/.local/bin"
-  "$HOME/.docker/bin"
-  "$HOME/.cargo/bin"
-  "$HOME/.lmstudio/bin"
-  $path
-)
-
-export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib -L/opt/homebrew/opt/curl/lib -L/opt/homebrew/opt/jpeg/lib -L/opt/homebrew/opt/zlib/lib -L/opt/homebrew/opt/readline/lib -L/opt/homebrew/opt/sqlite/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include -I/opt/homebrew/opt/curl/include -I/opt/homebrew/opt/jpeg/include -I/opt/homebrew/opt/zlib/include -I/opt/homebrew/opt/readline/include -I/opt/homebrew/opt/sqlite/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig:/opt/homebrew/opt/curl/lib/pkgconfig:/opt/homebrew/opt/jpeg/lib/pkgconfig:/opt/homebrew/opt/zlib/lib/pkgconfig:/opt/homebrew/opt/readline/lib/pkgconfig:/opt/homebrew/opt/sqlite/lib/pkgconfig"
-export SSL_CERT_FILE="/opt/homebrew/etc/openssl@3/cert.pem"
-
-# Move aspell config and personal dictionary
-export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_DATA_HOME/aspell/en.pws; repl $XDG_DATA_HOME/aspell/en.prepl"
-
-# Emacs related
-export EMACS_SOCKET_NAME="${TMPDIR}/emacs$(id -u)/server"
-export EDITOR="emacsclient -c --socket-name ${EMACS_SOCKET_NAME}"
-
-# Start SSH agent if not running
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    eval "$(ssh-agent -s)" > /dev/null
-    ssh-add ~/.ssh/id_github_sign_and_auth 2>/dev/null
-fi
+export GPG_TTY=$TTY
 
 ## History file configuration
-[ -z "$HISTFILE" ] && HISTFILE="$XDG_STATE_HOME/zsh/history"
+# /etc/zshrc has already set HISTFILE=~/.zsh_history, so assign unconditionally
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
+[[ -d ${HISTFILE:h} ]] || mkdir -p ${HISTFILE:h}
 [ "$HISTSIZE" -lt 50000 ] && HISTSIZE=50000
 [ "$SAVEHIST" -lt 10000 ] && SAVEHIST=10000
 
@@ -61,42 +20,43 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
 
+# Everything below is for humans only. Skipped when an agent sets
+# DISABLE_SHELL_TOOLING, so commands behave as stock and output stays plain.
+[[ -n "$DISABLE_SHELL_TOOLING" ]] && return
+
 #
 # Aliases
 # (sorted alphabetically)
 #
-# Skipped when an agent sets DISABLE_SHELL_TOOLING, so commands behave as stock
-if [[ -z "$DISABLE_SHELL_TOOLING" ]]; then
-  # Easier navigation: .., ..., ...., ....., ~ and -
-  alias ..="cd .."
-  alias ...="cd ../.."
-  alias ....="cd ../../.."
-  alias bubc="brew upgrade && brew cleanup"
-  alias bubo="brew update && brew outdated"
-  alias bubu="bubo && bubc"
-  alias cat="bat"
-  alias cp="cp -irv"
-  alias df="df -H"
-  alias du="du -sh"
-  alias less="less --ignore-case --raw-control-chars"
-  alias l="eza -l"
-  alias ls="eza --classify --group --git"
-  alias ll='eza -alh'
-  alias tree='eza --tree'
-  alias make="nice make"
-  alias mkdir="mkdir -vp"
-  alias mv="mv -iv"
-  alias rm="rm -iv"
-  alias rsync="rsync --partial --progress --human-readable --compress"
-  alias sha256="shasum -a 256"
-  alias k9s="k9s --readonly"
-  alias lclaude="claude --settings ~/.claude/lmstudio.settings.json"
-fi
+# Easier navigation: .., ..., ...., ....., ~ and -
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias bubc="brew upgrade && brew cleanup"
+alias bubo="brew update && brew outdated"
+alias bubu="bubo && bubc"
+alias cat="bat"
+alias cp="cp -irv"
+alias df="df -H"
+alias du="du -sh"
+alias less="less --ignore-case --raw-control-chars"
+alias l="eza -l"
+alias ls="eza --classify --group --git"
+alias ll='eza -alh'
+alias tree='eza --tree'
+alias make="nice make"
+alias mkdir="mkdir -vp"
+alias mv="mv -iv"
+alias rm="rm -iv"
+alias rsync="rsync --partial --progress --human-readable --compress"
+alias sha256="shasum -a 256"
+alias k9s="k9s --readonly"
 
 # Smarter completion initialization
-fpath=(/Users/joetague/.docker/completions $fpath)
-fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+fpath=("$HOME/.docker/completions" $fpath)
+fpath=("${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh/site-functions" $fpath)
 autoload -Uz compinit
+# /usr/bin/stat: GNU coreutils' stat is earlier on PATH and reads -f differently
 if [ "$(date +'%j')" != "$(/usr/bin/stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
     compinit
 else
@@ -104,13 +64,12 @@ else
 fi
 
 eval "$(mise activate zsh)"
+eval "$(fzf --zsh)"
+eval "$(starship init zsh)"
+eval "$(op completion zsh)"; compdef _op op
+eval "$(zoxide init --cmd cd zsh)"
+[[ -r $HOME/.config/op/plugins.sh ]] && source "$HOME/.config/op/plugins.sh"
 
-#
-# Agent client settings
-export OPENCODE_DISABLE_LSP_DOWNLOAD=true
-
-# Disable some shell tools so agents dont get confused by output
-[ -z "$DISABLE_SHELL_TOOLING" ] && eval "$(fzf --zsh)"
-[ -z "$DISABLE_SHELL_TOOLING" ] && eval "$(starship init zsh)"
-[ -z "$DISABLE_SHELL_TOOLING" ] && { eval "$(op completion zsh)"; compdef _op op; }
-[ -z "$DISABLE_SHELL_TOOLING" ] && eval "$(zoxide init --cmd cd zsh)"
+# Machine-local interactive setup (aliases, functions); untracked.
+# Environment that agents also need goes in ~/.zprofile.local instead.
+[[ -r $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
