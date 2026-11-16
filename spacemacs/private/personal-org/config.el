@@ -60,6 +60,7 @@
 
 (with-eval-after-load 'org
   (require 'org-crypt)
+  (require 'ox-org)
 
   (advice-add 'org-babel-execute-src-block :before #'personal-org--ensure-babel-languages)
 
