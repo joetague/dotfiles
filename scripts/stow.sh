@@ -22,6 +22,7 @@ stow_package "$HOME" "spacemacs" \
 stow_package "$HOME" "ssh"
 stow_package "$HOME" "gnupg"
 stow_package "$HOME" "claude"
+stow_package "$HOME" "codex"
 
 # Lock down permissions for SSH/GnuPG configs.
 chmod 700 "$HOME/.ssh" "$HOME/.gnupg"
