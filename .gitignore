@@ -4,7 +4,6 @@
 .config/clojure/.cpcache/
 .config/helm/repositories.lock
 .config/helm/repositories.yaml
-.config/spacemacs/.spacemacs.env
 
 # opencode installs its plugin SDK next to its config
 .config/opencode/node_modules/

@@ -12,7 +12,7 @@ The repo copy is the source of truth: `~/.zshrc`, `~/.spacemacs`, `~/.config/git
 
 | Package | Target | Contents |
 |---|---|---|
-| `.config` | `~/.config` | git, starship, ghostty, opencode, clojure, helm, ideavim, emacs-plus, spacemacs env |
+| `.config` | `~/.config` | git, starship, ghostty, opencode, clojure, helm, ideavim, emacs-plus |
 | `zsh` | `~` | `.zshenv` (agent detection), `.zprofile` (environment, PATH), `.zshrc` (interactive). Per-machine additions go in untracked `~/.zprofile.local` / `~/.zshrc.local`. |
 | `spacemacs` | `~` | only `.spacemacs`; see `spacemacs/CLAUDE.md` |
 | `ssh`, `gnupg` | `~` | allowlisted safe config only |

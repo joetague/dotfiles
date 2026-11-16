@@ -743,6 +743,22 @@ This function defines the environment variables for your Emacs session. By
 default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
+  ;; Pin the env file. Spacemacs derives it from `dotspacemacs-directory',
+  ;; which depends on XDG_CONFIG_HOME at launch: Emacs from a terminal has it
+  ;; (~/.config/spacemacs/, folded into this repo), from the Dock it doesn't
+  ;; (~/.spacemacs.d/ -> ~/.spacemacs.env). One file, outside the repo.
+  (setq spacemacs-env-vars-file (expand-file-name "~/.spacemacs.env"))
+  ;; Keep these out of the env file when it is regenerated (`SPC f e E').
+  ;; - CC, LIBRARY_PATH: emacs-plus supplies LIBRARY_PATH (Info.plist) and
+  ;;   native-comp paths (site-start.el) for the current gcc; a frozen copy
+  ;;   breaks native-comp and pdf-tools on the next gcc bump.
+  ;; - The rest are per-shell state. Loaded into Emacs they leak into every
+  ;;   ghostel shell: mise loses track of its own changes, starship shares one
+  ;;   session, and 1Password's plugins.sh thinks it already ran.
+  (dolist (re '("^CC=" "^LIBRARY_PATH="
+                "^PWD=" "^OLDPWD=" "^SHLVL=" "^_=" "^GPG_TTY="
+                "^__MISE_" "^STARSHIP_SESSION_KEY=" "^OP_PLUGIN_ALIASES_SOURCED="))
+    (add-to-list 'spacemacs-ignored-environment-variables re))
   (spacemacs/load-spacemacs-env)
   )
 

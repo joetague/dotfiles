@@ -32,6 +32,8 @@ Inactive (defined, not in the layer list):
 
 ## .spacemacs
 
+Environment comes from `~/.spacemacs.env`, pinned in `dotspacemacs/user-env`. Without the pin the path depends on how Emacs was launched (Dock vs terminal). Regenerate it with `SPC f e E` after changing `zsh/.zprofile`. `user-env` keeps `CC`/`LIBRARY_PATH` (emacs-plus owns those) and per-shell state (`PWD`, `__MISE_*`, starship and 1Password markers) out of the file; add new per-shell variables to that list.
+
 Most settings live in `dotspacemacs/user-config`, configured lazily with `with-eval-after-load`. `~/.spacemacs.local`, if present, is loaded at the end of user-config for machine-local overrides.
 
 Key choices: vertico (compleseus) with nerd-icons; vim editing style; shell is ghostel with zsh via the upstream `shell` layer (`SPC a t s g`), with vterm support disabled; fleetish-theme; undecorated-round frames.
